@@ -40,8 +40,8 @@ public class CourseLabDP3EditDistance {
         for(int i = 0; i <= word1.length(); i++) {
             memo[i][0] = i;
         }
-        for(int i = 1; i <= word2.length(); i++) {
-            memo[0][i] = i;
+        for(int j = 1; j <= word2.length(); j++) {
+            memo[0][j] = j;
         }
         
         // solve for [i+1][j+1] during each iteration
@@ -52,10 +52,12 @@ public class CourseLabDP3EditDistance {
                 if(word1.charAt(i) == word2.charAt(j))
                     memo[i + 1][j + 1] = memo[i][j];
                 else {
-                    int a = memo[i][j];
-                    int b = memo[i][j + 1];
-                    int c = memo[i + 1][j];
-                    memo[i + 1][j + 1] = a < b ? (a < c ? a : c) : (b < c ? b : c);
+                    int guessReplace = memo[i][j];
+                    int guessDeletion = memo[i][j + 1];
+                    int guessInsertion = memo[i + 1][j];
+                    memo[i + 1][j + 1] = guessReplace < guessDeletion ?
+											(guessReplace < guessInsertion ? guessReplace : guessInsertion)
+										: (guessDeletion < guessInsertion ? guessDeletion : guessInsertion);
                     memo[i + 1][j + 1]++;
                 }
             }
