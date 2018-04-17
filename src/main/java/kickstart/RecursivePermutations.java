@@ -1,6 +1,5 @@
 package kickstart;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -8,17 +7,29 @@ import java.util.Set;
  */
 public class RecursivePermutations {
 
-    public static void permutations(String soFar, String remaining) {
+    public static void main(String[] args) {
+        wrapper("type");
+    }
 
-        if(remaining.isEmpty()) {
-            //System.out.println(soFar);
+    public static void wrapper(String str) {
+        // nP1, nP2 .... nPn
+        for(int i = 0; i < str.length(); i++) {
+            permutations("", str, i+1);
+        }
+    }
+
+    public static void permutations(String soFar, String remaining, int r) {
+        // nPn
+        // if(remaining.isEmpty())
+        // nPr
+        if(soFar.length() == r) {
+            System.out.println(soFar);
             return;
         }
         for(int i = 0; i < remaining.length(); i++) {
             String prefix = soFar + remaining.charAt(i);
             String suffix = remaining.substring(0, i) + remaining.substring(i+1);
-            //System.out.println(String.format("Prefix: %s, Suffix: %s", prefix, suffix));
-            permutations(prefix, suffix);
+            permutations(prefix, suffix, r);
         }
     }
 
@@ -37,12 +48,5 @@ public class RecursivePermutations {
         return false;
     }
 
-    public static void wrapper(String str) {
-        permutations("", str);
-        isAnagramInLexicon("", str, new HashSet<>());
-    }
 
-    public static void main(String[] args) {
-        wrapper("cat");
-    }
 }
