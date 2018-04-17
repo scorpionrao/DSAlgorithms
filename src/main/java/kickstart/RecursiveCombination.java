@@ -1,8 +1,84 @@
 package kickstart;
 
-/*
-    Functional Recursion - Each recursion
- */
+    /*
+        OUTPUT SAMPLE:
+
+        Level: 0, , abcd
+        Level: 1, a, bcd
+        a
+        Level: 1, , bcd
+            Level: 2, b, cd
+            b
+            Level: 2, , cd
+                Level: 3, c, d
+                c
+                Level: 3, , d
+                    Level: 4, d, 
+                    d
+                    Level: 4, , 
+    *********************************
+    Level: 0, , abcd
+        Level: 1, a, bcd
+            Level: 2, ab, cd
+            ab
+            Level: 2, a, cd
+                Level: 3, ac, d
+                ac
+                Level: 3, a, d
+                    Level: 4, ad, 
+                    ad
+                    Level: 4, a, 
+        Level: 1, , bcd
+            Level: 2, b, cd
+                Level: 3, bc, d
+                bc
+                Level: 3, b, d
+                    Level: 4, bd, 
+                    bd
+                    Level: 4, b, 
+            Level: 2, , cd
+                Level: 3, c, d
+                    Level: 4, cd, 
+                    cd
+                    Level: 4, c, 
+                Level: 3, , d
+    *********************************
+    Level: 0, , abcd
+        Level: 1, a, bcd
+            Level: 2, ab, cd
+                Level: 3, abc, d
+                abc
+                Level: 3, ab, d
+                    Level: 4, abd, 
+                    abd
+                    Level: 4, ab, 
+            Level: 2, a, cd
+                Level: 3, ac, d
+                    Level: 4, acd, 
+                    acd
+                    Level: 4, ac, 
+                Level: 3, a, d
+        Level: 1, , bcd
+            Level: 2, b, cd
+                Level: 3, bc, d
+                    Level: 4, bcd, 
+                    bcd
+                    Level: 4, bc, 
+                Level: 3, b, d
+            Level: 2, , cd
+    *********************************
+    Level: 0, , abcd
+        Level: 1, a, bcd
+            Level: 2, ab, cd
+                Level: 3, abc, d
+                    Level: 4, abcd, 
+                    abcd
+                    Level: 4, abc, 
+                Level: 3, ab, d
+            Level: 2, a, cd
+        Level: 1, , bcd
+    *********************************
+     */
     public class RecursiveCombination {
 
         public static void main(String[] args) {
