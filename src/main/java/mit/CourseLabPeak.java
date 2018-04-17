@@ -41,7 +41,6 @@ public class CourseLabPeak {
 	 */
 	public static void findPeakOptimizedRecurse(int[] array) {
 		long start = System.nanoTime();
-
 		boolean peakExists = findPeakOptimizedRecurse(array, 0, array.length - 1);
 		System.out.println(peakExists);
 		System.out.println("Optimized Recursion: " + (System.nanoTime() - start));
@@ -53,7 +52,7 @@ public class CourseLabPeak {
 	 */
 	private static boolean findPeakOptimizedRecurse(int[] array, int start, int end) {
 		// base case
-		if(start <= end) {
+		if(end <= start) {
 			return false;
 		}
 
@@ -70,6 +69,36 @@ public class CourseLabPeak {
 		} else {
 			return findPeakOptimizedRecurse(array, middle + 1, end);
 		}
+	}
+
+	private static int findPeakElementOptimizedRecurse(int[][] array, int startColumn, int endColumn) {
+		if(startColumn <= endColumn) {
+			int rowIndex = findMaxRowIndex(array, startColumn);
+			// in this case we want value
+			return array[rowIndex][startColumn];
+		}
+
+		int midColumn = (startColumn + endColumn) / 2;
+		int rowIndex = findMaxRowIndex(array, midColumn);
+
+		// in this case we want value
+		boolean isTallerThanLeft = array[rowIndex][midColumn] > array[rowIndex][midColumn-1];
+		boolean isTallerThanRight = array[rowIndex][midColumn] > array[rowIndex][midColumn+1];
+		if(isTallerThanLeft && isTallerThanRight) {
+			// second return
+			return array[rowIndex][midColumn];
+		} else if(!isTallerThanLeft) {
+			return findPeakElementOptimizedRecurse(array, startColumn, midColumn - 1);
+		} else {
+			return findPeakElementOptimizedRecurse(array, midColumn+1, endColumn);
+		}
+	}
+
+	/*
+
+	 */
+	private static int findMaxRowIndex(int[][] array, int column) {
+		return 0;
 	}
 
 
