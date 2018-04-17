@@ -3,20 +3,29 @@ package kickstart;
 /*
     Functional Recursion - Each recursion
  */
-public class RecursiveCombination {
+    public class RecursiveCombination {
 
-    public static void main(String[] args) {
-        wrapper("typewriter");
+        public static void main(String[] args) {
+        /*
+            String str = "abc";
+            for(int i = 0; i < Math.pow(2, str.length()); i++) {
+                System.out.println(Integer.toBinaryString(i));
+            }
+        */
+        wrapper("abc");
     }
 
     public static void wrapper(String str) {
-        // nC1, nC2 .... nCn
-        combinations("", str, 3);
+        for(int i = 0; i < str.length(); i++) {
+            combinations(0,"", str, i+1);
+            System.out.println("*********************************");
+        }
     }
 
     // Procedural recursion
-    public static void combinations(String soFar, String remaining, int remainingSize) {
+    public static void combinations(int level, String soFar, String remaining, int remainingSize) {
 
+        System.out.println(String.format("Level: %d, SoFar: %s, Remaining: %s", level, soFar, remaining));
         if(remaining.length() < remainingSize) {
             return;
         }
@@ -26,9 +35,8 @@ public class RecursiveCombination {
             return;
         }
         String included = soFar + remaining.charAt(0);
-        combinations(included, remaining.substring(1), remainingSize-1);
+        combinations(level+1, included, remaining.substring(1), remainingSize-1);
         String excluded = soFar;
-        combinations(excluded, remaining.substring(1), remainingSize);
+        combinations(level+1, excluded, remaining.substring(1), remainingSize);
     }
-
 }
