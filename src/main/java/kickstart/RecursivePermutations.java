@@ -2,9 +2,6 @@ package kickstart;
 
 import java.util.Set;
 
-/**
- * Created by manushaonly on 4/15/18.
- */
 public class RecursivePermutations {
 
     public static void main(String[] args) {
@@ -12,13 +9,16 @@ public class RecursivePermutations {
     }
 
     public static void wrapper(String str) {
-      permutations(0,"", str, str.length());
+      permutations(0, "", str, 3);
+    }
+
+    public static void indent(int level) {
+        for(int i = 0; i < level; i++) {
+            System.out.print("\t");
+        }
     }
 
     /*
-    *   Prints all permutations upto size "R"
-    *
-    *   To print specific size ONLY, move print into end of recursion condition
     *
     *   Eg:
     *                       ""
@@ -29,37 +29,49 @@ public class RecursivePermutations {
     *    |     |        |         |         |         |
     *   abc(3) acb(5)   bac(8)    bca(10)   cab(13)   cba(15)
     */
-    public static void permutations(int level, String soFar, String remaining, int staticR) {
-        //System.out.println(String.format("Level: %d, SoFar: %s, Remaining: %s", inner, soFar, remaining));
-        // always print, saving 1 scenario, not a huge help
-        if(!soFar.isEmpty()) {
-            System.out.println(soFar);
-        }
+    public static void permutations(int level, String soFar,
+                                    String remaining, int size) {
+        // indent(level);
+        // System.out.println(String.format("Level: %d, SoFar: %s, Remaining: %s", level, soFar, remaining));
 
-        // remaining.isEmpty() -> soFar.length() == staticR
-        if(soFar.length() == staticR) {
-            // maximum required size of soFar reached, give it up
+        if(soFar.length() == size) {
+            indent(level);
+            System.out.println(soFar);
             return;
         }
         for(int i = 0; i < remaining.length(); i++) {
             String prefix = soFar + remaining.charAt(i);
             String suffix = remaining.substring(0, i) + remaining.substring(i+1);
-            permutations(level+1, prefix, suffix, staticR);
+            permutations(level+1, prefix, suffix, size);
         }
     }
 
-    public static boolean isAnagramInLexicon(String soFar, String remaining, final Set<String> lexicon) {
+    /*
+        Decision    : Can we take a character ?
+        Options     : Add each character
+        Design      : return true/false
+        Backtracking: choose one option, recurse further
+        UnMake      : revert the change
+        Base Case   : TRUE / Is it in Lexicon ?
+        No options  : FALSE
+    */
+    public static boolean isAnagramInLexicon(String soFar, String remaining,
+                                             final Set<String> lexicon) {
         if(remaining.isEmpty()) {
             System.out.println(soFar);
+            // Base Case: TRUE / Is it in Lexicon ?
             return lexicon.contains(soFar);
         }
+        // Option - Each character in remaining
         for(int i = 0; i < remaining.length(); i++) {
             String prefix = soFar + remaining.charAt(i);
             String suffix = remaining.substring(0, i) + remaining.substring(i+1);
+            // Choose one option and recurse
             if(isAnagramInLexicon(prefix, suffix, lexicon)) {
                 return true;
             }
         }
+        // No options - False
         return false;
     }
 }
