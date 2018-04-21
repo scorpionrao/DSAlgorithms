@@ -1,10 +1,14 @@
 package kickstart;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class RecursionCryptarithmetic {
+
+    interface Puzzle {
+        Map<Character, Integer> getMap();
+        boolean isAnswer(Map<Character, Integer> map);
+    }
     /*
      SEND
     +MORE
@@ -12,9 +16,9 @@ public class RecursionCryptarithmetic {
     Assign letters to numbers: D E M N O R S Y, 0 - 9
     Check for puzzle answer
      */
-    private static class Puzzle {
+    private static class Puzzle1 implements Puzzle{
 
-        private Map<Character, Integer> getMap() {
+        public Map<Character, Integer> getMap() {
             Map<Character, Integer> map = new LinkedHashMap<>();
             map.put('D', null);
             map.put('E', null);
@@ -27,7 +31,7 @@ public class RecursionCryptarithmetic {
             return map;
         }
 
-        private boolean isAnswer(Map<Character, Integer> map) {
+        public boolean isAnswer(Map<Character, Integer> map) {
 
             System.out.println("All Assigned:" + map.toString());
             int firstValue =
@@ -47,6 +51,44 @@ public class RecursionCryptarithmetic {
             return check;
         }
     }
+
+    /*
+        All Assigned:{C=1, F=9, N=8, O=3, S=5, U=2, Y=0}
+
+        EVERY COMBINATION OF NUMBERS IS THE NUMBER OF POSSIBILITIES.
+     */
+    private static class Puzzle2 implements Puzzle{
+
+        public Map<Character, Integer> getMap() {
+            Map<Character, Integer> map = new LinkedHashMap<>();
+            map.put('C', null);
+            map.put('F', null);
+            map.put('N', null);
+            map.put('O', null);
+            map.put('S', null);
+            map.put('U', null);
+            map.put('Y', null);
+            return map;
+        }
+
+        public boolean isAnswer(Map<Character, Integer> map) {
+
+            System.out.println("All Assigned:" + map.toString());
+            int firstValue = map.get('C') * 10 + map.get('S');
+            int secondValue = map.get('Y') * 100 + map.get('O') * 10 + map.get('U');
+            int sum = map.get('F') * 100 + map.get('U') * 10 + map.get('N');
+
+            boolean check = firstValue + secondValue == sum;
+
+            if(check) {
+                System.out.println(String.format("C:%d, S:%d", map.get('C'), map.get('S')));
+                System.out.println(String.format("Y:%d, O:%d, U:%d", map.get('Y'), map.get('O'), map.get('U')));
+                System.out.println(String.format("F:%d, U:%d, N:%d", map.get('F'), map.get('U'), map.get('N')));
+            }
+            return check;
+        }
+    }
+
 
     private static boolean solve(Puzzle puzzle) {
         return solve(puzzle, puzzle.getMap(), 0);
@@ -87,14 +129,8 @@ public class RecursionCryptarithmetic {
         return false;
     }
 
-    private static void indent(int level) {
-        for(int i = 0; i < level; i++) {
-            System.out.print("\t");
-        }
-    }
-
     public static void main(String[] args) {
-        System.out.println(solve(new Puzzle()));
+        System.out.println(solve(new Puzzle2()));
     }
 }
 
