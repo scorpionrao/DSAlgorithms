@@ -6,6 +6,7 @@ import java.util.Map;
 public class RecursionCryptarithmetic {
 
     interface Puzzle {
+        int getCounter();
         Map<Character, Integer> getMap();
         boolean isAnswer(Map<Character, Integer> map);
     }
@@ -17,6 +18,8 @@ public class RecursionCryptarithmetic {
     Check for puzzle answer
      */
     private static class Puzzle1 implements Puzzle{
+
+        int counter = 0;
 
         public Map<Character, Integer> getMap() {
             Map<Character, Integer> map = new LinkedHashMap<>();
@@ -50,6 +53,10 @@ public class RecursionCryptarithmetic {
             }
             return check;
         }
+
+        public int getCounter() {
+            return counter;
+        }
     }
 
     /*
@@ -58,6 +65,8 @@ public class RecursionCryptarithmetic {
         EVERY COMBINATION OF NUMBERS IS THE NUMBER OF POSSIBILITIES.
      */
     private static class Puzzle2 implements Puzzle{
+
+        public int counter = 0;
 
         public Map<Character, Integer> getMap() {
             Map<Character, Integer> map = new LinkedHashMap<>();
@@ -73,7 +82,8 @@ public class RecursionCryptarithmetic {
 
         public boolean isAnswer(Map<Character, Integer> map) {
 
-            System.out.println("All Assigned:" + map.toString());
+            System.out.println("All Assigned: " + map.toString());
+
             int firstValue = map.get('C') * 10 + map.get('S');
             int secondValue = map.get('Y') * 100 + map.get('O') * 10 + map.get('U');
             int sum = map.get('F') * 100 + map.get('U') * 10 + map.get('N');
@@ -85,8 +95,14 @@ public class RecursionCryptarithmetic {
                 System.out.println(String.format("Y:%d, O:%d, U:%d", map.get('Y'), map.get('O'), map.get('U')));
                 System.out.println(String.format("F:%d, U:%d, N:%d", map.get('F'), map.get('U'), map.get('N')));
             }
+            counter++;
             return check;
         }
+
+        public int getCounter() {
+            return counter;
+        }
+
     }
 
 
@@ -130,7 +146,9 @@ public class RecursionCryptarithmetic {
     }
 
     public static void main(String[] args) {
-        System.out.println(solve(new Puzzle2()));
+        Puzzle puzzle = new Puzzle2();
+        System.out.println(solve(puzzle));
+        System.out.println(puzzle.getCounter());
     }
 }
 
