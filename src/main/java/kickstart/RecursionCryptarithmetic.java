@@ -28,6 +28,8 @@ public class RecursionCryptarithmetic {
         }
 
         private boolean isAnswer(Map<Character, Integer> map) {
+
+            System.out.println("All Assigned:" + map.toString());
             int firstValue =
                     map.get('S') * 1000 + map.get('E') * 100 + map.get('N') * 10 + map.get('D');
             int secondValue =
@@ -47,19 +49,18 @@ public class RecursionCryptarithmetic {
     }
 
     private static boolean solve(Puzzle puzzle) {
-        return solve(puzzle, puzzle.getMap());
+        return solve(puzzle, puzzle.getMap(), 0);
     }
 
-    private static boolean solve(Puzzle puzzle, Map<Character, Integer> map) {
+    private static boolean solve(Puzzle puzzle, Map<Character, Integer> map, int level) {
         Character[] ch = new Character[1];
-        if(!hasUnassignedLetters(map, ch)) {
+        if(!hasUnassignedLetters(map, ch, level)) {
             return puzzle.isAnswer(map);
         }
         for(int option = 0; option <= 9; option++) {
-            // System.out.println(String.format("Character: %s, Option: %d", ch[0], option));
-            if(isSafeAssignment(map, ch, option)) {
+            if(isSafeAssignment(map, option)) {
                 map.put(ch[0], new Integer(option));
-                if(solve(puzzle, map)) {
+                if(solve(puzzle, map, level+1)) {
                     return true;
                 }
                 map.put(ch[0], null);
@@ -68,20 +69,15 @@ public class RecursionCryptarithmetic {
         return false;
     }
 
-    private static boolean isSafeAssignment(Map<Character, Integer> map, Character[] ch, int option) {
-        // only assign to unassigned value
-        if(map.get(ch[0]) != null) {
-            return false;
-        }
+    private static boolean isSafeAssignment(Map<Character, Integer> map, int option) {
         // there are no characters with this option already
         if(map.values().contains(option)) {
             return false;
         }
-
         return true;
     }
 
-    private static boolean hasUnassignedLetters(Map<Character, Integer> map, Character[] ch) {
+    private static boolean hasUnassignedLetters(Map<Character, Integer> map, Character[] ch, int level) {
         for(Map.Entry<Character, Integer> entry : map.entrySet()) {
             if(entry.getValue() == null) {
                 ch[0] = entry.getKey();
@@ -89,6 +85,12 @@ public class RecursionCryptarithmetic {
             }
         }
         return false;
+    }
+
+    private static void indent(int level) {
+        for(int i = 0; i < level; i++) {
+            System.out.print("\t");
+        }
     }
 
     public static void main(String[] args) {
