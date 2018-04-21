@@ -1,25 +1,21 @@
 package kickstart;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by manushaonly on 4/20/18.
- */
 public class RecursionCryptarithmetic {
     /*
      SEND
     +MORE
     MONEY
-
     Assign letters to numbers: D E M N O R S Y, 0 - 9
     Check for puzzle answer
-
      */
     private static class Puzzle {
 
         private Map<Character, Integer> getMap() {
-            Map<Character, Integer> map = new HashMap<>();
+            Map<Character, Integer> map = new LinkedHashMap<>();
             map.put('D', null);
             map.put('E', null);
             map.put('M', null);
@@ -38,7 +34,15 @@ public class RecursionCryptarithmetic {
                     map.get('M') * 1000 + map.get('O') * 100 + map.get('R') * 10 + map.get('E');
             int sum =
                     map.get('M') * 10000 + map.get('O') * 1000 + map.get('N') * 100 + map.get('E') * 10 + map.get('Y');
-            return firstValue + secondValue == sum;
+
+            boolean check = firstValue + secondValue == sum;
+
+            if(check) {
+                System.out.println(String.format("S:%d, E:%d, N:%d, D:%d", map.get('S'), map.get('E'), map.get('N'), map.get('D')));
+                System.out.println(String.format("M:%d, O:%d, R:%d, E:%d", map.get('M'), map.get('O'), map.get('R'), map.get('E')));
+                System.out.println(String.format("M:%d, O:%d, N:%d, E:%d, Y:%d", map.get('M'), map.get('O'), map.get('N'), map.get('E'), map.get('Y')));
+            }
+            return check;
         }
     }
 
@@ -47,35 +51,40 @@ public class RecursionCryptarithmetic {
     }
 
     private static boolean solve(Puzzle puzzle, Map<Character, Integer> map) {
-        Character ch = null;
+        Character[] ch = new Character[1];
         if(!hasUnassignedLetters(map, ch)) {
             return puzzle.isAnswer(map);
         }
         for(int option = 0; option <= 9; option++) {
-            if(isSafeAssignment(map, option)) {
-                map.put(ch, new Integer(option));
+            // System.out.println(String.format("Character: %s, Option: %d", ch[0], option));
+            if(isSafeAssignment(map, ch, option)) {
+                map.put(ch[0], new Integer(option));
                 if(solve(puzzle, map)) {
                     return true;
                 }
-                map.put(ch, null);
+                map.put(ch[0], null);
             }
         }
         return false;
     }
 
-    private static boolean isSafeAssignment(Map<Character, Integer> map, int option) {
-        for(Map.Entry<Character, Integer> entry : map.entrySet()) {
-            if(entry.getValue() == null) {
-                return false;
-            }
+    private static boolean isSafeAssignment(Map<Character, Integer> map, Character[] ch, int option) {
+        // only assign to unassigned value
+        if(map.get(ch[0]) != null) {
+            return false;
         }
+        // there are no characters with this option already
+        if(map.values().contains(option)) {
+            return false;
+        }
+
         return true;
     }
 
-    private static boolean hasUnassignedLetters(Map<Character, Integer> map, Character ch) {
+    private static boolean hasUnassignedLetters(Map<Character, Integer> map, Character[] ch) {
         for(Map.Entry<Character, Integer> entry : map.entrySet()) {
             if(entry.getValue() == null) {
-                ch = entry.getKey();
+                ch[0] = entry.getKey();
                 return true;
             }
         }
@@ -86,3 +95,4 @@ public class RecursionCryptarithmetic {
         System.out.println(solve(new Puzzle()));
     }
 }
+
