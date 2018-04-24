@@ -9,7 +9,9 @@ public class RecursionSudoku {
         }
         for(int option = 1; option < 10; option++) {
             if(isSafe(dataStructure, nextUnassigned, option)) {
+                /* ********************************** */
                 dataStructure[nextUnassigned[0]][nextUnassigned[1]] = option;
+                /* ********************************** */
                 if(solve(dataStructure)) {
                     return true;
                 }

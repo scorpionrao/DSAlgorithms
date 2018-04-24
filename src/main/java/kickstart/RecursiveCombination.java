@@ -110,7 +110,8 @@ package kickstart;
     // Procedural recursion
     public static void combinations(int level, String soFar, String remaining, int remainingSize) {
 
-        System.out.println(String.format("Level: %d, SoFar: %s, Remaining: %s", level, soFar, remaining));
+        System.out.println(String.format("Level: %d, SoFar: %s, " +
+                "Remaining: %s", level, soFar, remaining));
         if(remaining.length() < remainingSize) {
             return;
         }

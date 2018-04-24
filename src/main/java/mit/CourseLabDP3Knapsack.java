@@ -89,12 +89,60 @@ public class CourseLabDP3Knapsack {
         if(row <= 0 || column <= 0) {
             return 0;
         } else if(weights[row-1] > column) {
-            return recursionOnlyKnapsack(weights, values, row-1, column);
+            return recursionMemoizationKnapsack(weights, values, row-1, column, memo);
         }
 
-        int guessIgnoreWeight = recursionOnlyKnapsack(weights, values, row - 1, column);
-        int guessAddWeight = values[row-1] + recursionOnlyKnapsack(weights, values, row, column - weights[row-1]);
+        int guessIgnoreWeight = recursionMemoizationKnapsack(weights, values, row - 1, column, memo);
+        int guessAddWeight = values[row-1] + recursionMemoizationKnapsack(weights, values, row, column - weights[row-1], memo);
         return Math.max(guessIgnoreWeight, guessAddWeight);
+    }
+
+    private static boolean solve(int[] weights, int[] values, int[][] board) {
+        int[] rowCol = {0, 0};
+        if(!hasUnassignedCell(board, rowCol)) {
+            return true;
+        }
+        // there is only ONE option, find the best value
+        for(int option = 0; option < 1; option++) {
+            if(true /* isSafe = no restrictions */) {
+                // MAKE - because no multiple options
+                /* ********************************** */
+                int row = rowCol[0];
+                int previousRow = row - 1;
+                int index = previousRow;
+                int col = rowCol[1];
+
+                if(row <= 0 || col <= 0) {
+                    board[row][col] = 0;
+                } else if(weights[previousRow] > col) {
+                    board[row][col] = board[previousRow][col];
+                } else {
+                    int guessIgnoreWeight = board[previousRow][col];
+                    int guessAddWeight = values[index] + board[row][col - weights[index]];
+                    board[row][col] = Math.max(guessIgnoreWeight, guessAddWeight);
+                }
+                /* ********************************** */
+                if(solve(weights, values, board)) {
+                    return true;
+                }
+                // UNMAKE - no multiple options
+            }
+        }
+        // backtracking
+        return false;
+    }
+
+    private static boolean hasUnassignedCell(int[][] board, int[] nextUnassigned) {
+        for(int row = 0; row < board.length; row++) {
+            for(int col = 0; col < board[row].length; col++) {
+                if(board[row][col] == -1) {
+                    nextUnassigned[0] = row;
+                    nextUnassigned[1] = col;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static void print(int maxBagSize, int numOfItems, int[][] knapsackValue) {
@@ -139,6 +187,15 @@ public class CourseLabDP3Knapsack {
         int regressionMemoizationCost = recursionMemoizationKnapsack(W, wt, val);
         end = System.nanoTime();
         timeTaken(regressionMemoizationCost, start, end, "regressionMemo");
+
+        start = System.nanoTime();
+        int[][] board = new int[wt.length+1][W+1];
+        for(int[] row : board) {
+            Arrays.fill(row, -1);
+        }
+        solve(wt, val, board);
+        end = System.nanoTime();
+        timeTaken(board[wt.length][W], start, end, "standardPattern");
 
     }
 }

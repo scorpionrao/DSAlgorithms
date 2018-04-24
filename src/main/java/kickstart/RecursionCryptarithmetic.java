@@ -17,7 +17,7 @@ public class RecursionCryptarithmetic {
     Assign letters to numbers: D E M N O R S Y, 0 - 9
     Check for puzzle answer
      */
-    private static class Puzzle1 implements Puzzle{
+    private static class Puzzle1 implements Puzzle {
 
         int counter = 0;
 
@@ -25,12 +25,12 @@ public class RecursionCryptarithmetic {
             Map<Character, Integer> map = new LinkedHashMap<>();
             map.put('D', null);
             map.put('E', null);
-            map.put('M', null);
-            map.put('N', null);
-            map.put('O', null);
-            map.put('R', null);
-            map.put('S', null);
             map.put('Y', null);
+            map.put('N', null);
+            map.put('R', null);
+            map.put('O', null);
+            map.put('S', null);
+            map.put('M', null);
             return map;
         }
 
@@ -64,19 +64,19 @@ public class RecursionCryptarithmetic {
 
         EVERY COMBINATION OF NUMBERS IS THE NUMBER OF POSSIBILITIES.
      */
-    private static class Puzzle2 implements Puzzle{
+    private static class Puzzle2 implements Puzzle {
 
         public int counter = 0;
 
         public Map<Character, Integer> getMap() {
             Map<Character, Integer> map = new LinkedHashMap<>();
-            map.put('C', null);
-            map.put('F', null);
-            map.put('N', null);
-            map.put('O', null);
             map.put('S', null);
             map.put('U', null);
+            map.put('N', null);
+            map.put('C', null);
+            map.put('O', null);
             map.put('Y', null);
+            map.put('F', null);
             return map;
         }
 
@@ -112,7 +112,7 @@ public class RecursionCryptarithmetic {
 
     private static boolean solve(Puzzle puzzle, Map<Character, Integer> map, int level) {
         Character[] ch = new Character[1];
-        if(!hasUnassignedLetters(map, ch, level)) {
+        if(!hasUnassignedLetters(map, ch)) {
             return puzzle.isAnswer(map);
         }
         for(int option = 0; option <= 9; option++) {
@@ -135,7 +135,7 @@ public class RecursionCryptarithmetic {
         return true;
     }
 
-    private static boolean hasUnassignedLetters(Map<Character, Integer> map, Character[] ch, int level) {
+    private static boolean hasUnassignedLetters(Map<Character, Integer> map, Character[] ch) {
         for(Map.Entry<Character, Integer> entry : map.entrySet()) {
             if(entry.getValue() == null) {
                 ch[0] = entry.getKey();

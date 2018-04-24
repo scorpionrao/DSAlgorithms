@@ -20,7 +20,9 @@ public class RecursionQueens {
         }
         for(int row = 0; row < board.length; row++) {
             if(decision(board, row, col)) {
+                /* ********************************** */
                 board[row][col] = true;
+                /* ********************************** */
                 if(recurse(board, col+1)) {
                     // all columns finished, base case reached
                     return true;
