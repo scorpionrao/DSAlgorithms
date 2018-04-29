@@ -3,7 +3,8 @@ package kickstart;
 /**
  * Created by manushaonly on 4/29/18.
  */
-public class ReverseLinkedList {
+public class LinkedList
+{
 
     public static class Node {
         int data;
@@ -17,12 +18,23 @@ public class ReverseLinkedList {
     public Node head;
 
     public void printList(Node node) {
-        while (node != null) {
-            System.out.print(node.data + " -> ");
-            node = node.next;
+        if(node == null) {
+            System.out.println("NULL");
+            return;
         }
-        System.out.println("NULL");
+        System.out.print(node.data + " -> ");
+        printList(node.next);
     }
+
+    public void reversePrintList(Node node) {
+        if(node == null) {
+            System.out.print("NULL");
+            return;
+        }
+        reversePrintList(node.next);
+        System.out.print(" <- " + node.data);
+    }
+
 
     public Node reverse(Node node) {
         Node prevDisconnected = null;
@@ -42,8 +54,10 @@ public class ReverseLinkedList {
         return head;
     }
 
+
+
     public static void main(String[] args) {
-        ReverseLinkedList list = new ReverseLinkedList();
+        LinkedList list = new LinkedList();
         list.head = new Node(85);
         list.head.next = new Node(15);
         list.head.next.next = new Node(4);
@@ -51,10 +65,10 @@ public class ReverseLinkedList {
 
         System.out.println("Given Linked list");
         list.printList(list.head);
-        list.head = list.reverse(list.head);
-        System.out.println("");
-        System.out.println("Reversed linked list ");
-        list.printList(list.head);
+        //list.head = list.reverse(list.head);
+        //System.out.println("");
+        //System.out.println("Reversed linked list ");
+        list.reversePrintList(list.head);
     }
 
 }
