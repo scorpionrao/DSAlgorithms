@@ -1,9 +1,6 @@
 package kickstart;
 
-/**
- * Created by manushaonly on 4/29/18.
- */
-public class LinkedList
+public class SinglyLinkedList
 {
 
     public static class Node {
@@ -57,7 +54,7 @@ public class LinkedList
 
 
     public static void main(String[] args) {
-        LinkedList list = new LinkedList();
+        SinglyLinkedList list = new SinglyLinkedList();
         list.head = new Node(85);
         list.head.next = new Node(15);
         list.head.next.next = new Node(4);

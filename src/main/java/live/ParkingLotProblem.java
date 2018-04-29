@@ -67,13 +67,13 @@ public class ParkingLotProblem {
     /*
         CRUD actions: Is there any parking available - Single data structure ?
                         - Array (fixed size, O(N) to look for isVacant
-                        - LinkedList (dynamic, O(N) to look for isVacant
+                        - SinglyLinkedList (dynamic, O(N) to look for isVacant
                         - Sorted Array based on end time (fixed size, O(1)
                         - ArrayList (dynamic size, O(N)
 
                       Is there any parking available - Multiple data structure ?
                         - Array (fixed size, O(N/2)
-                        - LinkedList (dynamic, O(1)
+                        - SinglyLinkedList (dynamic, O(1)
                         - ArrayList (dynamic, O(1)
 
                       Identify available and set endTime
