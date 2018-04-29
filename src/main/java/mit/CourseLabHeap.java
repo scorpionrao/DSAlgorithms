@@ -41,6 +41,7 @@ public class CourseLabHeap {
 			int max = unsortedArray[0];
 			swap(unsortedArray, 0, endOfHeapIndex);
 			endOfHeapIndex--;
+			// create max heap on reduced array
 			maxHeapify(unsortedArray, endOfHeapIndex, 0);
 		}
 		

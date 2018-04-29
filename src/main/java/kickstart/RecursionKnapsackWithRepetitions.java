@@ -2,7 +2,7 @@ package kickstart;
 
 import java.util.Arrays;
 
-public class RecursionKnapsack {
+public class RecursionKnapsackWithRepetitions {
 
     private static boolean solve(int[] weights, int[] values, int[][] board) {
         int[] rowCol = {0, 0};
