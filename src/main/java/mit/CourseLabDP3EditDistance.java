@@ -123,7 +123,7 @@ public class CourseLabDP3EditDistance {
 	 * Recurrence:
 	 * 		distance(i,j) = min {
 	 * 							distance(delete x[i]) 			+ distance(i-1,j)		if i < |x|
-	 * 							distance(insert y[j]) 			+ distance(i,j+1)		if j < |y|
+	 * 							distance(insertAtHead y[j]) 			+ distance(i,j+1)		if j < |y|
 	 * 							distance(replace x[i] -> y[j]) 	+ distance(i-1,j-1) 	if i < |x|, if j < |y|
 	 * 						}
 	 * 

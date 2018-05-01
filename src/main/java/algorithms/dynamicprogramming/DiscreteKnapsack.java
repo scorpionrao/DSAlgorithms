@@ -60,7 +60,7 @@ public class DiscreteKnapsack {
                         value(w, item) = temp;
                     }
                 }
-                // insert value(w) into hash table with key w
+                // insertAtHead value(w) into hash table with key w
             }
             return value(W);
         }

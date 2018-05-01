@@ -22,12 +22,12 @@ public class PriorityQueueDocumentation {
         Shift up
         Shift down
         extract = remove max, replace with any leaf, shift down - O(log N)
-        insert = insert as any leaf, shift up - O(log N)
+        insertAtHead = insertAtHead as any leaf, shift up - O(log N)
         remove = replace removing element with any leaf, shift up or down
 
         Shallow Height ensures O(log N) - requires balanced tree
         extract = remove max, replace with LEFT MOST leaf (ensured balance), shift down
-        insert = insert LEFT MOST(ensured balance), shift up
+        insertAtHead = insertAtHead LEFT MOST(ensured balance), shift up
 
         DATA STRUCTURE implementation - ARRAY
 

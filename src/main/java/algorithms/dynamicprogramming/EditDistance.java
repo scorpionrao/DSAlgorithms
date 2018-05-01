@@ -66,7 +66,7 @@ public class EditDistance {
 
     /*
         First if checks all the ways when the last action is to delete the last symbol.
-        Second if checks all the ways when the last action is to insert the necessary symbol.
+        Second if checks all the ways when the last action is to insertAtHead the necessary symbol.
         Third if checks all the ways to match last symbols of the prefixes.
         Last if checks all the ways to replace the last symbol of the i-th prefix of the first word by the last symbol of the j-th prefix of the second word.
 
@@ -74,7 +74,7 @@ public class EditDistance {
         // all ways when last action was delete last symbol
         if T[i, j] == T[i - 1, j] + 1:
           ways[i, j] += ways[i - 1, j]
-        // all ways when last action was insert necessary symbol
+        // all ways when last action was insertAtHead necessary symbol
         if T[i, j] == T[i, j - 1] + 1:
           ways[i, j] += ways[i, j - 1]
         // all ways to match last symbols of prefixes
