@@ -1,7 +1,6 @@
 package kickstart;
 
-public class SinglyLinkedList
-{
+public class SinglyLinkedList {
 
     public static class Node {
         int data;

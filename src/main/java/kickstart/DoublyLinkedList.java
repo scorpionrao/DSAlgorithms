@@ -1,8 +1,5 @@
 package kickstart;
 
-/**
- * Created by manushaonly on 4/30/18.
- */
 public class DoublyLinkedList {
 
     public static class Node {

@@ -60,3 +60,4 @@ public class RecursiveBinarySearchTree {
         System.out.println(bst.search(bst.root, 15));
     }
 }
+
