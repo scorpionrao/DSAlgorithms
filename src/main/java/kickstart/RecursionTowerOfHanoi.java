@@ -3,7 +3,8 @@ package kickstart;
 /**
  * Created by manushaonly on 4/15/18.
  */
-public class RecursiveTowerOfHanoi {
+public class RecursionTowerOfHanoi
+{
 
     public static void move(int numOfDisks, int src, int dest, int temp) {
         if(numOfDisks == 0) {

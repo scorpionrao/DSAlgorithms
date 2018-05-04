@@ -2,7 +2,8 @@ package kickstart;
 
 import java.util.Set;
 
-public class RecursivePermutations {
+public class RecursionPermutations
+{
 
     public static void main(String[] args) {
       wrapper("abc");
