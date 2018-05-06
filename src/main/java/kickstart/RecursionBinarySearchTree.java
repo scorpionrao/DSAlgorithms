@@ -53,7 +53,7 @@ public class RecursionBinarySearchTree {
                 // case 3 - one child - only left child
                 root = root.left;
             } else {
-                // case 4 - two child exist
+                // case 4 - two child exist - min of right child OR max of left child
                 Node node = findMin(root.right);
                 root.data = node.data;
                 root.right = delete(root.right, node.data);
@@ -141,6 +141,28 @@ public class RecursionBinarySearchTree {
             && isBST(node.right, node.data+1, max);
     }
 
+    public Node getSuccessor(Node root, int data) {
+        if(root == null) {
+            return root;
+        }
+        Node current = search(root, data);
+        if(current.right != null) {
+            return findMin(current.right);
+        } else {
+            Node ancestor = root;
+            Node successor = null;
+            while(current.data != ancestor.data) {
+                if (current.data < ancestor.data) {
+                    successor = ancestor;   // deepest node for which current node is in left
+                    ancestor = ancestor.left;
+                } else {
+                    ancestor = ancestor.right;
+                }
+            }
+            return successor;
+        }
+    }
+
     public static void main(String[] args) {
         RecursionBinarySearchTree bst = new RecursionBinarySearchTree();
         bst.root = bst.insert(bst.root, 15);
@@ -160,10 +182,9 @@ public class RecursionBinarySearchTree {
         //System.out.println(bst.isBST(bst.root));
 
         //System.out.println(bst.search(bst.root, 12));
-        System.out.println("************************");
-        bst.root = bst.delete(bst.root, 15);
-        System.out.println("************************");
-        bst.print(0, bst.root, 'L');
+        //bst.root = bst.delete(bst.root, 15);
+        //bst.print(0, bst.root, 'L');
+        System.out.println(bst.getSuccessor(bst.root, 15).data);
     }
 }
 
