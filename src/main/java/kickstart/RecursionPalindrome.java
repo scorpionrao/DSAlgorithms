@@ -1,8 +1,5 @@
 package kickstart;
 
-/**
- * Created by manushaonly on 4/15/18.
- */
 public class RecursionPalindrome {
 
     /*

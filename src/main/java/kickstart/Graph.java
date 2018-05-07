@@ -31,7 +31,7 @@ public class Graph {
                                      - Useful values - O(|E|)
                                      - Not useful values - O(|V|^2 - |E|)
 
-                Time Complexity:
+                Time Complexity:C
                     1. Find edges for a vertex - scan the matrix row
                     2. Does edge exist - O(1) - access edge existence or weight through direct index based access.
 

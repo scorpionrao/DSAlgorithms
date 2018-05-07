@@ -1,8 +1,6 @@
 package kickstart;
 
-/**
- * Created by manushaonly on 4/15/18.
- */
+
 public class RecursionBSearch {
 
     public static int midFinder(int start, int end) {

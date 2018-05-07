@@ -1,8 +1,5 @@
 package kickstart;
 
-/**
- * Created by manushaonly on 4/13/18.
- */
 public class RecursionCollatzConjecture {
     public static int numOfSteps(int n) {
         if(n == 1) {

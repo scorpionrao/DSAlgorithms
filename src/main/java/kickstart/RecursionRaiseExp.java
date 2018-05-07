@@ -1,8 +1,5 @@
 package kickstart;
 
-/**
- * Created by manushaonly on 4/14/18.
- */
 public class RecursionRaiseExp
 {
 
