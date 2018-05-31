@@ -5,12 +5,13 @@ import java.util.List;
 
 public class Synchronizer {
 
+    // no guarantees on access
     public synchronized void doSynchronized1() {
         // do a lot of work
     }
 
+    // same lock object for all threads
     Lock lock = new Lock();
-
     public void doSynchronized2() throws InterruptedException {
         this.lock.lock();
         // do a lot of work
@@ -21,8 +22,10 @@ public class Synchronizer {
         private boolean isLocked = false;
         private Thread lockingThread = null;
 
+        // no guarantees on access
         public synchronized void lock() throws InterruptedException {
             while (isLocked) {
+                // lock calls its own wait
                 wait();
             }
             isLocked = true;
@@ -39,11 +42,16 @@ public class Synchronizer {
         }
     }
 
+    // SEMAPHORE
     public class QueueObject {
+
         private boolean isNotified = false;
 
         public synchronized void doWait() throws InterruptedException {
+
+            // prevents missed signals - in case thread was not properly notified
             while (!isNotified) {
+                // wait on unique queue object
                 this.wait();
             }
             this.isNotified = false;
@@ -59,14 +67,17 @@ public class Synchronizer {
         }
     }
 
+    // lock exactly decides which thread to awaken
     public class FairLock {
         private boolean isLocked = false;
         private Thread lockingThread = null;
         private List<QueueObject> waitingThreads = new ArrayList<>();
 
+        // non-synchronized methods
         public void lock() throws InterruptedException {
             QueueObject queueObject = new QueueObject();
             boolean isLockedForThisThread = true;
+            // synchronized block
             synchronized (this) {
                 waitingThreads.add(queueObject);
             }
@@ -82,6 +93,7 @@ public class Synchronizer {
                     }
                 }
                 try{
+                    // nested monitor lockout - wait is outside of synchronized block
                     queueObject.doWait();
                 }catch(InterruptedException e){
                     synchronized(this) { waitingThreads.remove(queueObject); }

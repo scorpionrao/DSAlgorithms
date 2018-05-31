@@ -38,6 +38,7 @@ public class ThreadSignal {
 
         public void doWait() throws InterruptedException {
             synchronized (monitorObject) {
+                // "Spin" lock
                 while(!isSignalled) {
                     monitorObject.wait();
                 }
