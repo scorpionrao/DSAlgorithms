@@ -75,6 +75,7 @@ public class Semaphore {
         @Override
         public void run() {
             while(true) {
+                this.semaphore.releaseORunlockORwaitforsignal();
                 // do something
                 this.semaphore.takeORlockORsendsignal();
             }
@@ -94,10 +95,11 @@ public class Semaphore {
             while(true) {
                 try {
                     this.semaphore.releaseORunlockORwaitforsignal();
+                    // receive signal, then do something...
+                    this.semaphore.takeORlockORsendsignal();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                // receive signal, then do something...
             }
         }
     }
