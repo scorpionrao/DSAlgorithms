@@ -53,13 +53,41 @@ public class LinkedListRemoveNthFromLast {
             Remove the node pointing to slow pointer.
          */
         public Node removeNthFromLast(Node head, int numOfNodesFromEnd) {
+
+            if(head == null) {
+                return null;
+            }
+
+            if(numOfNodesFromEnd == 0) {
+                return head;
+            }
+
             Node fastPointer = head;
             Node slowPointer = head;
-            while(numOfNodesFromEnd >= 0) {
+
+            for(int i = 1; i <= numOfNodesFromEnd; i++) {
+                if(fastPointer == null) {
+                    break;
+                }
                 fastPointer = fastPointer.next;
-                numOfNodesFromEnd--;
             }
-            while(fastPointer != null) {
+
+            /*
+             - fastPointer already beyond last node.
+             - Indirectly: n = length of list.
+              */
+            if(fastPointer == null) {
+                return head;
+            }
+
+            // fastPointer on last node
+            if(fastPointer.next == null) {
+                head = head.next;
+                return head;
+            }
+
+            // remove non-first node
+            while(fastPointer.next != null) {
                 slowPointer = slowPointer.next;
                 fastPointer = fastPointer.next;
             }
@@ -72,7 +100,7 @@ public class LinkedListRemoveNthFromLast {
         Solution solution = new Solution();
         Node head = solution.createLinkedList(7);
         solution.print(head);
-        head = solution.removeNthFromLast(head, 2);
+        head = solution.removeNthFromLast(head, 1);
         solution.print(head);
     }
 }
