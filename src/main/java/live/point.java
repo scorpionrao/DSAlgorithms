@@ -1,7 +1,14 @@
 package live;
 
-public class point {
+public class Point
+{
 
+    /*
+        The main reason why inheritance is problematic in this case is that `PointOnScreen`
+        is a non-abstract super class that implements equals. It is impossible to implement
+        equals() correctly in Java with a non-abstract super class as the general contract
+        of equals cannot be satisfied under all conditions.
+     */
     public static class PointOnScreen {
         int x;
         int y;
@@ -21,7 +28,8 @@ public class point {
                 return true;
             }
             boolean isInstance = o instanceof PointOnScreen;
-            System.out.println(o.getClass().getName() + " is instance of " + this.getClass().getName() + " = " + isInstance);
+            System.out.println(o.getClass().getName() + " is instance of " +
+                    this.getClass().getName() + " = " + isInstance);
             if(!isInstance) {
                 return false;
             }
@@ -77,7 +85,8 @@ public class point {
                 return true;
             }
             boolean isInstance = o instanceof ColorPointOnScreen;
-            System.out.println(o.getClass().getName() + " is instance of " + this.getClass().getName() + " = " + isInstance);
+            System.out.println(o.getClass().getName() + " is instance of " +
+                    this.getClass().getName() + " = " + isInstance);
             if(!isInstance) {
                 return false;
             }
