@@ -2,7 +2,7 @@ package zr;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Zap {
+public class IncomeEstimates {
 	
 	public interface Agent {}
 	
