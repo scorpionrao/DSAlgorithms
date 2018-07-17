@@ -1,4 +1,4 @@
-package mit;
+package zr;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -6,9 +6,7 @@ public class Zap {
 	
 	public interface Agent {}
 	
-	public enum TransactionStatus {
-		ACCEPTING_OFFERS, UNDER_OFFER, OFFER_CLOSED
-	}
+	public enum TransactionStatus {ACCEPTING_OFFERS, UNDER_OFFER, OFFER_CLOSED}
 	
 	public interface HouseForSale {
 		Agent getAgent();
