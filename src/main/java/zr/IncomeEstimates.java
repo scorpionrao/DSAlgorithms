@@ -3,6 +3,22 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class IncomeEstimates {
+
+	/*
+
+		Things to look for:
+		Does the candidate write modern Java (Examples: Does the candidate use the for each style
+		for loop added in Java 5 or does the candidate use List indices, Use of Diamond Notation etc)
+
+		Follow-up question:
+		How do we make the code faster? The problem requires processing all brokers and all houses
+		for sale. The best algorithmic complexity we can get is O(n2). The answer is to leverage concurrency.
+
+		The are several ways to do this (ForkJoinPools etc) but the easiest simplest way is to solve
+		the problem using the Java 8 Streams library. The solution below uses a parallel Stream to
+		process elements concurrently.
+
+	 */
 	
 	public interface Agent {}
 	
@@ -29,7 +45,8 @@ public class IncomeEstimates {
 		   .map(broker -> broker.getHousesForSale())
 		   .flatMap(housesForSale -> housesForSale.parallelStream())
 		   .filter(houseForSale -> houseForSale.getTransactionStatus() == TransactionStatus.UNDER_OFFER)
-		   .map(houseForSale -> new AbstractMap.SimpleEntry<>(houseForSale.getAgent(), houseForSale.getSalePrice() * 0.03))
+		   .map(houseForSale -> new AbstractMap.SimpleEntry<>(houseForSale.getAgent(),
+				   												houseForSale.getSalePrice() * 0.03))
 		   .collect(
 				   Collectors.groupingBy(entry -> entry.getKey(),
 				   Collectors.summingDouble(entry -> entry.getValue())
@@ -37,7 +54,7 @@ public class IncomeEstimates {
 		   );
 		
 		/*
-		brokers.parallelStream()
+				brokers.parallelStream()
 			   
 			   // Stream<List<HouseForSale>>
 			   //.map(Broker::getHousesForSale)
@@ -51,7 +68,8 @@ public class IncomeEstimates {
 			   .filter(houseForSale -> houseForSale.getTransactionStatus() == TransactionStatus.UNDER_OFFER)
 			   
 			   // Stream<Map<Agent, Long>>
-			   .map(houseForSale -> new AbstractMap.SimpleEntry<>(houseForSale.getAgent(), houseForSale.getSalePrice() * 0.03))
+			   .map(houseForSale -> new AbstractMap.SimpleEntry<>(houseForSale.getAgent(),
+			   														houseForSale.getSalePrice() * 0.03))
 			   
 			   // new mutable reduction container
 			   .collect(

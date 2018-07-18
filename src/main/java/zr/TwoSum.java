@@ -1,4 +1,4 @@
-package datastructures.basicdatastructures;
+package zr;
 
 import java.util.Arrays;
 import java.util.HashMap;
