@@ -18,17 +18,18 @@ public class LinkedListMergeMultipleSorted {
 
         /* O(L) */
         public Node deleteDuplicates(Node head) {
+            /* Link builder */
             Node current = head;
             
-            // until all nodes are examined
+            /* until all nodes are examined */
             while(current != null) {
-                // am i last node ?
+                /* am i last node ? - Hard exit */
                 if(current.next == null) {
                     break;
-                } // is the next node same ?
+                } /* is the next node same ? */
                 else if(current.data == current.next.data) {
                     current.next = current.next.next;
-                } // include and move on
+                } /* positive scenario */
                 else {
                     current = current.next;
                 }
@@ -39,36 +40,45 @@ public class LinkedListMergeMultipleSorted {
         /*
             Delete Duplicates within a list - O(L1)
             Delete Duplicates within a list - O(L2)
-
+            Merge - O(L1+L2)
+            Total - O(L1+L2+L1+L2) --> O(L1+L2)
          */
         public Node mergeSortedLinkedLists(Node head1, Node head2) {
 
             head1 = deleteDuplicates(head1);
             head2 = deleteDuplicates(head2);
 
+            /* Assumes unique elements */
             Node resultHead = new Node(0);
+            /* Link builder */
             Node current = resultHead;
 
+            /* condition for all nodes are examined */
             while(head1 != null || head2 != null) {
+                /* positive scenario - both lists are available */
                 if (head1 != null && head2 != null) {
+                    /* List 1 wins */
                     if (head1.data < head2.data) {
                         current.next = head1;
                         head1 = head1.next;
-                    } else if (head2.data < head1.data){
+                    } /* List 2 wins */ 
+                    else if (head2.data < head1.data){
                         current.next = head2;
                         head2 = head2.next;
-                    } else {
+                    } /* Both values are equal */
+                    else {
                         current.next = head1;
                         head1 = head1.next;
                         head2 = head2.next;
                     }
                     current = current.next;
-                } else if (head1 == null) {
+                } /* Hard break - no more nodes to examine in List1 */
+                else if (head1 == null) {
                     // connect to head of remaining part of second list
                     current.next = head2;
                     break;
-                } else if (head2 == null) {
-                    // connect to head of remaining part of first list
+                } /* Hard break - no more nodes to examine in List2 */
+                else if (head2 == null) {
                     current.next = head1;
                     break;
                 }
