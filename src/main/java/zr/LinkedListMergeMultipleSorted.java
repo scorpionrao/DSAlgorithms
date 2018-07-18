@@ -19,16 +19,17 @@ public class LinkedListMergeMultipleSorted {
         /* O(L) */
         public Node deleteDuplicates(Node head) {
             Node current = head;
+            
+            // until all nodes are examined
             while(current != null) {
-                // end of list
+                // am i last node ?
                 if(current.next == null) {
                     break;
-                }
-                // take the first node and ignore rest of same values
-                if(current.data == current.next.data) {
+                } // is the next node same ?
+                else if(current.data == current.next.data) {
                     current.next = current.next.next;
-                } else {
-                    // include and move on
+                } // include and move on
+                else {
                     current = current.next;
                 }
             }
