@@ -86,6 +86,49 @@ public class LinkedListMergeMultipleSorted {
             return resultHead;
         }
 
+        /* O(L1+L2) */
+        public Node merge(Node head1, Node head2) {
+
+            Node resultHead = new Node(0);
+            Node current = resultHead;
+
+            while(head1 != null || head2 != null) {
+                // both nodes exist
+                if(head1 != null && head2 != null) {
+                    /* current Node will not move for skippers */
+                    if(current.data == head1.data) {
+                        head1 = head1.next;
+                        continue;
+                    } else if (current.data == head2.data) {
+                        head2 = head2.next;
+                        continue;
+                    } else if (head1.data < head2.data) {
+                        current.next = head1;
+                        head1 = head1.next;
+                    } else if (head1.data > head2.data) {
+                        current.next = head2;
+                        head2 = head2.next;
+                    } else {
+                        current.next = head1;
+                        head1 = head1.next;
+                        head2 = head2.next;
+                    }
+                    /* no skippers should arrive here */
+                    current = current.next;
+                } else if (head1 != null) {
+                    /* Only list 1 is left for examination - HARD BREAK */
+                    current.next = head1;
+                    break;
+                } else {
+                    /* Only list 2 is left for examination - HARD BREAK */
+                    current.next = head2;
+                    break;
+                }
+
+            }
+            return resultHead.next;
+        }
+
         public void print(Node node) {
             if (node == null) {
                 return;
@@ -118,7 +161,7 @@ public class LinkedListMergeMultipleSorted {
         head2.next.next.next.next = new Node(10);
         solution.print(head2);
 
-        Node mergedHead = solution.mergeSortedLinkedLists(head1, head2);
+        Node mergedHead = solution.merge(head1, head2);
         solution.print(mergedHead);
     }
 }
