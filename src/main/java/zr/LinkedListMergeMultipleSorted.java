@@ -95,19 +95,23 @@ public class LinkedListMergeMultipleSorted {
             while(head1 != null || head2 != null) {
                 // both nodes exist
                 if(head1 != null && head2 != null) {
-                    /* current Node will not move for skippers */
+                    /* Path 1: Compare result pointer and list1. */
                     if(current.data == head1.data) {
                         head1 = head1.next;
                         continue;
+                    /* Path 2: Compare result pointer and list2. */
                     } else if (current.data == head2.data) {
                         head2 = head2.next;
                         continue;
+                    /* Path 3: Compare list1 and list2 */
                     } else if (head1.data < head2.data) {
                         current.next = head1;
                         head1 = head1.next;
+                    /* Path 4: Compare list1 and list2 */
                     } else if (head1.data > head2.data) {
                         current.next = head2;
                         head2 = head2.next;
+                    /* Path 5: Compare list1 and list2 */
                     } else {
                         current.next = head1;
                         head1 = head1.next;
