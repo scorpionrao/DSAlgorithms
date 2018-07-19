@@ -5,7 +5,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class LinkedListMergeMultipleSorted {
+public class LinkedListMergeSorted
+{
 
     public static class Node {
         public int data;
