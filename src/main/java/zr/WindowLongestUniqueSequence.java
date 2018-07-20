@@ -7,6 +7,43 @@ public class WindowLongestUniqueSequence {
 
     public static class Solution {
 
+        /*
+            PSUEDOCODE:
+
+            - Invalid inputs - null, empty, single letter - exit
+
+            - Initiate resultStartIndex, resultEndIndex, resultLength
+
+            - for each startWindow ( 0 to end )
+
+                - for each endWindow ( startWindow to end )
+
+                    - Optimize : don't care if the window is not going to improve resultLength
+
+                    - Get information from the window --> How many unique characters
+
+                    - isCandidate(information)
+
+                        - if NO - Go to next window
+
+                        - if YES -
+
+                            - Does is improve current best candidate ?
+
+                                - Update best candidate with this window
+
+                            - END does it improve
+
+                        - END yes
+
+                    - END isCandidate
+
+                - END end window
+
+            - END start window
+
+         */
+
         public String longestCharSequence(String str) {
             if(str == null || str.isEmpty() || str.length() == 1) {
                 return str;
