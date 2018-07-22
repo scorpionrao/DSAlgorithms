@@ -76,7 +76,7 @@ public class BinaryTreeInOrderTraversalNoRecursion {
 
             Stack<Node> s = new Stack<Node>();
             Node curr = root;
-            int previousValue = curr.data;
+            int previousValue = Integer.MIN_VALUE;
 
             /* traverse the tree */
             while (curr != null || !s.isEmpty()) {
@@ -86,16 +86,16 @@ public class BinaryTreeInOrderTraversalNoRecursion {
                     /* place pointer to a tree node on the stack
                     before traversing the node's left subtree */
                     s.push(curr);
-                    previousValue = curr.data;
                     curr = curr.left;
                 }
 
                 /* Current must be NULL at this point */
                 curr = s.pop();
 
-                if(curr.data < previousValue) {
+                if(curr.data <= previousValue) {
                     return false;
                 } else {
+                    /* update for next pop */
                     previousValue = curr.data;
                 }
 
@@ -117,6 +117,7 @@ public class BinaryTreeInOrderTraversalNoRecursion {
             tree.root.left.left = new Node(4);
             tree.root.left.right = new Node(5);
             tree.inorder();
+            System.out.println("\n" + tree.isBST());
 
             BinaryTree tree1 = new BinaryTree();
             tree1.root = new Node(4);
