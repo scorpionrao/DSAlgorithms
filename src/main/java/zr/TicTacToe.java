@@ -5,25 +5,71 @@ public class TicTacToe {
     /*
         Implement Tic Tac Toe game.
         void ticTacToe(char[ ][ ] board, char A, char B)
-
         if A wins, print “Winner: A”
         if B wins, print “Winner: B”
 
-        8 ways to win - row1, row2, row3, col1, col2, col3, diag, adiag
+        ******************************************
+        Game:
+            *** Method 1 ***
+            play(board) {
+                while(empty cells are available) {
+                    One of the two players play
+                    if(isThereWinner(board, PlayerA, PlayerB)) {
+                        printWinner
+                    }
+                }
+            }
 
-        +1 for Player A, -1 for Player B.
-        +3 is win for Player A, -3 is win for Player B.
-        At the end, both players should have equal number of turns (SEPARATE BOOLEAN TRACKER)
+            *** Method 2 ***
+            isThereWinner(board, PlayerA, PlayerB) {
+                return isValid(board) && winnerExists
+            }
 
-        Win should occur on players turn.
-        Both cannot win as game should have stopped as soon as FIRST win occurred.
+            *** Method 3 ***
+            printWinner(board)
+        *******************************************
+
+        16 ways to win:
+
+        BOARD IS VALID ??
+            - entries match characters
+            - same (~1) number of turns.
+
+        WINS ??
+
+                                            Player B
+                  -------------------------------------------------------------------
+                            YES                             NO
+                  -------------------------------------------------------------------
+                |
+                |    YES     *Invalid*                       8 ways (ends In A turn)
+                |
+        Player A|
+                |
+                |   NO      8 ways (ends In B turn)        OK
+                |
+                |
+
+        Data Structure:
+            - How to represent board (INPUT) - char[][]
+            - How to represent entries (INPUT) - char
+            - How to represent turns ? - int (0 = equal turns, 1 = unequal turns)
+            - How to represent Player A wins
+                    - row1 = 3, row2 = 3, row3 = 3, col1 = 3, col2 = 3, col3 = 3, diag = 3, adiag = 3.
+                    - row[i] = 3, col[i] = 3, diag = 3, adiag = 3.
+            - How to represent Player B wins ?
+                    - row1 = -3, row2 = -3, row3 = -3, col1 = -3, col2 = -3, col3 = -3, diag = -3, adiag = -3.
+                    - row[i] = -3, col[i] = -3, diag = -3, adiag = -3.
 
     */
 
-    public boolean valid(char[][] board, char playerA, char playerB) {
+    private static void ticTacToe(String name, char[][] board, char firstPlayer, char secondPlayer) {
 
-        if(board == null || board.length != 3 || board[0].length != 3) {
-            return false;
+        System.out.println(name);
+        /* Bad board, length varies, same symbols */
+        if(board == null || board.length != 3 || board[0].length != 3 || firstPlayer == secondPlayer) {
+            System.out.println("Invalid Inputs");
+            return;
         }
 
         int turns = 0;
@@ -32,60 +78,76 @@ public class TicTacToe {
         int diag = 0;
         int adiag = 0;
 
-        for(int i = 0; i < board.length; i++) {
-            for(int j = 0; j < board[0].length; j++) {
-                if(board[i][j] == playerA) {
+        for(int row = 0; row < board.length; row++) {
+            for(int col = 0; col < board[0].length; col++) {
+                if(board[row][col] == firstPlayer) {
                     turns++;
-                    rows[i]++;
-                    cols[j]++;
-                    if(i == j) {
+                    rows[row]++;
+                    cols[col]++;
+                    if(row == col) {
                         diag++;
                     }
-                    if(i + j == 2) {
+                    if(row + col == 2) {
                         adiag++;
                     }
-                } else if(board[i][j] == playerB) {
+                } else if(board[row][col] == secondPlayer) {
                     turns--;
-                    rows[i]--;
-                    cols[j]--;
-                    if(i == j) {
+                    rows[row]--;
+                    cols[col]--;
+                    if(row == col) {
                         diag--;
                     }
-                    if(i + j == 2) {
+                    if(row + col == 2) {
                         adiag--;
                     }
                 } else {
                     // invalid characters in the board
-                    return false;
+                    System.out.println("Invalid Player entries");
                 }
             }
         }
 
         boolean playerAWin = rows[0] == 3 || rows[1] == 3 || rows[2] == 3 ||
-                         cols[0] == 3 || cols[1] == 3 || cols[2] == 3 ||
-                         adiag == 3 || adiag == 3;
+                cols[0] == 3 || cols[1] == 3 || cols[2] == 3 ||
+                diag == 3 || adiag == 3;
 
         boolean playerBWin = rows[0] == -3 || rows[1] == -3 || rows[2] == -3 ||
                 cols[0] == -3 || cols[1] == -3 || cols[2] == -3 ||
-                adiag == -3 || adiag == -3;
+                diag == -3 || adiag == -3;
 
-        // skewed number of turns
-        if(turns != 0 && turns != 1) {
-            return false;
+        if(turns != 0 && turns != 1 && turns != -1) {
+            System.out.println("Unequal number of entries");
+            return;
         }
 
         if(playerAWin && turns != 1) {
-            return false;
+            System.out.println("Player A cannot win in other person turn");
+            return;
         }
 
         if(playerBWin && turns != 0) {
-            return false;
+            System.out.println("Player B cannot win in other person turn");
+            return;
         }
 
         if(playerAWin && playerBWin) {
-            return false;
+            System.out.println("Both player cannot win");
+            return;
         }
-        return true;
+
+        if(playerAWin) {
+            System.out.println("Winner: Player A");
+        } else if(playerBWin) {
+            System.out.println("Winner: Player B");
+        } else {
+            System.out.println("Unknown state should not be reached");
+        }
+    }
+
+    public static void main(String[] args) {
+        ticTacToe("Board1", null, 'a', 'b');
+        char[][] board2 = {{'a', 'b', 'a'}, {'b', 'a', 'b'}, {'a', 'b', 'a'}};
+        ticTacToe("Board2", board2, 'a', 'b');
     }
 
 }
