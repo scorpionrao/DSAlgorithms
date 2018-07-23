@@ -11,10 +11,12 @@ public class CombinationPalindrome {
         Output: [{String 1, String 2}]
 
         for each pair {
-            concatenate
-            isPalindrome
-            add it to result
+            concatenate pair of strings
+            if(isPalindrome(concatenate)) {
+                add it to result
+            }
         }
+        return result
      */
 
     public static class Result {
@@ -37,24 +39,27 @@ public class CombinationPalindrome {
 
     public static class Solution {
 
+        /* O(N^2) */
         public List<Result> getResult(List<String> inputs) {
             List<Result> results = new ArrayList();
             for(int i = 0; i < inputs.size(); i++) {
                 for(int j = i+1; j < inputs.size(); j++) {
-                    if(isPalindrome(inputs.get(i), inputs.get(j))) {
-                        results.add(new Result(inputs.get(i), inputs.get(j)));
+                    Result result = new Result(inputs.get(i), inputs.get(j));
+                    if(isPalindrome(result)) {
+                        results.add(result);
                     }
                 }
             }
             return results;
         }
 
-        public boolean isPalindrome(String str1, String str2) {
-            if(str1 == null || str2 == null) {
+        public boolean isPalindrome(Result result) {
+            if(result.getStr1() == null || result.getStr2() == null) {
                 return false;
             }
-            String combinedString = str1 + str2;
+            String combinedString = result.getStr1() + result.getStr2();
 
+            /* O((L1+L2)/2) --> O(L1+L2) */
             for(int i = 0; i < combinedString.length() / 2; i++) {
                 char leftChar = combinedString.charAt(i);
                 char rightChar = combinedString.charAt(combinedString.length() - i - 1);
