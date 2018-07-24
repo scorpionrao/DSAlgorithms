@@ -12,7 +12,7 @@ public class CombinationPalindrome {
 
         for each pair {
             concatenate pair of strings
-            if(isPalindrome(concatenate)) {
+            if(isPalindrome1(concatenate)) {
                 add it to result
             }
         }
