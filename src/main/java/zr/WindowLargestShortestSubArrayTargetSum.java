@@ -140,7 +140,8 @@ public class WindowLargestShortestSubArrayTargetSum {
                 int targetKey = Math.abs(target - sum);
                 if(sumIndexMap.containsKey(targetKey)) {
                     int targetSumLength = end - sumIndexMap.get(targetKey);
-                    if(minLength > targetSumLength) {
+                    // additional check to ensure, ZERO does not change the sum but shrinking is wrong.
+                    if(inputArray[end] != 0 && minLength > targetSumLength) {
                         minLength = targetSumLength;
                     }
                 }
