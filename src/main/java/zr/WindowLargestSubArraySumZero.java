@@ -29,18 +29,16 @@ public class WindowLargestSubArraySumZero {
 
             Time complexity - O(N^3)
          */
-        public int largestArraySizeMinorOptimization(int[] inputArray) {
+        public int largestArraySizeMinorOptimization(int[] inputArray, int target) {
 
             if(inputArray == null || inputArray.length == 0) {
                 return 0;
             }
 
             /* windowSize address both longest window and return values. index is not required. */
-            int maxLength = 0;
-            int counter = 0;
+            int maxLength = Integer.MIN_VALUE;
             for(int startWindow = 0; startWindow < inputArray.length; startWindow++) {
                 for(int endWindow = startWindow; endWindow < inputArray.length; endWindow++) {
-                    //System.out.println("Counter: " + ++counter + ", " + startWindow + " " + endWindow);
                     /* optimize */
                     if(maxLength >= (endWindow - startWindow + 1)) {
                         continue;
@@ -50,7 +48,7 @@ public class WindowLargestSubArraySumZero {
                         sum = sum + inputArray[i];
                     }
                     /* isCandidate */
-                    if(sum == 0) {
+                    if(sum == target) {
                         /* improvement ? */
                         if(maxLength < (endWindow-startWindow+1)) {
                             maxLength = endWindow - startWindow + 1;
@@ -61,44 +59,116 @@ public class WindowLargestSubArraySumZero {
             return maxLength;
         }
 
+        public int shortestArraySizeMinorOptimization(int[] inputArray, int target) {
+
+            if(inputArray == null || inputArray.length == 0) {
+                return 0;
+            }
+
+            /* windowSize address both longest window and return values. index is not required. */
+            int minLength = Integer.MAX_VALUE;
+            for(int startWindow = 0; startWindow < inputArray.length; startWindow++) {
+                for(int endWindow = startWindow; endWindow < inputArray.length; endWindow++) {
+                    /* optimize */
+                    if(minLength < (endWindow - startWindow + 1)) {
+                        continue;
+                    }
+                    int sum = 0;
+                    for(int i = startWindow; i <= endWindow; i++) {
+                        sum = sum + inputArray[i];
+                    }
+                    /* isCandidate */
+                    if(sum == target) {
+                        /* improvement ? */
+                        if(minLength > (endWindow-startWindow+1)) {
+                            minLength = endWindow - startWindow + 1;
+                        }
+                    }
+                }
+            }
+            return minLength;
+        }
+
         /*
             Time complexity = O(N)
             Space complexity = O(N)
         */
-        public int largestArraySizeHighlyOptimized(int[] inputArray) {
+        public int largestArraySizeHighlyOptimized(int[] inputArray, int target) {
 
             if(inputArray == null || inputArray.length == 0) {
                 return 0;
             }
 
             int maxLength = Integer.MIN_VALUE;
-            int sumFromZero = 0;
+            int sum = 0;
             Map<Integer, Integer> sumIndexMap = new HashMap<>();
             sumIndexMap.put(0, -1);
             for(int end = 0; end < inputArray.length; end++) {
-                sumFromZero = sumFromZero + inputArray[end];
-
-                /* this means there is zero sum from "after the value" to "current index" */
-                if(sumIndexMap.containsKey(sumFromZero)) {
-                    int zeroSumLength = end - sumIndexMap.get(sumFromZero);
-                    if(maxLength < zeroSumLength) {
-                        maxLength = zeroSumLength;
+                sum = sum + inputArray[end];
+                /* this means there is "target" sum from "after the value" to "current index" */
+                int targetKey = Math.abs(target - sum);
+                if(sumIndexMap.containsKey(targetKey)) {
+                    int targetSumLength = end - sumIndexMap.get(targetKey);
+                    if(maxLength < targetSumLength) {
+                        maxLength = targetSumLength;
                     }
                 } else {
-                    sumIndexMap.put(sumFromZero, end);
+                    // as left as possible for longest problems
+                    sumIndexMap.put(sum, end);
                 }
             }
             return maxLength;
         }
 
-        public void evaluate(int[] inputArray) {
+        /*
+            Time complexity = O(N)
+            Space complexity = O(N)
+        */
+        public int shortestArraySizeHighlyOptimized(int[] inputArray, int target) {
+
+            if(inputArray == null || inputArray.length == 0) {
+                return 0;
+            }
+
+            int minLength = Integer.MAX_VALUE;
+            int sum = 0;
+            Map<Integer, Integer> sumIndexMap = new HashMap<>();
+            sumIndexMap.put(0, -1);
+            for(int end = 0; end < inputArray.length; end++) {
+                sum = sum + inputArray[end];
+                /* this means there is "target" sum from "after the value" to "current index" */
+                int targetKey = Math.abs(target - sum);
+                if(sumIndexMap.containsKey(targetKey)) {
+                    int targetSumLength = end - sumIndexMap.get(targetKey);
+                    if(minLength > targetSumLength) {
+                        minLength = targetSumLength;
+                    }
+                }
+
+                // as right as possible so always update
+                sumIndexMap.put(sum, end);
+            }
+            return minLength;
+        }
+
+
+        public void evaluate(int[] inputArray, int target) {
             System.out.println(Arrays.toString(inputArray));
+
             /* O(N^3) */
-            int minorOptimized = largestArraySizeMinorOptimization(inputArray);
-            System.out.println("Minor optimization: " + minorOptimized);
+            int largestMinorOptimized = largestArraySizeMinorOptimization(inputArray, target);
+            System.out.println("Largest Minor optimization: " + largestMinorOptimized);
             /* O(N) */
-            int highlyOptimized = largestArraySizeHighlyOptimized(inputArray);
-            System.out.println("Highly optimization: " + highlyOptimized);
+            int largestHighlyOptimized = largestArraySizeHighlyOptimized(inputArray, target);
+            System.out.println("Largest Highly optimization: " + largestHighlyOptimized);
+
+
+            /* O(N^3) */
+            int shortestMinorOptimized = shortestArraySizeMinorOptimization(inputArray, target);
+            System.out.println("Shortest Minor optimization: " + shortestMinorOptimized);
+            /* O(N) */
+            int shortestHighlyOptimized = shortestArraySizeHighlyOptimized(inputArray, target);
+            System.out.println("Shortest Highly optimization: " + shortestHighlyOptimized);
         }
     }
 
@@ -107,10 +177,15 @@ public class WindowLargestSubArraySumZero {
     public static void main(String[] args) {
 
         Solution solution = new WindowLargestSubArraySumZero().new Solution();
-        int[] inputArray1 = {4, -3, 0, 6, 1, -2, -2};
-        solution.evaluate(inputArray1);
+        int[] inputArray1 = {4, 3, 0, 6, 1, 2, 2};
+        // zero sum problem
+        solution.evaluate(inputArray1, 10); // 6
 
-        int[] inputArray2 = {5, 0, -5};
-        solution.evaluate(inputArray2);
+        int[] inputArray2 = {5, 0, 5};
+        solution.evaluate(inputArray2, 10); // 3
+
+        int[] inputArray3 = {5, 1, 6, 12, 0, 6};
+        // target 6 problem
+        solution.evaluate(inputArray3, 12); //6
     }
 }
