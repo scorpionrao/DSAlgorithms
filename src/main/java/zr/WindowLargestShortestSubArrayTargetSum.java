@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WindowLargestSubArraySumZero {
+public class WindowLargestShortestSubArrayTargetSum {
 
     public class Solution {
 
@@ -176,7 +176,7 @@ public class WindowLargestSubArraySumZero {
 
     public static void main(String[] args) {
 
-        Solution solution = new WindowLargestSubArraySumZero().new Solution();
+        Solution solution = new WindowLargestShortestSubArrayTargetSum().new Solution();
         int[] inputArray1 = {4, 3, 0, 6, 1, 2, 2};
         // zero sum problem
         solution.evaluate(inputArray1, 10); // 6
