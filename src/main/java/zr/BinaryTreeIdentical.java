@@ -66,55 +66,188 @@ public class BinaryTreeIdentical {
             return 0;
         }
 
-        public void isIdenticalIterativeVoid(Node root1, Node root2) {
+        /* Verify with Inorder Traversal */
+        public void isIdenticalIterativeVoid1(Node leftRoot, Node rightRoot) {
+
             // covers null or same tree
-            if(root1 == root2) {
+            if(leftRoot == rightRoot) {
+                System.out.println("Iterative Void InOrder - " + true);
                 return;
             }
 
             Stack<Node> leftStack = new Stack<>();
             Stack<Node> rightStack = new Stack<>();
 
-            System.out.println();
-            /* traverse the tree */
-            while (root1 != null && root2 != null
-                    || !leftStack.isEmpty() && !rightStack.isEmpty()) {
+            Node leftCurrent = leftRoot;
+            Node rightCurrent = rightRoot;
 
-                while (root1 !=  null && root2 != null) {
-                    leftStack.push(root1);
-                    rightStack.push(root2);
-                    root1 = root1.left;
-                    root2 = root2.left;
+            /* traverse the tree */
+            while(
+                    (leftCurrent != null && rightCurrent != null) || (!leftStack.isEmpty() && !rightStack.isEmpty())
+                  ) {
+
+                while (leftCurrent !=  null && rightCurrent != null) {
+                    leftStack.push(leftCurrent);
+                    rightStack.push(rightCurrent);
+                    leftCurrent = leftCurrent.left;
+                    rightCurrent = rightCurrent.left;
                 }
 
-                root1 = leftStack.pop();
-                root2 = rightStack.pop();
-
-                /* DATA discrepancy */
-                if(root1.data != root2.data) {
-                    System.out.println("Trees are not identifical");
+                /*
+                    STRUCTURE discrepancy
+                */
+                if(leftCurrent != null || rightCurrent != null) {
+                    /* One of the nodes is child of leaf and other is not */
+                    System.out.println("Iterative Void InOrder - " + false);
                     return;
                 }
 
-                root1 = root1.right;
-                root2 = root2.right;
+                leftCurrent = leftStack.pop();
+                rightCurrent = rightStack.pop();
+
+                /* DATA discrepancy - "InOrder" verification */
+                if(leftCurrent.data != rightCurrent.data) {
+                    System.out.println("Iterative Void InOrder - " + false);
+                    return;
+                }
+
+                leftCurrent = leftCurrent.right;
+                rightCurrent = rightCurrent.right;
             }
 
             /* Structure Discrepancy */
-            if(root1 == null || root2 == null || !leftStack.isEmpty() || !rightStack.isEmpty()) {
-                System.out.println("Trees are NOT identical");
+            if(leftCurrent != null || rightCurrent != null || !leftStack.isEmpty() || !rightStack.isEmpty()) {
+                System.out.println("Iterative Void InOrder - " + false);
             } else {
-                System.out.println("Trees are identical");
+                System.out.println("Iterative Void InOrder - " + true);
             }
         }
 
+        /* Verify without PreOrder Traversal */
+        public void isIdenticalIterativeVoid2(Node leftRoot, Node rightRoot) {
+
+            // covers null or same tree
+            if(leftRoot == rightRoot) {
+                System.out.println("Iterative Void PreOrder - " + true);
+                return;
+            }
+
+            Stack<Node> leftStack = new Stack<>();
+            Stack<Node> rightStack = new Stack<>();
+
+            Node leftCurrent = leftRoot;
+            Node rightCurrent = rightRoot;
+
+            /* traverse the tree */
+            while(
+                    (leftCurrent != null && rightCurrent != null) || (!leftStack.isEmpty() && !rightStack.isEmpty())
+                    ) {
+
+
+                /* DATA discrepancy - "PreOrder" verification */
+                if(leftCurrent != null && rightCurrent != null) {
+                    if (leftCurrent.data != rightCurrent.data) {
+                        System.out.println("Iterative Void PreOrder - " + false);
+                        return;
+                    }
+                }
+
+                while (leftCurrent !=  null && rightCurrent != null) {
+                    leftStack.push(leftCurrent);
+                    rightStack.push(rightCurrent);
+                    leftCurrent = leftCurrent.left;
+                    rightCurrent = rightCurrent.left;
+                }
+
+                /*
+                    STRUCTURE discrepancy
+                */
+                if(leftCurrent != null || rightCurrent != null) {
+                    /* One of the nodes is child of leaf and other is not */
+                    System.out.println("Iterative Void PreOrder - " + false);
+                    return;
+                }
+
+                leftCurrent = leftStack.pop();
+                rightCurrent = rightStack.pop();
+
+                leftCurrent = leftCurrent.right;
+                rightCurrent = rightCurrent.right;
+            }
+
+            /* Structure Discrepancy */
+            if(leftCurrent != null || rightCurrent != null || !leftStack.isEmpty() || !rightStack.isEmpty()) {
+                System.out.println("Iterative Void PreOrder - " + false);
+            } else {
+                System.out.println("Iterative Void PreOrder - " + true);
+            }
+        }
+
+        public void isMirrorIterativeVoid(Node leftRoot, Node rightRoot) {
+
+            // covers null or same tree
+            if(leftRoot == rightRoot) {
+                System.out.println("Iterative Void InOrder - " + true);
+                return;
+            }
+
+            Stack<Node> leftStack = new Stack<>();
+            Stack<Node> rightStack = new Stack<>();
+
+            Node leftCurrent = leftRoot;
+            Node rightCurrent = rightRoot;
+
+            /* traverse the tree */
+            while(
+                    (leftCurrent != null && rightCurrent != null) || (!leftStack.isEmpty() && !rightStack.isEmpty())
+                    ) {
+
+                while (leftCurrent !=  null && rightCurrent != null) {
+                    leftStack.push(leftCurrent);
+                    rightStack.push(rightCurrent);
+                    leftCurrent = leftCurrent.left;
+                    rightCurrent = rightCurrent.right;
+                }
+
+                /*
+                    STRUCTURE discrepancy
+                */
+                if(leftCurrent != null || rightCurrent != null) {
+                    /* One of the nodes is child of leaf and other is not */
+                    System.out.println("Iterative Void InOrder - " + false);
+                    return;
+                }
+
+                leftCurrent = leftStack.pop();
+                rightCurrent = rightStack.pop();
+
+                /* DATA discrepancy - "InOrder" verification */
+                if(leftCurrent.data != rightCurrent.data) {
+                    System.out.println("Iterative Void InOrder - " + false);
+                    return;
+                }
+
+                leftCurrent = leftCurrent.right;
+                rightCurrent = rightCurrent.left;
+            }
+
+            /* Structure Discrepancy */
+            if(leftCurrent != null || rightCurrent != null || !leftStack.isEmpty() || !rightStack.isEmpty()) {
+                System.out.println("Iterative Void InOrder - Mirror " + false);
+            } else {
+                System.out.println("Iterative Void InOrder - Mirror " + true);
+            }
+        }
 
         public void evaluate(Node root1, Node root2) {
             boolean recursionBoolean = isIdenticalRecursionBoolean(root1, root2);
             System.out.println("Recursion Boolean - " + recursionBoolean);
             int recursionInteger = isIdenticalRecursionInteger(root1, root2);
             System.out.println("Recursion Integer - " + recursionInteger);
-            isIdenticalIterativeVoid(root1, root2);
+            isIdenticalIterativeVoid1(root1, root2);
+            isIdenticalIterativeVoid2(root1, root2);
+            isMirrorIterativeVoid(root1, root2);
+            System.out.println();
         }
 
     }
@@ -133,7 +266,14 @@ public class BinaryTreeIdentical {
         root2.left.left = new Node(4);
         root2.left.right = new Node(5);
 
+        Node root3 = new Node(1);
+        root3.right = new Node(2);
+        root3.left = new Node(3);
+        root3.right.right = new Node(4);
+        root3.right.left = new Node(5);
+
         Solution solution = new Solution();
         solution.evaluate(root1, root2);
+        solution.evaluate(root1, root3);
     }
 }
