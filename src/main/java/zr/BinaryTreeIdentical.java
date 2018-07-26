@@ -35,12 +35,13 @@ public class BinaryTreeIdentical {
                 return true;
             }
 
-            if(node1 != null && node2 != null) {
-                return node1.data == node2.data
+            if(node1 == null || node2 == null) {
+                return false;
+            }
+
+            return node1.data == node2.data
                         && isIdenticalRecursionBoolean(node1.left, node2.left)
                         && isIdenticalRecursionBoolean(node2.right, node2.right);
-            }
-            return false;
         }
 
         public int isIdenticalRecursionInteger(Node root1, Node root2) {
@@ -239,6 +240,23 @@ public class BinaryTreeIdentical {
             }
         }
 
+        public boolean isSubTree(Node root1, Node root2) {
+
+            if(root2 == null) {
+                /* non-existing sub tree */
+                return true;
+            }
+
+            if(root1 == null) {
+                /* non-existing parent with existing sub tree */
+                return false;
+            }
+
+            return isIdenticalRecursionBoolean(root1, root2)
+                    || isSubTree(root1.left, root2)
+                    || isSubTree(root1.right, root2);
+        }
+
         public void evaluate(Node root1, Node root2) {
             boolean recursionBoolean = isIdenticalRecursionBoolean(root1, root2);
             System.out.println("Recursion Boolean - " + recursionBoolean);
@@ -272,8 +290,14 @@ public class BinaryTreeIdentical {
         root3.right.right = new Node(4);
         root3.right.left = new Node(5);
 
+        Node root4 = new Node(2);
+        root4.left = new Node(4);
+        root4.right = new Node(5);
+
         Solution solution = new Solution();
         solution.evaluate(root1, root2);
         solution.evaluate(root1, root3);
+
+        System.out.println("SubTree: " + solution.isSubTree(root1, root4));
     }
 }
