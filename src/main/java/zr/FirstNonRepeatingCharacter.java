@@ -29,35 +29,32 @@ public class FirstNonRepeatingCharacter {
         private static final int MAX_CHARS = 26;
 
         /*
-            Time complexity - O(N)
-            Space complexity - Array O(numDistinctChar), QUEUE O(N)
+            Time complexity - O(N + N)
+            Space complexity - Map O(N), QUEUE O(N)
          */
         public void queueBasedFirstNonRepeatingCharacter(String str) {
 
-            int[] frequency = new int[MAX_CHARS];
-            Arrays.fill(frequency, 0);
+            Map<Character, Integer> frequencyMap = new HashMap<>();
             Queue<Character> queue = new LinkedList<>();
 
             /* O(N) */
             for(int i = 0; i < str.length(); i++) {
-                char ch = str.charAt(i);
-                System.out.println("QUEUE: Reading Stream --> " + ch);
-                /* Reading Array - O(1) */
-                queue.add(ch);
-                frequency[ch - 'a']++;
-
-                while(!queue.isEmpty()) {
-                    if(frequency[queue.peek() - 'a'] > 1) {
-                        queue.remove();
-                    } else {
-                        System.out.println("QUEUE: " + str + " --> " + queue.peek());
-                        break;
-                    }
+                if (frequencyMap.containsKey(str.charAt(i))) {
+                    frequencyMap.put(str.charAt(i), frequencyMap.get(str.charAt(i)) + 1);
+                } else {
+                    frequencyMap.put(str.charAt(i), 1);
                 }
-                if(queue.isEmpty()) {
-                    System.out.println("DLL: " + str + " --> N/A");
+                queue.add(str.charAt(i));
+            }
+
+            while(!queue.isEmpty()) {
+                Character ch = queue.poll();
+                if(frequencyMap.get(ch) == 1) {
+                    System.out.println("QUEUE: " + str + " --> " + ch);
+                    return;
                 }
             }
+            System.out.println("QUEUE: " + str + " --> N/A");
         }
     }
 
