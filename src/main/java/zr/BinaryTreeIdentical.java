@@ -240,22 +240,38 @@ public class BinaryTreeIdentical {
             }
         }
 
-        public boolean isSubTree(Node root1, Node root2) {
+        /* O(m * n) - There is possibility that n times */
+        public boolean isSubTree(Node haystack, Node needle) {
 
-            if(root2 == null) {
+            if(needle == null) {
                 /* non-existing sub tree */
                 return true;
             }
 
-            if(root1 == null) {
+            if(haystack == null) {
                 /* non-existing parent with existing sub tree */
                 return false;
             }
 
-            return isIdenticalRecursionBoolean(root1, root2)
-                    || isSubTree(root1.left, root2)
-                    || isSubTree(root1.right, root2);
+            return isIdenticalRecursionBoolean(haystack, needle)
+                    || isSubTree(haystack.left, needle)
+                    || isSubTree(haystack.right, needle);
         }
+
+        /* O(n) */
+        public boolean isSubTreeOptimized(Node haystack, Node needle) {
+
+            /*
+                inOrderHaystack
+                inOrderNeedle
+                preOrderHaystack
+                preOrderNeedle
+
+                return inOrderHaystack.contains(inOrderNeedle) && preOrderHaystack.contains(preOrderNeedle);
+             */
+            return false;
+        }
+
 
         public void evaluate(Node root1, Node root2) {
             boolean recursionBoolean = isIdenticalRecursionBoolean(root1, root2);
@@ -299,5 +315,6 @@ public class BinaryTreeIdentical {
         solution.evaluate(root1, root3);
 
         System.out.println("SubTree: " + solution.isSubTree(root1, root4));
+        System.out.println("SubTree Optimized: " + solution.isSubTreeOptimized(root1, root4));
     }
 }
