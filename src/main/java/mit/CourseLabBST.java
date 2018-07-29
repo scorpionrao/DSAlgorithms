@@ -32,6 +32,8 @@ public class CourseLabBST {
 		if(Math.abs(root.val - newVal) < minGap) {
 			return;
 		}
+
+        // fantastic implementation for a stream
 		root.size++;
 		// End of Process
 		if(newVal < root.val) {
@@ -48,23 +50,44 @@ public class CourseLabBST {
 			}
 		}
 	}
-	
-	public static void calculateCountLessThan(Node root, int k) {
+
+	public static void calculateCountLessThanRecursion(Node root, int k) {
+		int[] count = new int[1];
+		calculateCountLessThanRecursion(root, k, count);
+		System.out.println("Recursion: Count of values less than " + k + " = " + count[0]);
+	}
+
+	public static void calculateCountLessThanRecursion(Node root, int k, int[] count) {
+		if(root == null || root.val > k) {return;}
+		calculateCountLessThanRecursion(root.leftChild, k, count);
+		count[0]++;
+		calculateCountLessThanRecursion(root.rightChild, k, count);
+	}
+
+	public static void calculateCountLessThanIterative(Node root, int target) {
 		
 		int count = 0;
 		
 		while(root != null) {
-			if(k < root.val) {
+            /* examine all left nodes before adding '1' for current node */
+			if(target < root.val) {
 				root = root.leftChild;
 			} else {
+
+                /* Target >= root */
+
+                /* Blindly add left child size */
+                if(root.leftChild != null) {
+                    count = count + root.leftChild.size;
+                }
+
+                /* ADD '1' for root node */
 				count = count + 1;
-				if(root.leftChild != null) {
-					count = count + root.leftChild.size;
-				}
+
 				root = root.rightChild;
 			}
 		}
-		System.out.println("Count of values less than " + k + " = " + count);
+		System.out.println("Iterative: Count of values less than " + target + " = " + count);
 	}
 	
 	public static void main(String[] args) {
@@ -79,6 +102,7 @@ public class CourseLabBST {
 		insert(root, 1, 2);
 		preOrderTraversal(root);
 		System.out.println();
-		calculateCountLessThan(root, 10);
+		calculateCountLessThanRecursion(root, 10);
+		calculateCountLessThanIterative(root, 10);
 	}
 }
