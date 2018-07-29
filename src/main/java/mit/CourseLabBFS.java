@@ -4,103 +4,145 @@ import java.util.*;
 
 public class CourseLabBFS {
 
-    public static void bfs(Integer root, List<Integer>[] adjList) {
+    private static void bfsVisit(int rootNode, List<Integer>[] adjList) {
+
+        int numOfNodes = adjList.length;
+        boolean[] visited = new boolean[numOfNodes];
+        Queue<Integer> acrossFrontiers = new LinkedList<>();
+
+        acrossFrontiers.add(rootNode);
+        visited[rootNode] = true;
+
+        while(!acrossFrontiers.isEmpty()) {
+            Integer rootIndex = acrossFrontiers.poll();
+            System.out.println(rootIndex);
+            adjList[rootIndex]
+                    .stream()
+                    .filter(oppositeIndex -> !visited[oppositeIndex])
+                    .forEach(oppositeIndex -> {
+                        visited[oppositeIndex] = true;
+                        acrossFrontiers.offer(oppositeIndex);
+                    });
+        }
+    }
+
+    public static void bfsWithoutQueueWithArrayForLevelAndParent(int rootNode, List<Integer>[] adjList) {
+
+        int[] level = new int[adjList.length];
+        int[] parent = new int[adjList.length];
+        Arrays.fill(parent, -1);
+        int currentLevel = 0;
+
+        List<Integer> frontier = new ArrayList<>();
+        frontier.add(rootNode);
+        level[rootNode] = currentLevel;
+        parent[rootNode] = -1;
+
+
+        while(!frontier.isEmpty()) {
+            List<Integer> nextLevelSet = new ArrayList<>();
+            for(Integer rootVertex : frontier) {
+                for(Integer oppositeVertex : adjList[rootVertex]) {
+                    if(parent[oppositeVertex] == -1) {
+                        level[oppositeVertex] = currentLevel + 1;
+                        parent[oppositeVertex] = rootVertex;
+                        nextLevelSet.add(oppositeVertex);
+                    }
+                }
+            }
+            frontier = nextLevelSet;
+            currentLevel++;
+        }
+        for(int i = 0; i < level.length; i++) {
+            System.out.println("Array Solution - Level[" + i + "]=" + level[i]);
+        }
+        for(int i = 0; i < parent.length; i++) {
+            System.out.println("Array Solution - Parent[" + i +"]=" + parent[i]);
+        }
+    }
+
+    public static void bfsWithoutQueueWithMapForLevelAndParent(int rootNode, List<Integer>[] adjList) {
+
         // represents both visited and level
         Map<Integer, Integer> levelMap = new HashMap<>();
-        levelMap.put(root, new Integer(0));
-        
         Map<Integer, Integer> parentMap = new HashMap<>();
-        parentMap.put(root, null);
-        
-        int i = 1;
         List<Integer> frontier = new ArrayList<>();
-        frontier.add(root);
-        
+        int currentLevel = 0;
+
+        frontier.add(rootNode);
+        levelMap.put(rootNode, currentLevel);
+        parentMap.put(rootNode, null);
+
         while(!frontier.isEmpty()) {
             List<Integer> nextLevelSet = new ArrayList<>();
             for(Integer u : frontier) {
                 for(Integer v : adjList[u]) {
                     if(parentMap.get(v) == null) {
-                        levelMap.put(v, new Integer(i));
+                        levelMap.put(v, currentLevel + 1);
                         parentMap.put(v, u);
                         nextLevelSet.add(v);
                     }
                 }
             }
             frontier = nextLevelSet;
-            i++;
+            currentLevel++;
         }
-        System.out.println(levelMap.toString());
-        System.out.println(parentMap.toString());
+        System.out.println("Map Solution - Levels - " + levelMap.toString());
+        System.out.println("Map Solution - Parent - " + parentMap.toString());
     }
-    
-    public static void bfs(int numOfInputs, List<Integer>[] adjList) {
-        
-        int[] level = new int[numOfInputs];
-        int[] parent = new int[numOfInputs];
-        Arrays.fill(parent, -1);
-        
-        int nextLevel = 1;
-        List<Integer> frontier = new ArrayList<>();
-        frontier.add(new Integer(0));
-        
-        while(!frontier.isEmpty()) {
-            List<Integer> nextLevelSet = new ArrayList<>();
-            for(Integer u : frontier) {
-                for(Integer v : adjList[u.intValue()]) {
-                    if(parent[v.intValue()] == -1) {
-                        level[v.intValue()] = nextLevel;
-                        parent[v.intValue()] = u.intValue();
-                        nextLevelSet.add(v);
-                    }
-                }
-            }
-            frontier = nextLevelSet;
-            nextLevel++;
-        }
-        for(int i = 0; i < level.length; i++) {
-            System.out.println("Level[" + i + "]=" + level[i]);
-        }
-        for(int i = 0; i < parent.length; i++) {
-            System.out.println("Parent[" + i +"]=" + parent[i]);
+
+    public static class Node {
+        int data;
+        int level;
+        int parent;
+        boolean visited;
+
+        public Node(int data) {
+            this.data = data;
+            this.level = -1;
+            this.parent = -1;
+            this.visited = false;
         }
     }
-    
-    public static void bfsVisit(int numOfInputs, List<Integer>[] adjList) {
-        
-        boolean[] visited = new boolean[numOfInputs];
-        visited[0] = true;
-        
-        Queue<Integer> acrossFrontiers = new LinkedList<>();
-        acrossFrontiers.add(new Integer(0));
-        
-        while(!acrossFrontiers.isEmpty()) {
-            Integer u = acrossFrontiers.poll();
-            for(Integer v : adjList[u.intValue()]) {
-            	if(!visited[v.intValue()]) {
-            		visited[v.intValue()] = true;
-            		acrossFrontiers.offer(v);
+
+    public static void bfsWithQueueForLevelAndParent(Node rootNode, List<Node>[] adjList) {
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(rootNode);
+        rootNode.level = 0;
+        rootNode.visited = true;
+        rootNode.parent = -1;
+
+        while(!queue.isEmpty()) {
+            Node node = queue.poll();
+            System.out.println(node.data);
+            for(Node end : adjList[node.data]) {
+                if(!end.visited) {
+                    queue.add(end);
+                    end.level = node.level + 1;
+                    end.visited = true;
+                    end.parent = node.data;
                 }
             }
         }
     }
-    
+
     
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int m = scanner.nextInt();
-        ArrayList<Integer>[] adj = (ArrayList<Integer>[])new ArrayList[n];
-        for (int i = 0; i < n; i++) {
-            adj[i] = new ArrayList<Integer>();
+        int numOfNodes = scanner.nextInt();
+        int numOfEdges = scanner.nextInt();
+        ArrayList<Integer>[] adj = (ArrayList<Integer>[])new ArrayList[numOfNodes];
+        for (int nodeIndex = 0; nodeIndex < numOfNodes; nodeIndex++) {
+            adj[nodeIndex] = new ArrayList<>();
         }
-        for (int i = 0; i < m; i++) {
-            int x, y;
-            x = scanner.nextInt();
-            y = scanner.nextInt();
-            adj[x].add(y);
+        for (int edgeIndex = 0; edgeIndex < numOfEdges; edgeIndex++) {
+            int rootIndex, oppositeIndex;
+            rootIndex = scanner.nextInt();
+            oppositeIndex = scanner.nextInt();
+            adj[rootIndex].add(oppositeIndex);
         }
-        bfs(new Integer(0), adj);
-        bfs(n, adj);
+        bfsWithoutQueueWithArrayForLevelAndParent(0, adj);
+        bfsWithoutQueueWithMapForLevelAndParent(0, adj);
     }
 }
