@@ -11,16 +11,16 @@ import java.util.List;
 public class CourseLabCountingSort {
 	
 	// O(N + range)
-	public static void countingSort(int[] input, int range) {
-		int[] counters = new int[range];
+	public static void countingSort(int[] input, int max) {
+		int[] frequencies = new int[max];
 		for(int i = 0; i < input.length; i++) {
-			counters[input[i]] = counters[input[i]] + 1;
+			frequencies[input[i]] = frequencies[input[i]] + 1;
 		}
 		List<Integer> list = new ArrayList<Integer>();
-		for(int i = 0; i < counters.length; i++) {
-			while(counters[i] != 0) {
+		for(int i = 0; i < frequencies.length; i++) {
+			while(frequencies[i] != 0) {
 				list.add(i);
-				counters[i]--;
+				frequencies[i]--;
 			}
 		}
 		System.out.println(list.toString());
