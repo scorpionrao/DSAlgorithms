@@ -4,7 +4,7 @@ import java.util.*;
 
 public class CourseLabBFS {
 
-    private static void bfsVisit(int rootNode, List<Integer>[] adjList) {
+    private static void bfsTraverse(int rootNode, List<Integer>[] adjList) {
 
         int numOfNodes = adjList.length;
         boolean[] visited = new boolean[numOfNodes];

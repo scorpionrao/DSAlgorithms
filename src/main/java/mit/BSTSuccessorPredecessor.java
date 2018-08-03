@@ -12,15 +12,28 @@ public class BSTSuccessorPredecessor {
 	}
 
 	/*
-        Recursion Psuedocode
+        Recursion:
+
+            Successor: Right child OR left most child of right child
 
             successor(target, root) {
                 if(target < root) {
-                    return successor(target, left child) OR root
+                    return successor(target, root.leftChild) OR root
                 } else {
-                    return successor(target, right child)
+                    return successor(target, root.rightChild)
                 }
             }
+
+            TARGET
+          /       \
+         /         \
+        /           \
+       L             R
+        \           /
+         \         /
+         PRED   SUCC
+
+
 	 */
 	public Node successor(Node root, Node target) {
 

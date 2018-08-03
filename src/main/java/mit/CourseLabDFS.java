@@ -7,7 +7,7 @@ public class CourseLabDFS {
 	/*
      * Theta(Adj[V])
      * 
-     * dfsOverEdges once for each vertex / few edges - pay O(Adj[V])
+     * dfsOverEdgesRecursion once for each vertex / few edges - pay O(Adj[V])
      *
      * INPUT - 8 8 0 1 0 2 0 3 1 2 1 4 4 7 2 5 3 6
      * 
@@ -22,15 +22,18 @@ public class CourseLabDFS {
         // PROCESS
         visited[sourceVertex] = true;
         parent[sourceVertex] = -1;
-    	dfsOverEdges(sourceVertex, adjList, parent, visited);
+    	dfsOverEdgesRecursion(sourceVertex, adjList, parent, visited);
 
         // POST
         System.out.println("Parent: " + Arrays.toString(parent));
         System.out.println("Visited: " + Arrays.toString(visited));
     }
-    
-    public static void dfsOverEdges(int sourceVertex, List<Integer>[] adjList,
-                                    int[] parent, boolean[] visited) {
+
+    /*
+        Theta(E)
+     */
+    public static void dfsOverEdgesRecursion(int sourceVertex, List<Integer>[] adjList,
+                                             int[] parent, boolean[] visited) {
     	// iterate over edges
     	for(Integer oppositeVertex : adjList[sourceVertex]) {
             System.out.println("Solving for: " + sourceVertex + " " + oppositeVertex);
@@ -38,7 +41,7 @@ public class CourseLabDFS {
                 parent[oppositeVertex] = sourceVertex;
                 visited[oppositeVertex] = true;
                 System.out.println("First Occurrence: " + oppositeVertex);
-                dfsOverEdges(oppositeVertex, adjList, parent, visited);
+                dfsOverEdgesRecursion(oppositeVertex, adjList, parent, visited);
             }
 
     	}
@@ -49,7 +52,7 @@ public class CourseLabDFS {
      * 
      * Visit once for each vertex - pay O(V)
      * 
-     * dfsOverEdges once for each vertex / few edges - pay O(Adj[V])
+     * dfsOverEdgesRecursion once for each vertex / few edges - pay O(Adj[V])
      * 
      */
     public static void multipleComponentDriver(int[] allVertex, List<Integer>[] adjList) {
@@ -64,14 +67,20 @@ public class CourseLabDFS {
 
         // NO POST PROCESSING
     }
-    // ALL COMPONENTS
+
+
+    /*
+        Theta(V+E)
+
+        ALL COMPONENTS
+     */
     public static void dfsOverVertexes(int[] allVertex, List<Integer>[] adjList,
                                        int[] parent, boolean[] visited) {
     	// iterate over vertexes
     	for(int i = 0; i < allVertex.length; i++) {
     		int sourceVertex = allVertex[i];
     		if(parent[sourceVertex] == -1 && visited[sourceVertex] == false) {
-                dfsOverEdges(sourceVertex, adjList, parent, visited);
+                dfsOverEdgesRecursion(sourceVertex, adjList, parent, visited);
     		}
 
     	}
@@ -79,37 +88,38 @@ public class CourseLabDFS {
 
 
     public static void topologicalSortDriver(List<Integer>[] adjList) {
+
         // PRE PROCESSING
     	// using finishingTimes for visited
-    	List<Integer> finishingTimes = new ArrayList<>();
+    	List<Integer> visitingTimes = new ArrayList<>();
 
         // PROCESS
-    	dfsOverVertexes(adjList, finishingTimes);
+    	dfsOverVertexes(adjList, visitingTimes);
 
         // POST PROCESSING
-    	Collections.reverse(finishingTimes);
-    	System.out.println(finishingTimes.toString());
+    	Collections.reverse(visitingTimes);
+    	System.out.println(visitingTimes.toString());
     }
+
     // O(V)
-    private static void dfsOverVertexes(List<Integer>[] adjList, List<Integer> finishingTimes) {
+    private static void dfsOverVertexes(List<Integer>[] adjList, List<Integer> visitingTimes) {
     	// iterate over vertexes
-    	for(int i = 0; i < adjList.length; i++) {
-            int sourceVertex = i;
-    		if(!finishingTimes.contains(i)) {
-    			dfsOverEdges(sourceVertex, adjList, finishingTimes);
+    	for(int listIndex = 0; listIndex < adjList.length; listIndex++) {
+    		if(!visitingTimes.contains(listIndex)) {
+    			dfsOverEdgesRecursion(listIndex, adjList, visitingTimes);
     		}
     	}
     }
+
     // O(adjList[v] = O(E)
-    private static void dfsOverEdges(int sourceVertex, List<Integer>[] adjList,
-                                     List<Integer> finishingTimes) {
+    private static void dfsOverEdgesRecursion(int sourceVertex, List<Integer>[] adjList,
+                                              List<Integer> visitingTimes) {
     	// iterate over edges
-    	for(Integer oppositeVertex : adjList[sourceVertex]) {
-    		if(!finishingTimes.contains(oppositeVertex)) {
-    			dfsOverEdges(oppositeVertex, adjList, finishingTimes);
-    		}
-    	}
-    	finishingTimes.add(new Integer(sourceVertex));
+        adjList[sourceVertex]
+                .stream()
+                .filter(oppositeVertex -> !visitingTimes.contains(oppositeVertex))
+                .forEach(oppositeVertex -> dfsOverEdgesRecursion(oppositeVertex, adjList, visitingTimes));
+    	visitingTimes.add(sourceVertex);
     }
     
     public static void main(String args[]) {
