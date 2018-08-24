@@ -17,12 +17,25 @@ public class PrimMSTSimple {
     public static class MST {
 
         /* Always vertices of the graph can be traversed in - O(V^2) */
+
+        /*
+
+            Edge    Weight
+            0 - 1    2
+            1 - 2    3
+            0 - 3    6
+            1 - 4    5
+            Start: 295512824189400, End: 295512825120967, TimeTaken: 931567ms, Adjacency Matrix
+            Start: 295512839128539, End: 295512839934306, TimeTaken: 805767ms, Adjacency List Array
+            Start: 295512840561456, End: 295512852377651, TimeTaken: 11816195ms, Adjacency List Map
+
+         */
         void primMSTAdjacencyMatrix(int[][] graph) {
-            /* Weak - Assumes index is weight, range restricted */
+            /* Actions - Add --> O(1), Update --> O(1) */
             int[] parentOrResult = new int[graph.length];
-            /* Weak - Assumes index is weight, range restricted */
+            /* Actions - Add --> O(1), Update --> O(1) */
             int[] adjustableWeights = new int[graph.length];
-            /* Weak - Assumes index is weight, range restricted */
+            /* Actions - Add --> O(1), Update --> O(1) */
             boolean[] mstSet = new boolean[graph.length];
 
             // Initialize all keys as INFINITE
@@ -52,12 +65,23 @@ public class PrimMSTSimple {
         }
 
         /*
-            - Solve the same for SPP (Dijkstra).
+
+            Edge    Weight
+            0 - 1    2
+            1 - 2    3
+            0 - 3    6
+            1 - 4    5
+            Start: 295512824189400, End: 295512825120967, TimeTaken: 931567ms, Adjacency Matrix
+            Start: 295512839128539, End: 295512839934306, TimeTaken: 805767ms, Adjacency List Array
+            Start: 295512840561456, End: 295512852377651, TimeTaken: 11816195ms, Adjacency List Map
+
          */
         void primMSTAdjListArray(ArrayList<Edge>[] adjList) {
-
+            /* Actions - Add --> O(1), Update --> O(1) */
             int[] parentOrResult = new int[adjList.length];
+            /* Actions - Add --> O(1), Update --> O(1) */
             int[] adjustable = new int[adjList.length];
+            /* Actions - Add --> O(1), Update --> O(1) */
             boolean[] mstSet = new boolean[adjList.length];
 
             Arrays.fill(adjustable, Integer.MAX_VALUE);
@@ -85,17 +109,27 @@ public class PrimMSTSimple {
         }
 
         /*
-            No range constraint from 0 to length. Can be any vertexID.
+
+            Edge    Weight
+            0 - 1    2
+            1 - 2    3
+            0 - 3    6
+            1 - 4    5
+            Start: 295512824189400, End: 295512825120967, TimeTaken: 931567ms, Adjacency Matrix
+            Start: 295512839128539, End: 295512839934306, TimeTaken: 805767ms, Adjacency List Array
+            Start: 295512840561456, End: 295512852377651, TimeTaken: 11816195ms, Adjacency List Map
+
          */
         void primMSTAdjListMap(ArrayList<Edge>[] adjList) {
-
-            Map<Integer, Integer> parentOrResult = new HashMap<>(adjList.length);
-            Map<Integer, Integer> adjustableWeights = new HashMap<>(adjList.length);
-            Map<Integer, Boolean> mstSet = new HashMap<>(adjList.length);
+            /* Actions - Add --> O(1), Update --> O(1) */
+            Map<Integer, Integer> parentOrResult = new HashMap<>();
+            /* Actions - Add --> O(1), Update --> O(1) */
+            Map<Integer, Integer> adjustableWeights = new HashMap<>();
+            /* Actions - Add --> O(1), Contains --> O(1) */
+            Set<Integer> mstSet = new HashSet<>();
 
             for(int vertex = 0; vertex < adjList.length; vertex++) {
                 adjustableWeights.put(vertex, Integer.MAX_VALUE);
-                mstSet.put(vertex, Boolean.FALSE);
             }
 
             adjustableWeights.put(0, 0);
@@ -104,16 +138,16 @@ public class PrimMSTSimple {
             // Solve one vertex per iteration
             while (!adjustableWeights.isEmpty()){
                 int rootVertex = minWeightMap(adjustableWeights, mstSet);
-                mstSet.put(rootVertex, Boolean.TRUE);
+                mstSet.add(rootVertex);
+                adjustableWeights.remove(rootVertex);
                 // Iterate over each edge
                 for(Edge edge : adjList[rootVertex]) {
-                    if(!mstSet.get(edge.oppositeVertex)
+                    if(!mstSet.contains(edge.oppositeVertex)
                             && edge.weight < adjustableWeights.get(edge.oppositeVertex)) {
                         parentOrResult.put(edge.oppositeVertex, rootVertex);
                         adjustableWeights.put(edge.oppositeVertex, edge.weight);
                     }
                 }
-                adjustableWeights.remove(rootVertex);
             }
 
             printMSTForMapForAdjList(parentOrResult, adjList);
@@ -123,9 +157,8 @@ public class PrimMSTSimple {
         void printMSTAdjListArray(int[] parentOrResult, ArrayList<Edge>[] adjList) {
             System.out.println("Edge    Weight");
             for(int vertex = 1; vertex < adjList.length; vertex++) {
-                ArrayList<Edge> edgeList = adjList[parentOrResult[vertex]];
                 int weight = 0;
-                for(Edge edge : edgeList) {
+                for(Edge edge : adjList[parentOrResult[vertex]]) {
                     if(edge.oppositeVertex == vertex) {
                         weight = edge.weight;
                     }
@@ -155,16 +188,16 @@ public class PrimMSTSimple {
             }
         }
 
-        int minWeightMap(Map<Integer, Integer> adjustableWeights, Map<Integer, Boolean> includedSet) {
+        int minWeightMap(Map<Integer, Integer> adjustableWeights, Set<Integer> includedSet) {
 
             int minValue = Integer.MAX_VALUE;
             int minIndex = -1;
 
             // O(N)
-            for (Map.Entry entry : adjustableWeights.entrySet()) {
-                if (!includedSet.get(entry.getKey()) && adjustableWeights.get(entry.getKey()) < minValue) {
-                    minValue = adjustableWeights.get(entry.getKey());
-                    minIndex = ((Integer) entry.getKey()).intValue();
+            for (Integer vertex : adjustableWeights.keySet()) {
+                if (!includedSet.contains(vertex) && adjustableWeights.get(vertex) < minValue) {
+                    minValue = adjustableWeights.get(vertex);
+                    minIndex = vertex.intValue();
                 }
             }
             return minIndex;
@@ -202,6 +235,7 @@ public class PrimMSTSimple {
                      9
         */
         PrimMSTSimple.MST mst = new PrimMSTSimple.MST();
+        /*
         int[][] adjMatrix = new int[][] {
                 {0, 2, 0, 6, 0},
                 {2, 0, 3, 8, 5},
@@ -209,34 +243,29 @@ public class PrimMSTSimple {
                 {6, 8, 0, 0, 9},
                 {0, 5, 7, 9, 0},
         };
+        */
+        int[][] adjMatrix = new int[][] {
+                {0, 10, 30},
+                {10, 0, 20},
+                {30, 20, 0}
+        };
 
         long start = System.nanoTime();
         mst.primMSTAdjacencyMatrix(adjMatrix);
         long end = System.nanoTime();
         print("Adjacency Matrix", start, end);
 
-        ArrayList<Edge>[] adjList = new ArrayList[5];
+        ArrayList<Edge>[] adjList = new ArrayList[adjMatrix.length];
         for(int i = 0; i < adjList.length; i++) {
             adjList[i] = new ArrayList<>();
         }
-        adjList[0].add(new Edge(1, 2));
-        adjList[0].add(new Edge(3, 6));
-
-        adjList[1].add(new Edge(0, 2));
-        adjList[1].add(new Edge(2, 3));
-        adjList[1].add(new Edge(3, 8));
-        adjList[1].add(new Edge(4, 5));
-
-        adjList[2].add(new Edge(1, 3));
-        adjList[2].add(new Edge(4, 7));
-
-        adjList[3].add(new Edge(0, 6));
-        adjList[3].add(new Edge(1, 8));
-        adjList[3].add(new Edge(4, 9));
-
-        adjList[4].add(new Edge(1, 5));
-        adjList[4].add(new Edge(2, 7));
-        adjList[4].add(new Edge(3, 9));
+        for(int i = 0; i < adjMatrix.length; i++) {
+            for(int j = 0; j < adjMatrix[i].length; j++) {
+                if(adjMatrix[i][j] != 0) {
+                    adjList[i].add(new Edge(j, adjMatrix[i][j]));
+                }
+            }
+        }
 
         start = System.nanoTime();
         mst.primMSTAdjListArray(adjList);

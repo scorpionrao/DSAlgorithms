@@ -13,6 +13,7 @@ public class CourseLabBFS {
         acrossFrontiers.add(rootNode);
         visited[rootNode] = true;
 
+        /* nodes considered visited once it is added to queue */
         while(!acrossFrontiers.isEmpty()) {
             Integer rootIndex = acrossFrontiers.poll();
             System.out.println(rootIndex);

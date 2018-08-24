@@ -13,27 +13,8 @@ public class BSTSuccessorPredecessor {
 
 	/*
         Recursion:
-
-            Successor: Right child OR left most child of right child
-
-            successor(target, root) {
-                if(target < root) {
-                    return successor(target, root.leftChild) OR root
-                } else {
-                    return successor(target, root.rightChild)
-                }
-            }
-
-            TARGET
-          /       \
-         /         \
-        /           \
-       L             R
-        \           /
-         \         /
-         PRED   SUCC
-
-
+            If target < root, successor is in left tree or root.
+            If target >= root, successor is in right tree.
 	 */
 	public Node successor(Node root, Node target) {
 
@@ -48,10 +29,9 @@ public class BSTSuccessorPredecessor {
                 printReturn(root, left, "left");
                 return left;
             } else {
-                printReturn(root, root, "left");
+                printReturn(root, root, "root");
                 return root;
             }
-            // return (left != null) ? left : root;
         } else {
             printForward(root, target, "right");
             Node result = successor(root.right, target);
@@ -60,6 +40,11 @@ public class BSTSuccessorPredecessor {
         }
     }
 
+    /*
+        Recursion:
+            If target <= root, predecessor is in "left tree".
+            If target > root, predecessor is in "right tree" or "root".
+     */
     public Node predecessor(Node root, Node target) {
 
         if(root == null) {
@@ -86,14 +71,14 @@ public class BSTSuccessorPredecessor {
     }
 
     public void printForward(Node root, Node target, String direction) {
-        System.out.println(String.format("Target: %d, Root: %d,\t Moving: %s", target.val, root.val, direction));
+        //System.out.println(String.format("Target: %d, Root: %d,\t Moving: %s", target.val, root.val, direction));
     }
 
     public void printReturn(Node root, Node result, String direction) {
         if(result != null) {
-            System.out.println(String.format("Result: %d, Root: %d,\t Returning: %s", result.val, root.val, direction));
+            //System.out.println(String.format("Result: %d, Root: %d,\t Returning: %s", result.val, root.val, direction));
         } else {
-            System.out.println(String.format("Result: NULL, Root: %d,\t Returning: %s", root.val, direction));
+            //System.out.println(String.format("Result: NULL, Root: %d,\t Returning: %s", root.val, direction));
         }
     }
 
