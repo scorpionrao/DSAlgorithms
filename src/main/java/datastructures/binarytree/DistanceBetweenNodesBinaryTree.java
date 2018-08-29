@@ -1,7 +1,7 @@
-package mit;
+package datastructures.binarytree;
 
 public class DistanceBetweenNodesBinaryTree {
-	
+
 	public static class Node {
 		int key;
 		Node left;
@@ -12,10 +12,6 @@ public class DistanceBetweenNodesBinaryTree {
 	}
 
 	public static class Tree {
-
-		int key1Level;
-		int key2Level;
-		int dist = 0;
 
         /* Time Complexity - O(n) */
         private int findLevelBinaryTree(Node root, int key, int currentLevel) {
@@ -46,28 +42,28 @@ public class DistanceBetweenNodesBinaryTree {
 		}
 
         /* Time Complexity - O(N) */
-		private Node findLeastCommonAncestor(Node root, int key1, int key2, int currentLevel) {
+		private Node findLeastCommonAncestor(Node root, int key1, int key2, int currentLevel, int[] keyLevelAndDistance) {
 			if(root == null) {
 				return null;
 			}
             // System.out.println("Solving: root = " + root.key);
             if(root.key == key1) {
-				key1Level = currentLevel;
+                keyLevelAndDistance[0] = currentLevel;
                 /* targetFirstNode */
 				return root;
 			}
 			if(root.key == key2) {
-				key2Level = currentLevel;
+                keyLevelAndDistance[1] = currentLevel;
                 /* targetSecondNode */
 				return root;
 			}
 
-			Node anyTargetInLeftTree = findLeastCommonAncestor(root.left, key1, key2, currentLevel + 1);
-			Node anyTargetInRightTree = findLeastCommonAncestor(root.right, key1, key2, currentLevel + 1);
+			Node anyTargetInLeftTree = findLeastCommonAncestor(root.left, key1, key2, 1+currentLevel, keyLevelAndDistance);
+			Node anyTargetInRightTree = findLeastCommonAncestor(root.right, key1, key2, 1+currentLevel, keyLevelAndDistance);
 
 			if(anyTargetInLeftTree != null && anyTargetInRightTree != null) {
                 /* root is the LCA */
-				dist = key1Level + key2Level - (2 * currentLevel);
+                keyLevelAndDistance[2] = keyLevelAndDistance[0] + keyLevelAndDistance[1] - (2 * currentLevel);
 				return root;
 			}
 
@@ -77,44 +73,29 @@ public class DistanceBetweenNodesBinaryTree {
 			return anyTargetInLeftTree != null ? anyTargetInLeftTree : anyTargetInRightTree;
 		}
 
-        /* Time Complexity - O(N) */
+        /*
+
+
+            Time Complexity - O(N)
+        */
 		public int findDistance(Node root, int key1, int key2) {
 
-			// reset
-			key1Level = -1;
-			key2Level = -1;
-			dist = 0;
+            int[] keyLevelAndDistance = new int[3];
+			keyLevelAndDistance[0] = -1;
+			keyLevelAndDistance[1] = -1;
+            keyLevelAndDistance[2] = 0;
 
-			Node LCA = findLeastCommonAncestor(root, key1, key2, 1);
+			Node LCA = findLeastCommonAncestor(root, key1, key2, 1, keyLevelAndDistance);
 
-			if(key1Level != -1) {
-				if(key2Level != -1) {
-                    /*
-                        Both keys exist.
-                        Computed in findLeastCommonAncestor() method.
-                     */
-					return dist;
-				} else {
-                    /*
-                        Key 1 (LCA) is ROOT and also ancestor of Key 2
-                        Distance = Level of Key 2 in this tree.
-                     */
-					return findLevelBinaryTree(LCA, key2, 0);
-				}
-			} else {
-				if(key2Level != -1) {
-                    /*
-                        Key 2 (LCA) is ROOT and also ancestor of Key 1
-                        Distance = Level of Key 1 in this tree.
-                     */
-					return findLevelBinaryTree(LCA, key1, 0);
-				} else {
-                    /*
-                        Both Key 1 and Key 2 do NOT exist
-                     */
-					return -1;
-				}
-			}
+            if(LCA.key == key1) {
+                return findLevelBinaryTree(LCA, key2, 0);
+            } else if (LCA.key == key2) {
+                return findLevelBinaryTree(LCA, key1, 0);
+            } else if (keyLevelAndDistance[0] != -1 && keyLevelAndDistance[1] != -1) {
+                return keyLevelAndDistance[2];
+            } else {
+                return -1;
+            }
 		}
 	}
 
