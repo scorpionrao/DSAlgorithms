@@ -1,4 +1,4 @@
-package mit;
+package datastructures.binarysearchtree;
 
 public class BSTSuccessorPredecessor {
 	

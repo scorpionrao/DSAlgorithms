@@ -4,6 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class CourseLabPeak {
 
+	/* Time Complexity - O(N) */
 	public static void findPeakNaive(int[] array) {
 		long start = System.nanoTime();
 		boolean peakExists = false;
@@ -57,7 +58,7 @@ public class CourseLabPeak {
 		}
 
 		// Pre-process
-		int middle = start + (end - start) / 2;
+		int middle = (start + end) / 2;
 		boolean isTallerThanLeft = array[middle] > array[middle-1];
 		boolean isTallerThanRight = array[middle] > array[middle+1];
 
@@ -72,7 +73,7 @@ public class CourseLabPeak {
 	}
 
 	private static int findPeakElementOptimizedRecurse(int[][] array, int startColumn, int endColumn) {
-		if(startColumn <= endColumn) {
+		if(endColumn <= startColumn) {
 			int rowIndex = findMaxRowIndex(array, startColumn);
 			// in this case we want value
 			return array[rowIndex][startColumn];

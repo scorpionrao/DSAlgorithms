@@ -51,24 +51,24 @@ public class CourseLabBST {
 		}
 	}
 
-	public static void calculateCountLessThanRecursionVoid(Node root, int k) {
-		int[] count = new int[1];
-		calculateCountLessThanRecursion(root, k, count);
-		System.out.println("Recursion: Count of values less than " + k + " = " + count[0]);
+	public static void calculateCountLessThanRecursionVoid(Node root, int target) {
+		int[] dataStructure = new int[1];
+		calculateCountInOrderTraversal(root, target, dataStructure);
+		System.out.println("Recursion: Count of values less than " + target + " = " + dataStructure[0]);
 	}
 
-	private static void calculateCountLessThanRecursion(Node root, int k, int[] count) {
-		if(root == null || root.val > k) {return;}
-		calculateCountLessThanRecursion(root.leftChild, k, count);
-		count[0]++;
-		calculateCountLessThanRecursion(root.rightChild, k, count);
+	private static void calculateCountInOrderTraversal(Node root, int target, int[] dataStructure) {
+		if(root == null || root.val > target) {return;}
+		calculateCountInOrderTraversal(root.leftChild, target, dataStructure);
+		dataStructure[0]++;
+		calculateCountInOrderTraversal(root.rightChild, target, dataStructure);
 	}
 
-    public static int calculateCountLessThanRecursionInt(Node root, int k) {
-        if(root == null || root.val > k) {return 0;}
+    public static int calculateCountLessThanRecursionInt(Node root, int target) {
+        if(root == null || root.val > target) {return 0;}
         return 1 +
-                calculateCountLessThanRecursionInt(root.leftChild, k) +
-                calculateCountLessThanRecursionInt(root.rightChild, k);
+                calculateCountLessThanRecursionInt(root.leftChild, target) +
+                calculateCountLessThanRecursionInt(root.rightChild, target);
     }
 
     /* ASSUMPTION - Each node stores the size */

@@ -5,9 +5,9 @@ import java.util.*;
 public class CourseLabDFS {
 	
 	/*
-     * Theta(Adj[V])
+     * Time Complexity - O(E) - O(1) * E
      * 
-     * dfsOverEdgesRecursion once for each vertex / few edges - pay O(Adj[V])
+     * dfsOverEdgesRecursion once for each vertex / few edges - pay O(Adj[V]) = O(E)
      *
      * INPUT - 8 8 0 1 0 2 0 3 1 2 1 4 4 7 2 5 3 6
      * 
@@ -30,7 +30,7 @@ public class CourseLabDFS {
     }
 
     /*
-        Theta(E)
+        Time Complexity - O(E) --> O(1) * E
      */
     public static void dfsOverEdgesRecursion(int sourceVertex, List<Integer>[] adjList,
                                              int[] parent, boolean[] visited) {
@@ -48,9 +48,9 @@ public class CourseLabDFS {
     }
     
     /*
-     * Theta(V+E)
+     * Time Complexity - O(V+E)
      * 
-     * Visit once for each vertex - pay O(V)
+     * O(1) * V + O(1) * E
      * 
      * dfsOverEdgesRecursion once for each vertex / few edges - pay O(Adj[V])
      * 
@@ -70,7 +70,7 @@ public class CourseLabDFS {
 
 
     /*
-        Theta(V+E)
+        Time Complexity - O(V)
 
         ALL COMPONENTS
      */

@@ -45,17 +45,17 @@ public class CourseLabDP1Fibonacci {
 	
 	public static int recursionMemoized(int n, int[] memoized) {
 		// O(1) - will be encountered 2^n - n
-		if(memoized[n] != -1) {
-			return memoized[n];
+		if(memoized[n-1] != -1) {
+			return memoized[n-1];
 		}
 		if(n <= 2) {
-			memoized[n] = 1;
-			return memoized[n];
+			memoized[n-1] = 1;
+			return memoized[n-1];
 		}
 		
 		// recursion will be encountered O(N) times
-		memoized[n] = recursionMemoized(n-1, memoized) + recursionMemoized(n-2, memoized);
-		return memoized[n];
+		memoized[n-1] = recursionMemoized(n-1, memoized) + recursionMemoized(n-2, memoized);
+		return memoized[n-1];
 	}
 	
 	public static int recursionBottomUp(int n) {
@@ -77,19 +77,19 @@ public class CourseLabDP1Fibonacci {
 	}
 	
 	public static void main(String[] args) {
-		int n = 40;
+		int index = 40;
 		long start = System.currentTimeMillis();
-		System.out.println("NaiveTopDown = " + fibonacciNaiveTopDown(n));
+		System.out.println("NaiveTopDown = " + fibonacciNaiveTopDown(index));
 		long end = System.currentTimeMillis();
 		printTimeTaken(start, end);
 		
 		start = System.currentTimeMillis();
-		System.out.println("Memoized = " + recursionMemoized(n));
+		System.out.println("Memoized = " + recursionMemoized(index));
 		end = System.currentTimeMillis();
 		printTimeTaken(start, end);
 		
 		start = System.currentTimeMillis();
-		System.out.println("BottomUp = " + recursionBottomUp(n));
+		System.out.println("BottomUp = " + recursionBottomUp(index));
 		end = System.currentTimeMillis();
 		printTimeTaken(start, end);
 	}

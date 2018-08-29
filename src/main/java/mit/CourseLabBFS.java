@@ -4,13 +4,20 @@ import java.util.*;
 
 public class CourseLabBFS {
 
+    /*
+        Time complexity:
+        O(1) * V = O(V) for removing from queue.
+        O(1) * E = O(E) for adding other end of queue.
+
+        Total - O(V + E)
+     */
     private static void bfsTraverse(int rootNode, List<Integer>[] adjList) {
 
         int numOfNodes = adjList.length;
         boolean[] visited = new boolean[numOfNodes];
         Queue<Integer> acrossFrontiers = new LinkedList<>();
 
-        acrossFrontiers.add(rootNode);
+        acrossFrontiers.offer(rootNode);
         visited[rootNode] = true;
 
         /* nodes considered visited once it is added to queue */
@@ -21,8 +28,8 @@ public class CourseLabBFS {
                     .stream()
                     .filter(oppositeIndex -> !visited[oppositeIndex])
                     .forEach(oppositeIndex -> {
-                        visited[oppositeIndex] = true;
                         acrossFrontiers.offer(oppositeIndex);
+                        visited[oppositeIndex] = true;
                     });
         }
     }
@@ -133,17 +140,17 @@ public class CourseLabBFS {
         Scanner scanner = new Scanner(System.in);
         int numOfNodes = scanner.nextInt();
         int numOfEdges = scanner.nextInt();
-        ArrayList<Integer>[] adj = (ArrayList<Integer>[])new ArrayList[numOfNodes];
+        List<Integer>[] adjList = new ArrayList[numOfNodes];
         for (int nodeIndex = 0; nodeIndex < numOfNodes; nodeIndex++) {
-            adj[nodeIndex] = new ArrayList<>();
+            adjList[nodeIndex] = new ArrayList<>();
         }
         for (int edgeIndex = 0; edgeIndex < numOfEdges; edgeIndex++) {
             int rootIndex, oppositeIndex;
             rootIndex = scanner.nextInt();
             oppositeIndex = scanner.nextInt();
-            adj[rootIndex].add(oppositeIndex);
+            adjList[rootIndex].add(oppositeIndex);
         }
-        bfsWithoutQueueWithArrayForLevelAndParent(0, adj);
-        bfsWithoutQueueWithMapForLevelAndParent(0, adj);
+        bfsWithoutQueueWithArrayForLevelAndParent(0, adjList);
+        bfsWithoutQueueWithMapForLevelAndParent(0, adjList);
     }
 }

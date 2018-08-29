@@ -1,6 +1,7 @@
 package mit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -12,7 +13,13 @@ public class CourseLabCountingSort {
 	
 	// O(N + range)
 	public static void countingSort(int[] input, int max) {
+
+		if(input == null || input.length == 0) {
+			return;
+		}
+
 		int[] frequencies = new int[max];
+		Arrays.fill(frequencies, 0);
 		for(int i = 0; i < input.length; i++) {
 			frequencies[input[i]] = frequencies[input[i]] + 1;
 		}

@@ -12,6 +12,11 @@ public class CourseLabDP1ShortestPath {
 	 * time/subproblem:	Theta(1) + indegree(v)
 	 * 
 	 * Topological order: for k = 1 to |V| - 1, Theta(V*E) + Theta(V^2)
+	 *
+	 * https://github.com/scorpionrao/DSAlgorithms/blob/master/src/main/java/datastructures/priorityqueues/DjikstraSSPSimple.java
+	 *
 	 */
+
+
 
 }

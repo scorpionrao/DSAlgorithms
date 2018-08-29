@@ -11,41 +11,39 @@ public class CourseLabDP3Knapsack {
          int knapsackValue[][] = new int[numOfItems+1][maxBagSize+1];
 
          // Build table K[][] in bottom up manner
-         for (int kpIndex = 0; kpIndex <= numOfItems; kpIndex++) {
+         for (int itemIndex = 0; itemIndex <= numOfItems; itemIndex++) {
 
-             int itemIndex = kpIndex - 1;
+             for (int bagSize = 0; bagSize <= maxBagSize; bagSize++) {
 
-        	 for (int bagSize = 0; bagSize <= maxBagSize; bagSize++) {
-
-        		 if (kpIndex==0 || bagSize==0) {
+        		 if (itemIndex==0 || bagSize==0) {
                      // no items OR no weight allowed in backpack
                      // row 1 or column 1
-        			 knapsackValue[kpIndex][bagSize] = 0;
-        		 } else if (weights[itemIndex] > bagSize) {
+        			 knapsackValue[itemIndex][bagSize] = 0;
+        		 } else if (weights[itemIndex - 1] > bagSize) {
                      // bag cannot take at least 1 item at this index. Guess = NOT TAKE
                      /*
                         VARY (ONLY ONE) itemIndex (row) and look for best solution
                         use "previous best value", "without this item", "for this bag size"
                         same as this else case
                      */
-                     knapsackValue[kpIndex][bagSize] = knapsackValue[kpIndex - 1][bagSize];
+                     knapsackValue[itemIndex][bagSize] = knapsackValue[itemIndex - 1][bagSize];
                  } else {
                      // bag can take at least 1 item of at this index.
-                     int leftColumn = bagSize-weights[itemIndex];
+                     int leftColumn = bagSize-weights[itemIndex - 1];
                      /*
                         VARY (weight columns) - bagSize (column) and look for best solution.
                         Without changing bagSize,
                             "this value" + "best value" when "reduced by this weight"
                      */
-                     int guessTake = values[itemIndex] + knapsackValue[kpIndex][leftColumn];
+                     int guessTake = values[itemIndex - 1] + knapsackValue[itemIndex][leftColumn];
 
                      /*
                         VARY (ONLY ONE) itemIndex (row) and look for best solution.
                         use "previous best value" "without this item" "for this bag size"
                         same as this else case
                      */
-                     int guessNotTake = knapsackValue[kpIndex-1][bagSize];
-        			 knapsackValue[kpIndex][bagSize] = Math.max(guessNotTake, guessTake);
+                     int guessNotTake = knapsackValue[itemIndex-1][bagSize];
+        			 knapsackValue[itemIndex][bagSize] = Math.max(guessNotTake, guessTake);
         		 }
         	 }
 
