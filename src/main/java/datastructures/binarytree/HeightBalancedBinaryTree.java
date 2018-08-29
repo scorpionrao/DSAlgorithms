@@ -1,8 +1,9 @@
-package mit;
+package datastructures.binarytree;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
-public class HeightBalanced {
+public class HeightBalancedBinaryTree
+{
 	private static class Node {
 		int val;
 		int height;
