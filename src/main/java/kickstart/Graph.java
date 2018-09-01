@@ -31,20 +31,20 @@ public class Graph {
                                      - Useful values - O(|E|)
                                      - Not useful values - O(|V|^2 - |E|)
 
-                Time Complexity:C
+                Time Complexity:
                     1. Find edges for a vertex - scan the matrix row
-                    2. Does edge exist - O(1) - access edge existence or weight through direct index based access.
+                    2. Does edge exist - O(1) - access edge existence or weight through direct index based [][] access.
 
 
             DS3 - ADJACENCY LIST:
                 Space Complexity:
-                    1. Vertex and Edges - [heads] ( [LinkedLists] / [BST] / [array] )
+                    1. Vertex and Edges - [heads] ( [LinkedLists] / [ArrayLists] / [BST] / [array] )
                                         - O(|V|+|E|)
 
                 Time Complexity:
                     1. Find edges for a vertex - scan the nodes attached to the head.
                     2. [array of heads] gives O(1) random access to heads.
-                    3. [array of edges] - O(e) - e is the number of edges (cells) attached but "size" cannot change.
+                    3. [array of edges] - O(Adj|V|) - Adj|V| -  is the number of edges (cells) attached but "size" cannot change.
                     4. [linked list of edges] - O(e) - e is the number of edges.
                     5. [BST of edges] - "O(log e)" - e is the number of edges.
          */

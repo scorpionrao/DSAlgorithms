@@ -1,4 +1,8 @@
-package mit;
+package live;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class StringCombinations {
 	
@@ -21,6 +25,22 @@ public class StringCombinations {
 			getStringCombinationsPreOrder(remaining);
 		}
 	}
+
+	public static void getStringCombinations(String str) {
+		Set<String> set = new LinkedHashSet<>();
+		getStringCombinations(str, set);
+		System.out.println(set.toString());
+	}
+
+	public static void getStringCombinations(String str, Set<String> set) {
+		if(!str.isEmpty()) {
+			set.add(str);
+		}
+		for(int i = 0; i < str.length(); i++) {
+			String remaining = str.substring(0, i) + str.substring(i+1);
+			getStringCombinations(remaining, set);
+		}
+	}
 	
 	public static void main(String[] args) {
 		System.out.println("Post Order:");
@@ -28,5 +48,8 @@ public class StringCombinations {
 		System.out.println();
 		System.out.println("Pre Order:");
 		getStringCombinationsPreOrder("abc");
+		System.out.println();
+		System.out.println("Set:");
+		getStringCombinations("abc");
 	}
 }

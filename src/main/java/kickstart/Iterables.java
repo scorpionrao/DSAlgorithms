@@ -24,6 +24,32 @@ public class Iterables {
             linkedList.add("https://www.google.com");
         }
 
+        @Override
+        public Iterator<String> iterator() {
+            Iterator<String> it = new Iterator<String>() {
+
+                private int indexOfUrlForIterator = 0;
+
+                @Override
+                public boolean hasNext() {
+                    return indexOfUrlForIterator < linkedList.size();
+                }
+
+                @Override
+                public String next() {
+                    indexOfUrlForIterator++;
+                    return linkedList.get(indexOfUrlForIterator - 1);
+                }
+
+                @Override
+                public void remove() {
+                    linkedList.remove(indexOfUrlForIterator);
+                }
+            };
+            return it;
+        }
+
+        /*
         public class InnerClass implements Iterator<String> {
 
             private int indexOfUrlForIterator = 0;
@@ -60,13 +86,16 @@ public class Iterables {
                 linkedList.remove(indexOfUrlForIterator);
             }
         }
+        */
 
         // CREATE OWN ITERATOR
-        @Override
+        //@Override
+        /*
         public Iterator<String> iterator() {
             return new InnerClass();
             // return linkedList.iterator();
         }
+        */
     }
     public static void main(String[] args) {
         UrlLibrary library = new UrlLibrary();

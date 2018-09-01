@@ -4,27 +4,47 @@ import java.util.List;
 
 public class RecursionBacktracking {
 
-    public static class Configuration {
-        public static List choices;
-        public static boolean isGoalState;
-        public static void makeChoice(Object object){};
-        public static void unMakeChoice(Object object){};
+    public class Board {
+
+        public List<Object> cells;
+        public List<Object> choicesForEachCell;
+        public void make(Object choiceForCell){};
+        public void unMake(Object choiceForCell){};
+
+        public boolean isGoalState() {
+            // Is the end state OK ?
+            return false;
+        }
+
+        public boolean isSafe(Object choiceForCell) {
+            // Is it OK to make this choiceForCell per constraints ?
+            return false;
+        }
+
+        public boolean isAllCellSolved() {
+            return cells.isEmpty();
+        }
     }
 
-    public static boolean recurse(Configuration configuration) {
+    public class Game {
 
-        // BASE CASE
-        if(configuration.choices.isEmpty()) {
-            return configuration.isGoalState;
-        }
+        public boolean recursionBacktracking(Board board) {
 
-        for(Object obj : configuration.choices) {
-            configuration.makeChoice(obj);
-            if(recurse(configuration)) {
-                return true;
+            // BASE CASE
+            if (board.isAllCellSolved()) {
+                return board.isGoalState();
             }
-            configuration.unMakeChoice(obj);
+
+            for (Object choiceForCell : board.choicesForEachCell) {
+                if (board.isSafe(choiceForCell)) {
+                    board.make(choiceForCell);
+                    if (recursionBacktracking(board)) {
+                        return true;
+                    }
+                    board.unMake(choiceForCell);
+                }
+            }
+            return false;
         }
-        return false;
     }
 }

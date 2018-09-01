@@ -51,7 +51,7 @@ public class RecursionPermutations
         Decision    : Can we take a character ?
         Options     : Add each character
         Design      : return true/false
-        Backtracking: choose one option, recurse further
+        Backtracking: choose one option, recursionBacktracking further
         UnMake      : revert the change
         Base Case   : TRUE / Is it in Lexicon ?
         No options  : FALSE
@@ -67,7 +67,7 @@ public class RecursionPermutations
         for(int i = 0; i < remaining.length(); i++) {
             String prefix = soFar + remaining.charAt(i);
             String suffix = remaining.substring(0, i) + remaining.substring(i+1);
-            // Choose one option and recurse
+            // Choose one option and recursionBacktracking
             if(isAnagramInLexicon(prefix, suffix, lexicon)) {
                 return true;
             }

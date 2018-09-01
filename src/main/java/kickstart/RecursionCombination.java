@@ -1,7 +1,6 @@
 package kickstart;
 
-    public class RecursionCombination
-    {
+    public class RecursionCombination {
 
         public static void main(String[] args) {
             wrapper("abc");

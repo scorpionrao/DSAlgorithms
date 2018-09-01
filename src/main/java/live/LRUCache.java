@@ -1,4 +1,4 @@
-package mit;
+package live;
 import java.util.HashMap;
 public class LRUCache {
 	
@@ -17,7 +17,7 @@ public class LRUCache {
     private Node head, tail;
     private int count = 0;
     private int capacity = 0;
-    private HashMap<Integer, Node> cache;
+    public HashMap<Integer, Node> cache;
     
     public LRUCache(int capacity) {
         this.capacity = capacity;
@@ -33,9 +33,11 @@ public class LRUCache {
     public int get(int key) {
     	Node node = cache.get(key);
         if (node == null) {
+            print();
             return -1;
         } else {
             moveToHead(node);
+            print();
             return node.value;
         }
     }
@@ -56,6 +58,7 @@ public class LRUCache {
             node.value = value;
             moveToHead(node);
         }
+        print();
     }
     
     private void addToHead(Node node) {
@@ -79,17 +82,41 @@ public class LRUCache {
         removeNode(pre);
         return pre;
     }
-    
+
+    public void print() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.key + "-->");
+            current = current.next;
+        }
+        System.out.println();
+    }
+
+    /*
+        0-->2-->0-->
+        0-->1-->2-->0-->
+        0-->2-->1-->0-->
+        0-->4-->2-->0-->
+        0-->4-->2-->0-->
+        0-->2-->4-->0-->
+     */
     public static void main(String[] args) {
 		LRUCache cache = new LRUCache(2);
-
+        // cache - 2
 		cache.put(2, 1);
+        // cache - 1, 2
 		cache.put(1, 1);
-		cache.put(2, 3);
-		cache.put(4, 1);
-		
-		System.out.println(cache.get(1));
-		System.out.println(cache.get(2));
+        // cache - 2, 1
+        cache.put(2, 3);
+        // cache - 4, 2
+        cache.put(4, 1);
+
+        // cache - 4, 2
+		cache.get(1);
+        // cache - 2, 4
+		cache.get(2);
+
+
 	}
 
 }

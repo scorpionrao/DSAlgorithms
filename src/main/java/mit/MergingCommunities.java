@@ -11,9 +11,9 @@ public class MergingCommunities {
 		int q = sc.nextInt();
 
 		parent = new int[n];
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < n; i++) {
 			parent[i] = i;
-
+		}
 		size = new int[n];
 		Arrays.fill(size, 1);
 		System.out.println();

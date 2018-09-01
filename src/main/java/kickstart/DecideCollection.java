@@ -6,8 +6,7 @@ public class DecideCollection {
         1. What you need the collection to do.
         2. are you using the fastest collection for your purposes.
 
-        LISTS
-
+        LISTS:
         Objects remain in order.
         Elements indexed via an integer.
         Checking for particular item - slow.
@@ -18,8 +17,7 @@ public class DecideCollection {
         ArrayList - If you only add / remove items at the end of list.
         LinkedList - If add / remove items elsewhere in the list.
 
-        SETS
-
+        SETS:
         Only store unique values.
         Great for removing duplicates.
         Not indexed, unlike lists.
@@ -31,14 +29,11 @@ public class DecideCollection {
         LinkedHashSet - Elements retain insertion order.
 
 
-
-        MAPS
-
+        MAPS:
         Key Value lookups
         Retrieving item - fast.
         Iterating over maps - slow.
         Keys must implements hashCode() and equals()
-
 
         HashMap - Keys not in any particular order, order liable to change.
         TreeMap - Keys sorted in natural order.

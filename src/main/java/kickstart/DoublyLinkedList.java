@@ -11,22 +11,22 @@ public class DoublyLinkedList {
         }
     }
 
-    public Node globalFirstNode = null;
+    public Node HEAD = null;
 
     public void insertAtHead(int data) {
         Node newNode = new Node(data);
-        if(globalFirstNode == null) {
-            globalFirstNode = newNode;
+        if(HEAD == null) {
+            HEAD = newNode;
             return;
         }
-        globalFirstNode.prev = newNode;
-        newNode.next = globalFirstNode;
-        globalFirstNode = newNode;
+        HEAD.prev = newNode;
+        newNode.next = HEAD;
+        HEAD = newNode;
     }
 
     public void insertAtTail(int data) {
         Node newNode = new Node(data);
-        Node current = globalFirstNode;
+        Node current = HEAD;
         while (current.next != null) {
             current = current.next;
         }
@@ -56,13 +56,13 @@ public class DoublyLinkedList {
         DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
         doublyLinkedList.insertAtHead(5);
         doublyLinkedList.insertAtTail(6);
-        doublyLinkedList.printList(doublyLinkedList.globalFirstNode);
-        doublyLinkedList.reversePrintList(doublyLinkedList.globalFirstNode);
+        doublyLinkedList.printList(doublyLinkedList.HEAD);
+        doublyLinkedList.reversePrintList(doublyLinkedList.HEAD);
         System.out.println();
         doublyLinkedList.insertAtHead(2);
         doublyLinkedList.insertAtTail(8);
-        doublyLinkedList.printList(doublyLinkedList.globalFirstNode);
-        doublyLinkedList.reversePrintList(doublyLinkedList.globalFirstNode);
+        doublyLinkedList.printList(doublyLinkedList.HEAD);
+        doublyLinkedList.reversePrintList(doublyLinkedList.HEAD);
         System.out.println();
     }
 

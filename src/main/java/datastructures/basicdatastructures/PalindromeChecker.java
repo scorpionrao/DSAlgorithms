@@ -1,4 +1,4 @@
-package mit;
+package datastructures.basicdatastructures;
 
 public class PalindromeChecker {
 	

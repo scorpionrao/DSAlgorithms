@@ -17,14 +17,12 @@ public class ComparableSorting {
         }
 
         public int compareTo(Person person) {
-            Integer length1 = this.name.length();
-            Integer length2 = person.name.length();
-            if(length1 > length2) {
+            if(name.length() > person.name.length()) {
                 return 1;
-            } else if(length1 < length2) {
+            } else if(name.length() < person.name.length()) {
                 return -1;
             } else {
-                // KEY ELEMENT - ensures Equals and Comparable arrive at same result for equal length results.
+                // String comparison over weak Length comparison.
                 return this.getName().compareTo(person.getName());
             }
         }
@@ -48,15 +46,15 @@ public class ComparableSorting {
 
     public static void main(String[] args) {
 
-        List<Person> list = new ArrayList<>();
-        SortedSet<Person> set = new TreeSet<>();
+        Set<Person> unsortedSet = new LinkedHashSet<>();
+        SortedSet<Person> sortedSet = new TreeSet<>();
 
-        addElements(list);
-        addElements(set);
+        addElements(unsortedSet);
+        addElements(sortedSet);
 
-        showElements(list);
+        showElements(unsortedSet);
         System.out.println("*******************");
-        showElements(set);
+        showElements(sortedSet);
     }
 
     private static void addElements(Collection<Person> collection) {

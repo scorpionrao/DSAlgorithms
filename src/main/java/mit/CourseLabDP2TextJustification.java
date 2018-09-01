@@ -4,7 +4,7 @@ public class CourseLabDP2TextJustification {
 	
 	/*
 	 * Sub problems 				- # of subproblems
-	 * Guess						- # of choices
+	 * Guess						- # of choicesForEachCell
 	 * Relate subproblem solution 	- time per sub problem
 	 * Topological sort				- Recurse / Memoize, Bottom-up
 	 * Solve original problem
@@ -14,7 +14,7 @@ public class CourseLabDP2TextJustification {
 	 * Algorithm : Analysis (Fibonacci, Shortest Path)
 	 * 
 	 * Define Sub problems				: # of subproblems (n, V vertexes * V edges)		
-	 * Guess (part of solution)			: # of choices for guesses (nothing, last edges to V)
+	 * Guess (part of solution)			: # of choicesForEachCell for guesses (nothing, last edges to V)
 	 * Recurrence - Relate subproblem	: time / subproblem (definition itself, min/max(s->u)+w(u,v)
 	 * Recurse & Memoize OR Bottom up	: check sub problem recurrence is acyclic / has topological order
 	 * Solve the original problem		: O(N), O(VE)
@@ -26,7 +26,7 @@ public class CourseLabDP2TextJustification {
 	 * Sub problem	: suffixes of words. #subproblems - N. Only decision - what the words that remain.
 	 * (if the decision were - is it in or out (2^N), is it at the beginning of line or not (2^N))
 	 * 
-	 * Guess		: where to start 2nd line. # of choices <= n - i -> O(n)
+	 * Guess		: where to start 2nd line. # of choicesForEachCell <= n - i -> O(n)
 	 * Recurrence	: DP(i) = MIN { D(j) + badness(i, j) for j ~ i+1, n+1 }
 	 * 				  time / subproblem -> O(n)
 	 * 				  base case: DP(n) = 0

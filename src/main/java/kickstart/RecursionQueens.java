@@ -8,7 +8,7 @@ public class RecursionQueens {
         Decision    : can we find a place for queen in a column
         Options     : 8 rows
         Design      : return true/false
-        Backtracking: choose one option, recurse further
+        Backtracking: choose one option, recursionBacktracking further
         UnMake      : revert the change
         Base Case   : TRUE
         No options  : FALSE

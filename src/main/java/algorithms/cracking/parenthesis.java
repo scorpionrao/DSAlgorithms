@@ -9,10 +9,10 @@ public class parenthesis {
         if (leftRem == 0 && rightRem == 0) { /* all out of left and right parentheses */
             list.add(String.copyValueOf(str));
         } else {
-            str[index] = '('; // Add left and recurse
+            str[index] = '('; // Add left and recursionBacktracking
             addParen(list, leftRem - 1, rightRem, str, index + 1);
 
-            str[index] = ')'; // Add right and recurse
+            str[index] = ')'; // Add right and recursionBacktracking
             addParen(list, leftRem, rightRem - 1, str, index + 1);
         }
     }

@@ -33,7 +33,7 @@ public class CourseLabPeak {
 		find middle
 		look at neighbors - O(1)
 		if greater than neighbors - peak found - O(1)
-		else recurse
+		else recursionBacktracking
 
 		T(n) = O(1) + T(n/2)
 		T(n) = O(1) + O(1) + T(n/4)
@@ -62,7 +62,7 @@ public class CourseLabPeak {
 		boolean isTallerThanLeft = array[middle] > array[middle-1];
 		boolean isTallerThanRight = array[middle] > array[middle+1];
 
-		// Then decide - Stop, recurse left, recurse right
+		// Then decide - Stop, recursionBacktracking left, recursionBacktracking right
 		if(isTallerThanLeft && isTallerThanRight) {
 			return true;
 		} else if(!isTallerThanLeft){

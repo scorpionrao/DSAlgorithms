@@ -31,10 +31,8 @@ public class ComparatorSorting {
         Collections.sort(animals, new Comparator<String>(){
             @Override
             public int compare(String s1, String s2) {
-                Integer length1 = s1.length();
-                Integer length2 = s2.length();
                 // DESCENDING ORDER OF LENGTH
-                return length2.compareTo(length1);
+                return ((Integer) s2.length()).compareTo(s1.length());
             }
         });
         for(String name : animals) {
