@@ -1,19 +1,29 @@
 package kickstart;
 
-    public class RecursionCombination {
+public class RecursionCombination {
 
-        public static void main(String[] args) {
-            wrapper("abc");
-        }
+    public static void main(String[] args) {
+        wrapper("abc");
+    }
 
     public static void wrapper(String str) {
-        combinations(0, "L", "", str, 2);
+        int size = 2;
+        combinationsSimple("", str);
     }
 
     public static void indent(int level) {
         for(int i = 0; i < level; i++) {
             System.out.print("\t");
         }
+    }
+
+    public static void combinationsSimple(String soFar, String remaining) {
+        if(remaining.isEmpty()) {
+            System.out.println(soFar);
+            return;
+        }
+        combinationsSimple(soFar + remaining.charAt(0), remaining.substring(1));
+        combinationsSimple(soFar, remaining.substring(1));
     }
 
     // Procedural recursion

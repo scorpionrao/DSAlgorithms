@@ -1,11 +1,6 @@
 package live;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 public class AmazonProducts {
 	
@@ -15,6 +10,24 @@ public class AmazonProducts {
 		Product(int productId, String productName) {
 			this.productId = productId;
 			this.productName = productName;
+		}
+
+		@Override
+		public int hashCode() {
+			return this.productId;
+		}
+
+		@Override
+		public boolean equals(Object other) {
+			if(this == other) {return true;}
+
+			if(other == null) {return false;}
+
+			if(getClass() != other.getClass()) {
+				return false;
+			}
+
+			return this.productId == ((Product) other).productId;
 		}
 	}
 	
@@ -38,76 +51,52 @@ public class AmazonProducts {
 		}
 	}
 	
-	static enum Order {
-		PRE_ORDER, POST_ORDER
-	}
-	
 	static class ProductRetriever {
 		
 		Set<Product> bfsIterative(Category category) {
-			Set<Product> allProducts = new LinkedHashSet<>();
+			Set<Product> resultDS = new HashSet<>();
 			Queue<Category> queue = new LinkedList<>();
 			queue.offer(category);
 			while(!queue.isEmpty()) {
 				Category cat = queue.poll();
-				allProducts.addAll(cat.products);
+                // main category added first
+				resultDS.addAll(cat.products);
+                // first level child added next
 				for(Category subCategory : cat.subCategories) {
 					queue.offer(subCategory);
 				}
 			}
-			return allProducts;
+			return resultDS;
 		}
 		
-		Set<Product> dfsIterative(Category category, Order order) {
-			Set<Product> dataStructure = new LinkedHashSet<>();
+		Set<Product> dfsIterative(Category category) {
+			Set<Product> resultDS = new HashSet<>();
 			Stack<Category> stack = new Stack<>();
 			stack.push(category);
 			while(!stack.isEmpty()) {
-				process(stack, dataStructure, order);
-			}
-			return dataStructure;
+                Category cat = stack.pop();
+                for(Category subCategory : cat.subCategories) {
+                    stack.push(subCategory);
+                }
+                resultDS.addAll(cat.products);
+            }
+			return resultDS;
 		}
-		
-		void process(Stack<Category> stack, Set<Product> dataStructure, Order order) {
-			if(!stack.isEmpty()) {
-				Category cat = stack.pop();
-				if(Order.PRE_ORDER == order) {
-					dataStructure.addAll(cat.products);
-					for(Category subCategory : cat.subCategories) {
-						stack.push(subCategory);
-					}
-				} else if (Order.POST_ORDER == order) {
-					for(Category subCategory : cat.subCategories) {
-						stack.push(subCategory);
-					}
-					dataStructure.addAll(cat.products);
-				}
-			}
-		}	
-		
-		Set<Product> dfsRecursive(Category category) {
+
+        Set<Product> dfsRecursive(Category category) {
 			Set<Product> dataStructure = new LinkedHashSet<>();
-			dfsRecursive(category, dataStructure, Order.PRE_ORDER);
-			dataStructure = new LinkedHashSet<>();
-			dfsRecursive(category, dataStructure, Order.POST_ORDER);
+			dfsRecursive(category, dataStructure);
 			return dataStructure;
 		}
 	
-		void dfsRecursive(Category category, Set<Product> allProducts, Order order) {
+		void dfsRecursive(Category category, Set<Product> allProducts) {
 			if(category == null) {
 				return;
 			}
-			if(Order.PRE_ORDER == order) {
-				allProducts.addAll(category.products);
-				for(Category subCategory : category.subCategories) {
-					dfsRecursive(subCategory, allProducts, order);
-				}
-			} else if(Order.POST_ORDER == order) {
-				for(Category subCategory : category.subCategories) {
-					dfsRecursive(subCategory, allProducts, order);
-				}
-				allProducts.addAll(category.products);
-			}
+			allProducts.addAll(category.products);
+            for(Category subCategory : category.subCategories) {
+                dfsRecursive(subCategory, allProducts);
+            }
 		}
 	}
 	
@@ -143,8 +132,8 @@ public class AmazonProducts {
 		lcds.addProduct(lcdssProduct);
 		
 		ProductRetriever retriever = new ProductRetriever();
-		retriever.dfsIterative(electronics, Order.PRE_ORDER);
-		retriever.dfsIterative(electronics, Order.POST_ORDER);
+		retriever.dfsIterative(electronics);
+		retriever.dfsIterative(electronics);
 		retriever.dfsRecursive(electronics);
 		retriever.bfsIterative(electronics);
 		

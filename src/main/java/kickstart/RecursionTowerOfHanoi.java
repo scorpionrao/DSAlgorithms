@@ -1,7 +1,6 @@
 package kickstart;
 
-public class RecursionTowerOfHanoi
-{
+public class RecursionTowerOfHanoi {
 
     public static void move(int numOfDisks, int src, int dest, int temp) {
         if(numOfDisks == 0) {

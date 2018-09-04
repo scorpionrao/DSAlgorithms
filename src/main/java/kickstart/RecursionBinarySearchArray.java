@@ -1,7 +1,8 @@
 package kickstart;
 
 
-public class RecursionBSearch {
+public class RecursionBinarySearchArray
+{
 
     public static int midFinder(int start, int end) {
         return (start + end) / 2;

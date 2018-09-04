@@ -10,12 +10,23 @@ public class RecursionPermutations
     }
 
     public static void wrapper(String str) {
-      permutations(0, "", str, 3);
+      permutationsSimple("", str);
     }
 
     public static void indent(int level) {
         for(int i = 0; i < level; i++) {
             System.out.print("\t");
+        }
+    }
+
+    public static void permutationsSimple(String soFar, String remaining) {
+        if(remaining.isEmpty()) {
+            System.out.println(soFar);
+        }
+        for(int i = 0; i < remaining.length(); i++) {
+            String prefix = soFar + remaining.charAt(i);
+            String suffix = remaining.substring(0, i) + remaining.substring(i+1);
+            permutationsSimple(prefix, suffix);
         }
     }
 

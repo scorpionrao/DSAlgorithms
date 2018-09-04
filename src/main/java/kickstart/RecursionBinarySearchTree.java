@@ -130,15 +130,15 @@ public class RecursionBinarySearchTree {
         return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
-    public boolean isBST(Node node, int min, int max) {
-
-        if(node == null) {
+    public boolean isBST(Node root, int min, int max) {
+        /* End of branch */
+        if(root == null) {
             return true;
         }
-        return node.data > min
-            && node.data < max
-            && isBST(node.left, min, node.data-1)
-            && isBST(node.right, node.data+1, max);
+        return root.data > min
+            && root.data < max
+            && isBST(root.left, min, root.data-1)
+            && isBST(root.right, root.data+1, max);
     }
 
     public Node getSuccessor(Node root, int data) {
