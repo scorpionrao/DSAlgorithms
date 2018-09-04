@@ -2,7 +2,8 @@ package live;
 
 import java.util.HashMap;
 
-public class encoding {
+public class Encoding
+{
     /*
     var x = [];
     x[1] = true;
@@ -13,7 +14,7 @@ public class encoding {
     Step 1: Base-32
     Alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef
     Example input: [true, false, false, false, true, false]
-    Example encoding:  A=true,false    B=false,false
+    Example Encoding:  A=true,false    B=false,false
     Example output: ABA
     Signature: String base32Encoding(boolean[] array)
     Step 2: Run Length Encoding
@@ -46,7 +47,7 @@ public class encoding {
     Step 1: Base-32
     Alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef
     Example input: [true, false, false, false, true, false]
-    Example encoding:  A=true,false    B=false,false
+    Example Encoding:  A=true,false    B=false,false
     Example output: ABA
     Signature: String base32Encoding(boolean[] array)
     /*
@@ -70,7 +71,7 @@ public class encoding {
         HashMap<String, String> dataSet = buildDataSet();
         for(int i = 0; i < array.length; i = i + 5) {
             StringBuilder sb = new StringBuilder();
-            for(int j = 0; j < 5; j++) {
+            for(int j = i; j < (i + 5); j++) {
                 if((i+j > array.length - 1)) {
                     sb.append("0");
                     continue;
@@ -193,7 +194,7 @@ public class encoding {
     }
 
     public static void main(String[] args) {
-        encoding enc = new encoding();
+        Encoding enc = new Encoding();
         boolean[] booleans = {true, true, true, true, true, false, false, false, false, false};
         System.out.println(enc.solve(booleans));
     }

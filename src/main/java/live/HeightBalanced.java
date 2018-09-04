@@ -60,44 +60,45 @@ public class HeightBalanced {
     }
 
     private static boolean recursiveDecideAtEachLeaf(Node root) {
-            int[] maxMin = {Integer.MIN_VALUE, Integer.MAX_VALUE};
-            return recursivePreOrderDecideAtEachLeaf(root, 0, maxMin);
-        }
-        private static boolean recursivePreOrderDecideAtEachLeaf(Node root, int height, int[] maxMin) {
-            // nodes with one child
-            if(root == null) { return true; }
-            // leafs
-            if(isLeaf(root)) {
-                maxMin[0] = Math.max(maxMin[0], height);
-                maxMin[1] = Math.min(maxMin[1], height);
-                return isBalanced(maxMin[0], maxMin[1]);
-            }
-            return recursivePreOrderDecideAtEachLeaf(root.left, height + 1, maxMin)
-                    && recursivePreOrderDecideAtEachLeaf(root.right, height + 1, maxMin);
-        }
+        int[] maxMin = {Integer.MIN_VALUE, Integer.MAX_VALUE};
+        return recursivePreOrderDecideAtEachLeaf(root, 0, maxMin);
+    }
 
-        private static boolean iterateDfsPreOrderDecisionAtEnd(Node root) {
-            int maxLeafHeight = Integer.MIN_VALUE;
-            int minLeafHeight = Integer.MAX_VALUE;
-            Stack<Node> stack = new Stack<>();
-            stack.push(root);
-            while(!stack.isEmpty()) {
-                Node node = stack.pop();
-                // inspection of parent before child
-                if(isLeaf(node)) {
-                    maxLeafHeight = Math.max(maxLeafHeight, node.height);
-                    minLeafHeight = Math.max(minLeafHeight, node.height);
-                }
-                // inspection of left before right
-                if(node.right != null) {
-                    stack.push(node.right);
-                }
-                if(node.left != null) {
-                    stack.push(node.left);
-                }
-            }
-            return isBalanced(maxLeafHeight, minLeafHeight);
+    private static boolean recursivePreOrderDecideAtEachLeaf(Node root, int height, int[] maxMin) {
+        // nodes with one child
+        if(root == null) { return true; }
+        // leafs
+        if(isLeaf(root)) {
+            maxMin[0] = Math.max(maxMin[0], height);
+            maxMin[1] = Math.min(maxMin[1], height);
+            return isBalanced(maxMin[0], maxMin[1]);
         }
+        return recursivePreOrderDecideAtEachLeaf(root.left, height + 1, maxMin)
+                && recursivePreOrderDecideAtEachLeaf(root.right, height + 1, maxMin);
+    }
+
+    private static boolean iterateDfsPreOrderDecisionAtEnd(Node root) {
+        int maxLeafHeight = Integer.MIN_VALUE;
+        int minLeafHeight = Integer.MAX_VALUE;
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            Node node = stack.pop();
+            // inspection of parent before child
+            if(isLeaf(node)) {
+                maxLeafHeight = Math.max(maxLeafHeight, node.height);
+                minLeafHeight = Math.max(minLeafHeight, node.height);
+            }
+            // inspection of left before right
+            if(node.right != null) {
+                stack.push(node.right);
+            }
+            if(node.left != null) {
+                stack.push(node.left);
+            }
+        }
+        return isBalanced(maxLeafHeight, minLeafHeight);
+    }
 
         private static boolean iterateDfsPreOrderDecisionAtEachLeaf(Node root) {
             int maxLeafHeight = Integer.MIN_VALUE;

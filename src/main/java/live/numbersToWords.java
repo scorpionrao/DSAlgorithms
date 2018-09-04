@@ -3,7 +3,8 @@ package live;
 import java.util.HashMap;
 import java.util.Map;
 
-public class numbersToWords {
+public class NumbersToWords
+{
 
     public static Map<Integer, String> map = new HashMap<>();
 
@@ -36,6 +37,10 @@ public class numbersToWords {
         map.put(70, "seventy");
         map.put(80, "eighty");
         map.put(90, "ninety");
+        map.put(100, "hundred");
+        map.put(1000, " thousand ");
+        map.put(1000000, " million ");
+        map.put(1000000000, " billion ");
     }
 
     public static String getNumbersToWords(int input) {
@@ -45,7 +50,7 @@ public class numbersToWords {
 
         // handle zero
         if(input == 0) {
-            sb.append("zero");
+            sb.append(map.get(0));
             return sb.toString().trim();
         }
 
@@ -59,19 +64,19 @@ public class numbersToWords {
 
         if(input >= 1000000000) {
             int billion = input / 1000000000;
-            sb.append(convert(billion) + " billion ");
+            sb.append(convert(billion) + map.get(1000000000));
             input = input % 1000000000;
         }
 
         if(input >= 1000000) {
             int million = input / 1000000;
-            sb.append(convert(million) + " million ");
+            sb.append(convert(million) + map.get(1000000));
             input = input % 1000000;
         }
 
         if(input >= 1000) {
             int thousand = input / 1000;
-            sb.append(convert(thousand) + " thousand ");
+            sb.append(convert(thousand) + map.get(1000));
             input = input % 1000;
         }
 
@@ -88,7 +93,7 @@ public class numbersToWords {
 
         if(input >= 100) {
             int hundred = input / 100;
-            sb.append(map.get(hundred) + " hundred ");
+            sb.append(map.get(hundred) + map.get(100));
             input = input % 100;
         }
 

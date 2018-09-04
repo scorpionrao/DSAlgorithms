@@ -15,7 +15,7 @@ public class PriorityQueueDocumentation {
 
         Prim's algorithm - constructing a minimum spanning tree of a graph - network of computers with min length
 
-        Huffman's algorithm - constructing an optimum prefix-free encoding of a string
+        Huffman's algorithm - constructing an optimum prefix-free Encoding of a string
 
         Heap sort - sorting a given sequence
 

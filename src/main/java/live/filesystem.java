@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class filesystem {
+public class Filesystem {
 
     public static double sum(String filePath) throws IOException, NumberFormatException {
 

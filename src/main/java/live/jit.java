@@ -3,14 +3,15 @@ package live;
 import java.util.HashSet;
 import java.util.Set;
 
-public class jit {
+public class JIT
+{
 
-    public static class Another {
-        static String anotherVariable = "a";
+    public class Another {
+        String anotherVariable = "a";
     }
 
-    public static class Employee {
-        static String employeeVariable = "a";
+    public class Employee {
+        String employeeVariable = "a";
         private String firstName;
         private String lastName;
 
@@ -59,8 +60,8 @@ public class jit {
         System.out.println("objects + ==      : " + (s3 == s4));
         System.out.println("objects + equals  : " + s3.equals(s4));
 
-        Employee employee1 = new Employee("R", "G");
-        Employee employee2 = new Employee("R", "G");
+        Employee employee1 = new JIT().new Employee("R", "G");
+        Employee employee2 = new JIT().new Employee("R", "G");
 
         System.out.println("employee + ==      : " + (employee1 == employee2));
         System.out.println("employee + equals  : " + employee1.equals(employee2));
@@ -76,6 +77,6 @@ public class jit {
         // Same value if hashcode is defined
         System.out.println("employee1.hashCode(): " + employee1.hashCode() + "  employee2.hashCode(): " + employee2.hashCode());
 
-        System.out.println("literals + ==       : " + (Another.anotherVariable == Employee.employeeVariable));
+        System.out.println("literals + ==       : " + (new JIT().new Another().anotherVariable == employee1.employeeVariable));
     }
 }

@@ -11,8 +11,7 @@ public class EqualsAndHash {
         private final String lastName;
         private String firstName;
 
-        public Person(final String newLastName, final String newFirstName)
-        {
+        public Person(final String newLastName, final String newFirstName) {
             this.lastName = newLastName;
             this.firstName = newFirstName;
         }

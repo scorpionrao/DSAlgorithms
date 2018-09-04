@@ -21,7 +21,8 @@ For example
 1 1 1 0
 
 */
-class islands {
+class Islands
+{
 
     public static void dfs(int[][] matrix) {
         int numOfIslands = 0;

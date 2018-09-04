@@ -1,6 +1,7 @@
 package live;
 
-public class connectfour {
+public class Connectfour
+{
 
     static class Player {
 
