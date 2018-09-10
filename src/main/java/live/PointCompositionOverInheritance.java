@@ -1,10 +1,10 @@
 package live;
 
-public class Point
+public class PointCompositionOverInheritance
 {
 
     /*
-        The main reason why inheritance is problematic in this case is that `PointOnScreen`
+        The main reason why inheritance is problematic in this case is that `PointCompositionOverInheritance`
         is a non-abstract super class that implements equals. It is impossible to implement
         equals() correctly in Java with a non-abstract super class as the general contract
         of equals cannot be satisfied under all conditions.

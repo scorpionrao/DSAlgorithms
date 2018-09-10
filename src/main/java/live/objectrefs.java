@@ -1,65 +1,60 @@
 package live;
 
-// This is the text editor interface.
-// Anything you type or change here will be seen by the other person in real time.
-
-// obj1 = {'id': 1,  'name': 'Joe',     'refs': [20, 21]}
-// obj2 = {'id': 20, 'name': 'Harvard', 'refs': [80]}
-// obj3 = {'id': 21, 'name': 'MIT',     'refs': [80]}
-// obj4 = {'id': 80, 'name': 'Boston',  'refs': []}
-
-// Givin the input as an
-// array of objects, input = [obj1, obj2, obj3, obj4]
-// dereference the reference id to actual object content.
-// Below is the expected output.
-
-// expected = {
-//   'id': 1,
-//   'name': 'Joe',
-//   'refs': [
-//     {
-//       'id': 20,
-//       'name': 'Harvard',
-//       'refs': [
-//         {
-//           'id': 80,
-//           'name': 'Boston',
-//           'refs': []
-//         }
-//       ]
-//     },
-//     {
-//       'id': 21,
-//       'name': 'MIT',
-//       'refs': [
-//         {
-//           'id': 80,
-//           'name': 'Boston',
-//           'refs': []
-//         }
-//       ]
-//     }
-//   ]
-//}
-/*
-Psuedo code:
-    start with root node -> initial assumption is the first node
-    store this data in a HashMap -> O(1) retrieval
-    recursive call to print the obj(root node id, hashmap) {
-
-        print id
-        print name
-        for(each refs) {
-            recursive call(root node id, hashmap)
-        }
-    }
-*/
-
 import java.util.*;
 
-import jdk.nashorn.internal.parser.JSONParser;
+    // obj1 = {'id': 1,  'name': 'Joe',     'refs': [20, 21]}
+    // obj2 = {'id': 20, 'name': 'Harvard', 'refs': [80]}
+    // obj3 = {'id': 21, 'name': 'MIT',     'refs': [80]}
+    // obj4 = {'id': 80, 'name': 'Boston',  'refs': []}
 
-public class objectrefs {
+    // Given the input as an array of objects,
+    // input = [obj1, obj2, obj3, obj4]
+    // dereference the reference id to actual object content.
+    // Below is the expected output.
+
+    // expected = {
+    //   'id': 1,
+    //   'name': 'Joe',
+    //   'refs': [
+    //     {
+    //       'id': 20,
+    //       'name': 'Harvard',
+    //       'refs': [
+    //         {
+    //           'id': 80,
+    //           'name': 'Boston',
+    //           'refs': []
+    //         }
+    //       ]
+    //     },
+    //     {
+    //       'id': 21,
+    //       'name': 'MIT',
+    //       'refs': [
+    //         {
+    //           'id': 80,
+    //           'name': 'Boston',
+    //           'refs': []
+    //         }
+    //       ]
+    //     }
+    //   ]
+    //}
+    /*
+        Psuedo code:
+            start with root node -> initial assumption is the first node
+            store this data in a HashMap -> O(1) retrieval
+            recursive call to print the obj(root node id, hashmap) {
+
+                print id
+                print name
+                for(each refs) {
+                    recursive call(root node id, hashmap)
+                }
+            }
+    */
+
+public class ObjectRefs {
 
     public static class Input {
         int id;
@@ -129,55 +124,8 @@ public class objectrefs {
         return order;
     }
 
-    public static class RequestObject {
-
-        public RequestObject() {
-
-        }
-
-        int id;
-        String name;
-        List<Integer> refs;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public List<Integer> getRefs() {
-            return refs;
-        }
-
-        public void setRefs(List<Integer> refs) {
-            this.refs = refs;
-        }
-
-    }
-
-    public static List<RequestObject> jsonParser(String[] objects) {
-        return null;
-
-    }
-
-
-
     public static void main(String[] args) {
 
-        //String str1 = {'id': 1,  'name': 'Joe',     'refs': [20, 21]}
-        //JSONParser jsonParser = new JSONParser("abc");
-
-        /*
         // obj1 = {'id': 1,  'name': 'Joe',     'refs': [20, 21]}
         // obj2 = {'id': 20, 'name': 'Harvard', 'refs': [80]}
         // obj3 = {'id': 21, 'name': 'MIT',     'refs': [80]}
@@ -186,19 +134,14 @@ public class objectrefs {
         Input input1 = new Input(1, "Joe");
         input1.add(20);
         input1.add(21);
-        //input1.print();
 
         Input input2 = new Input(20, "Harvard");
         input2.add(80);
-        //input2.print();
 
         Input input3 = new Input(21, "MIT");
         input3.add(80);
-        //input3.print();
 
         Input input4 = new Input(80, "Boston");
-        //input4.print();
-
 
         Map<Integer, Input> map = new HashMap<>();
         map.put(input1.id, input1);
@@ -217,7 +160,6 @@ public class objectrefs {
         Collections.reverse(order);
         Integer rootId = order.get(0);
         map.get(rootId).print(map);
-        */
 
     }
 }

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class tags {
+public class Tags {
 
     public static List<Integer> getShortestContinuousSubsequence(List<String> targetTagsList, List<String> availableTagsList) {
 

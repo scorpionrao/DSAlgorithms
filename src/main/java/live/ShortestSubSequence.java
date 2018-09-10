@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class refd {
+public class ShortestSubSequence {
 
     /*
         Given a set of integers, e.g. {1,3,2} and an array of random integers e.g.

@@ -10,6 +10,7 @@ public class ParkingLotProblem {
 
     // Will become generic if dealing with type of cars or type of spaces
     public static class ParkingLot {
+
         public static final int SPACES = 1000;
         public Queue<ParkingSpace> parkingSpaces = new ConcurrentLinkedQueue<>();
         public ParkingLot() {

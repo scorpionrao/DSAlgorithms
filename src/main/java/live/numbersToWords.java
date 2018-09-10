@@ -37,7 +37,7 @@ public class NumbersToWords
         map.put(70, "seventy");
         map.put(80, "eighty");
         map.put(90, "ninety");
-        map.put(100, "hundred");
+        map.put(100, " hundred ");
         map.put(1000, " thousand ");
         map.put(1000000, " million ");
         map.put(1000000000, " billion ");
