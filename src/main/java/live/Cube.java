@@ -29,7 +29,6 @@ public class Cube {
                         for(int d = 0; d < max; d++) {
                             if(Math.pow(a,3) + Math.pow(b,3) == Math.pow(c,3) + Math.pow(d,3)) {
                                 ++count;
-                                //System.out.println(String.format("%d %d %d %d", a, b, c, d));
                             }
                         }
                     }
@@ -50,7 +49,6 @@ public class Cube {
                         double remainder = Math.cbrt(Math.pow(a,3) + Math.pow(b,3) - Math.pow(c,3));
                         if(remainder == Math.floor(remainder)) {
                             ++count;
-                            //System.out.println(String.format("%d %d %d %d", a, b, c, d));
                         }
                     }
                 }
