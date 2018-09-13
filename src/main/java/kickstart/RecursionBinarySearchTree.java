@@ -141,21 +141,36 @@ public class RecursionBinarySearchTree {
             && isBST(root.right, root.data+1, max);
     }
 
+    /*
+        Search for the node
+        MUTUALLY EXCLUSIVE AND COMPLETE
+        Case 1  - Target Node Right child exists --> find min of right sub tree.
+        Case 2  - Target Node Right child does NOT exists -->
+
+        Case 2.1 Right child does not exist - Tree root is Ancestor every time we move left.
+        Case 2.2 Right child does not exist - Tree root is unchanged every time we move right.
+
+     */
     public Node getSuccessor(Node root, int data) {
         if(root == null) {
             return root;
         }
-        Node current = search(root, data);
-        if(current.right != null) {
-            return findMin(current.right);
+        Node targetNode = search(root, data);
+        if(targetNode.right != null) {
+            return findMin(targetNode.right);
         } else {
+            /* Restart traverse */
             Node ancestor = root;
             Node successor = null;
-            while(current.data != ancestor.data) {
-                if (current.data < ancestor.data) {
-                    successor = ancestor;   // deepest node for which current node is in left
+            /* until you find the node */
+            while(targetNode.data != ancestor.data) {
+
+                if (targetNode.data < ancestor.data) {
+                    // going left - update successorRecursion and ancestor
+                    successor = ancestor;
                     ancestor = ancestor.left;
                 } else {
+                    // going right - does not matter.
                     ancestor = ancestor.right;
                 }
             }
