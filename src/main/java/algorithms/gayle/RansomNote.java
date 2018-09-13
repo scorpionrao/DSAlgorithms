@@ -7,7 +7,16 @@ public class RansomNote {
     public static class Solution {
 
         /*
-            Solution:
+            Solution :
+                - Build ransom histogram
+                - Scan magazine and decrement ransom frequency when needed
+                - Maintain an increment counter to check if it reaches length of ransom note length.
+
+                - Increment a counter every time we find a letter we need in the magazine.
+                - When the counter equals n, then we can return TRUE.
+
+            Time complexity : O(r + M), since r < M --> O(2*M) --> O(M)
+            Space complexity: O(r)
          */
         public boolean canBuild(String ransomNote, String magazine) {
 
