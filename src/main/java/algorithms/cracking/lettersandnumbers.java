@@ -2,14 +2,19 @@ package algorithms.cracking;
 
 public class lettersandnumbers {
 
+    static int times = 0;
+
+    /*
+        Time - O(N^2)
+     */
     public static char[] findLongestSubArray(char[] array) {
         for( int exploringLength = array.length; exploringLength > 1; exploringLength--) {
-            System.out.println("Exploring length = " + exploringLength);
+            // System.out.println("Exploring length = " + exploringLength);
             for(int rangeBegin = 0; rangeBegin <= array.length - exploringLength; rangeBegin++) {
-                System.out.println("IndexRange Begin = " + rangeBegin);
+                // System.out.println("IndexRange Begin = " + rangeBegin);
                 int start = rangeBegin;
                 int end = rangeBegin + exploringLength - 1;
-                System.out.println("Start = " + start + ", End = " + end);
+                // System.out.println("Start = " + start + ", End = " + end);
                 if(hasEqualLettersNumbers(array, start, end)) {
                     return extractSubArray(array, start, end);
                 }
@@ -20,6 +25,7 @@ public class lettersandnumbers {
     }
 
     public static boolean hasEqualLettersNumbers(char[] array, int start, int end) {
+        times++;
         int counter = 0;
         for(int i = start; i <= end; i++) {
             if(Character.isLetter(array[i])) {
@@ -43,5 +49,6 @@ public class lettersandnumbers {
         String str = "AB1AAA111A1";
         char[] result = findLongestSubArray(str.toCharArray());
         System.out.println(new String(result));
+        System.out.println(times);
     }
 }

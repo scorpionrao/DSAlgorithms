@@ -7,16 +7,16 @@ public class bcr {
         a - length of array1
         b - length of array2
      */
-    private static int getIntersection(int[] array1, int[] array2) {
+    private static int getIntersection(int[] sortedArray1, int[] sortedArray2) {
         int commonElements = 0;
         int aIndex = 0;
         int bIndex = 0;
-        while (aIndex < array1.length && bIndex < array2.length) {
-            if(array1[aIndex] == array2[bIndex]) {
+        while (aIndex < sortedArray1.length && bIndex < sortedArray2.length) {
+            if(sortedArray1[aIndex] == sortedArray2[bIndex]) {
                 commonElements++;
                 aIndex++;
                 bIndex++;
-            } else if (array1[aIndex] < array2[bIndex]) {
+            } else if (sortedArray1[aIndex] < sortedArray2[bIndex]) {
                 aIndex++;
             } else {
                 bIndex++;
