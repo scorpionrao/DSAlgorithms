@@ -1,6 +1,6 @@
 package algorithms.cracking;
 
-public class LinkedLists {
+public class DoublyLinkedLists {
 
     public static class Node {
         int key = 0;
@@ -14,24 +14,26 @@ public class LinkedLists {
 
     public Node head;
 
-    public LinkedLists(Node node) {
+    public DoublyLinkedLists(Node node) {
         head = node;
     }
 
     public Node addNode(int key) {
-        Node node = new Node(key);
+
         Node n = head;
         while(n.next != null) {
             n = n.next;
         }
+
+        Node node = new Node(key);
         n.next = node;
         return node;
     }
 
     public static void main(String[] args) {
         Node node = new Node(1);
-        LinkedLists linkedLists = new LinkedLists(node);
-        linkedLists.addNode(5);
-        linkedLists.addNode(10);
+        DoublyLinkedLists doublyLinkedLists = new DoublyLinkedLists(node);
+        doublyLinkedLists.addNode(5);
+        doublyLinkedLists.addNode(10);
     }
 }

@@ -1,6 +1,6 @@
 package algorithms.cracking;
 
-public class lettersandnumbers {
+public class LongestSubArrayOfEqualLettersAndNumbers {
 
     static int times = 0;
 

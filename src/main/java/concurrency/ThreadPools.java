@@ -8,7 +8,7 @@ public class ThreadPools {
     public interface ThreadPool {
         // enqueue task to Blocking queue
         void execute(Runnable task) throws Exception;
-        // shut down Threadpool by stopping all threads
+        // shut down Threadpool by stopping all Threads
         void stop();
     }
 

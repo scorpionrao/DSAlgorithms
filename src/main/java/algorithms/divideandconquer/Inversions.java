@@ -29,14 +29,16 @@ public class Inversions {
     }
 
     public static void main(String[] args) {
+        /*
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         int[] a = new int[n];
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
         }
-        int[] b = new int[n];
-        System.out.println(getNumberOfInversionsSlow(a));
+        */
+        int[] a1 = {4, 3, 2, 1};
+        System.out.println(getNumberOfInversionsSlow(a1));
     }
 }
 

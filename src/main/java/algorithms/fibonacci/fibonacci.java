@@ -28,7 +28,7 @@ public class fibonacci {
     - Memory limit PASSED
     - Corner cases for input - negative values, input values until 45, zero - Passed.
 
-      STRESS TESTING - 1) solution to test, 2) slow but correct solution, 3) test generator, 4) infinite loop in which a new test is generated.
+      STRESS TESTING - 1) solution to test, 2) slow but correct solution, 3) test generator, 4) infinite SinglyLinkedListLoop in which a new test is generated.
       STRESS TESTING - Find smallest test cases on which your solution fails.
       STRESS TESTING - Try different regions of the test space when generating cases for stress testing.
       STRESS TESTING - Outcomes - Wrong answer, time limit exceeded, memory limit exceeded, wrong output format, unknown signal.

@@ -1,6 +1,6 @@
 package algorithms.cracking;
 
-public class threads {
+public class Threads {
 
     public static class ThreadExample extends Thread {
 

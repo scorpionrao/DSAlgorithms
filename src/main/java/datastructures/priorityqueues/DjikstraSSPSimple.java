@@ -6,7 +6,7 @@ import java.util.*;
     1) The code is for undirected graph, same dijkstra function can be used for directed graphs also.
 
     2) If we are interested only in shortest distance from the source to a single target,
-        we can break the for the loop when the picked minimum distance vertex is equal to target.
+        we can break the for the SinglyLinkedListLoop when the picked minimum distance vertex is equal to target.
 
     3) Time Complexity - Adjacency Matrix = O(V^2), Adjacency List = O(E log V) with the help of ** binary heap **.
 

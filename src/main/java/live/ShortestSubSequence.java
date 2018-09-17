@@ -48,7 +48,7 @@ public class ShortestSubSequence {
             windowEnds = windowEnds - 1;
 
             if(cloneSet.isEmpty()) {
-                // for loop adjustment
+                // for SinglyLinkedListLoop adjustment
                 bestCandidate = getIndexRange(bestCandidate, windowBegins, windowEnds);
             }
         }

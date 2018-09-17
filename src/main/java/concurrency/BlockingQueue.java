@@ -17,7 +17,7 @@ public class BlockingQueue {
         if(this.queue.size() >= limit) {
             wait();
         }
-        // Lower Limit - inform all the waiting threads to push into
+        // Lower Limit - inform all the waiting Threads to push into
         if(this.queue.isEmpty()) {
             notifyAll();
         }
@@ -29,7 +29,7 @@ public class BlockingQueue {
         while(this.queue.isEmpty()) {
             wait();
         }
-        // Upper Limit - inform all the waiting threads to pull out
+        // Upper Limit - inform all the waiting Threads to pull out
         if(this.queue.size() == this.limit) {
             notifyAll();
         }

@@ -43,7 +43,7 @@ public class BinarySearch {
     ITERATIVE PSEUDO CODE:
 
     BinarySearch1(array, low, high, search) {
-        base case (reverse of condition) stops while loop
+        base case (reverse of condition) stops while SinglyLinkedListLoop
         while(low <= high) {
             midIndex = low + (high - low) / 2
             if(A[midIndex] == search)

@@ -19,7 +19,7 @@ public class Iterators {
         linkedList.add("rabbit");
 
         /*
-            Internal code for a simple for loop.
+            Internal code for a simple for SinglyLinkedListLoop.
 
             Modifying a collection in the middle of iterating the same collection.
          */

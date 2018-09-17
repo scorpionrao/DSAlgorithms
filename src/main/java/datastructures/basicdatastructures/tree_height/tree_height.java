@@ -69,7 +69,7 @@ public class tree_height {
                     if (parent[i] >= parent.length) {
                         throw new RuntimeException("Invalid Input: Parent index does not exist");
                     } else if (parent[i] == i) {
-                        throw new RuntimeException("Invalid Input: Parent index and index are same. Infinite loop");
+                        throw new RuntimeException("Invalid Input: Parent index and index are same. Infinite SinglyLinkedListLoop");
                     }
                     if (!rootExists) {
                         rootExists = parent[i] == -1;

@@ -1,6 +1,7 @@
 package algorithms.cracking;
 
-public class loop {
+public class SinglyLinkedListLoop
+{
 
     public static class Node {
         int key;
@@ -34,13 +35,13 @@ public class loop {
             fast = fast.next;
         }
 
-        // unbelievable both are pointing at start of loop.
+        // unbelievable both are pointing at start of SinglyLinkedListLoop.
         return fast;
     }
 
     public static void main(String[] args) {
-        int size = 15;
-        int loopLocation = 10;
+        int size = 5;
+        int loopLocation = 3;
 
         Node[] nodes = new Node[size];
         for(int i = 0; i < size; i++) {
@@ -52,7 +53,7 @@ public class loop {
             nodes[i].next = nodes[i+1];
         }
 
-        // create a loop
+        // create a SinglyLinkedListLoop
         nodes[size-1].next = nodes[size-loopLocation];
 
         Node loopNode = getLoopNode(head);

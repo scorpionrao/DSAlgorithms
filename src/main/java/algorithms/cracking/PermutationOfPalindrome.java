@@ -1,6 +1,7 @@
 package algorithms.cracking;
 
-public class isPermutationOfPalindrome {
+public class PermutationOfPalindrome
+{
 
 
     static int a = 'a';
@@ -46,7 +47,7 @@ public class isPermutationOfPalindrome {
 
         Time - O(N + M)
         Space - O(M)
-        
+
      */
     public static boolean isPermutationOfPalindrome(String phrase) {
         int[] table = buildCharFrequencyTable(phrase);

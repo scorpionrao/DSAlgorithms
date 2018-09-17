@@ -8,7 +8,7 @@ public class IncomeEstimates {
 
 		Things to look for:
 		Does the candidate write modern Java (Examples: Does the candidate use the for each style
-		for loop added in Java 5 or does the candidate use List indices, Use of Diamond Notation etc)
+		for SinglyLinkedListLoop added in Java 5 or does the candidate use List indices, Use of Diamond Notation etc)
 
 		Follow-up question:
 		How do we make the code faster? The problem requires processing all brokers and all houses

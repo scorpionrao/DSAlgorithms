@@ -1,3 +1,5 @@
+package algorithms.divide_and_conquer_starter_files.binary_search;
+
 import java.io.*;
 import java.util.*;
 

@@ -35,6 +35,6 @@ public class permutations {
     }
 
     public static void main(String[] args) {
-        new permutations().permutation("A");
+        new permutations().permutation("ABC");
     }
 }

@@ -1,11 +1,13 @@
 package algorithms.cracking;
 
-public class bcr {
+public class ArrayIntersection {
 
     /*
-    Time complexity: O(a+b)
-        a - length of array1
-        b - length of array2
+        Time complexity: O(a+b)
+            a - length of array1
+            b - length of array2
+
+        Space complexity: O(a)
      */
     private static int getIntersection(int[] sortedArray1, int[] sortedArray2) {
         int commonElements = 0;

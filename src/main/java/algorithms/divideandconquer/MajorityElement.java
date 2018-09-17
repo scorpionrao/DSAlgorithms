@@ -9,7 +9,7 @@ public class MajorityElement {
 
         for(int i = 0; i < elements.length; i++) {
             int count = 0;
-            for(int j = 0; j < elements.length; j++) {
+            for(int j = i+1; j < elements.length; j++) {
                 if(elements[i] == elements[j]) {
                     count++;
                 }

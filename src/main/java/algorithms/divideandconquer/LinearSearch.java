@@ -5,26 +5,26 @@ import java.util.Scanner;
 public class LinearSearch {
 
     /*
-    Input: Array of Integers
-    Input source: User provided
-    Output: IsElementThere ? Index of element ?
+        Input: Array of Integers
+        Input source: User provided
+        Output: IsElementThere ? Index of element ?
 
-    Time limitations: 1.5 s
-    Space : 1024 MB
+        Time limitations: 1.5 s
+        Space : 1024 MB
 
-    Psuedo code (Recursive):
-    Recursive correlation: T(n) = T(n-1) + c
-    O(1) * n --> O(n)
+        Psuedo code (Recursive):
+        Recursive correlation: T(n) = T(n-1) + c
+        O(1) * n --> O(n)
 
-    int LinearSearch(A, low, high, search) {
-        if(high < low) {
-            return very large index;
+        int LinearSearch(A, low, high, search) {
+            if(high < low) {
+                return very large index;
+            }
+            if(A[low] == search) {
+                return low;
+            }
+            return LinearSearch(A, low+1, high, search);
         }
-        if(A[low] == search) {
-            return low;
-        }
-        return LinearSearch(A, low+1, high, search);
-    }
      */
 
     public static boolean linearSearch(int[] array, int key, int low, int high) {
@@ -38,25 +38,25 @@ public class LinearSearch {
     }
 
     /*
-    Psuedo code (Iterative):
-    Recursive correlation: T(n) = T(n-1) + c
-    O(1) * n --> O(n)
+        Psuedo code (Iterative):
+        Recursive correlation: T(n) = T(n-1) + c
+        O(1) * n --> O(n)
 
-    int LinearSearchIterative(A, low, high, search) {
-        while(low <= high) {
-            if(A[low] == search)
-                return low;
-            low = low + 1;
-        }
-        return NOT FOUND
-
-        for(int i=low; i<=high; i++) {
-            if(A[low] == search) {
-                return i;
+        int LinearSearchIterative(A, low, high, search) {
+            while(low <= high) {
+                if(A[low] == search)
+                    return low;
+                low = low + 1;
             }
-        }
-        return NOT FOUND
-    }
+            return NOT FOUND
+
+            for(int i=low; i<=high; i++) {
+                if(A[low] == search) {
+                    return i;
+                }
+            }
+            return NOT FOUND
+         }
      */
 
     public static boolean linearSearchSimplified(int[] array, int key) {

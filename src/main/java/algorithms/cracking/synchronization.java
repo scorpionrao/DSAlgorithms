@@ -1,6 +1,7 @@
 package algorithms.cracking;
 
-public class synchronization {
+public class Synchronization
+{
 
     public static class MyObject {
         public synchronized void foo(String name) {
@@ -34,11 +35,11 @@ public class synchronization {
 
     public static void main(String[] args) {
 
-        // Both threads have same instance of object
+        // Both Threads have same instance of object
         MyObject myObject = new MyObject();
         MyClass thread1 = new MyClass("Thread1", myObject);
         MyClass thread2 = new MyClass("Thread2", myObject);
-        // Both threads share resource myObject
+        // Both Threads share resource myObject
         thread1.start();
         thread2.start();
     }

@@ -102,7 +102,7 @@ public class fibonacciversions {
             return;
         }
         double[][] M = new double[][]{{1,1},{1,0}};
-        // reduce O(n) to O(Log n) in the power calculation loop
+        // reduce O(n) to O(Log n) in the power calculation SinglyLinkedListLoop
         powerOptimized(F, n/2);
         // since there is only 2 matrices to multiplyWithSingleDigit, use the regular 2*2 multiplyWithSingleDigit
         multiply(F, F);

@@ -10,7 +10,7 @@ public class Synchronizer {
         // do a lot of work
     }
 
-    // same lock object for all threads
+    // same lock object for all Threads
     Lock lock = new Lock();
     public void doSynchronized2() throws InterruptedException {
         this.lock.lock();
