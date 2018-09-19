@@ -191,6 +191,7 @@ public class TestTime {
 
         while (!priorityQueue.isEmpty() && testTime > 0) {
             Node node = priorityQueue.poll();
+            System.out.println(node.time);
             if(node.time <= testTime) {
                 output[node.projectId]++;
                 if(node.next != null) {
@@ -224,7 +225,34 @@ public class TestTime {
         int[] output = mergeKLists(groupByProjectMap, testTime);
         System.out.println(Arrays.toString(output));
 
-        List<Node> list1 = buildDS1(testDetails);
+        Node[] nodes = new Node[testDetails.length];
+        nodes[0] = new Node(3, 8);
+        nodes[1] = new Node(1, 4);
+        nodes[2] = new Node(2, 5);
+        nodes[3] = new Node(2, 10);
+        nodes[4] = new Node(4, 12);
+        nodes[5] = new Node(1, 3);
+        nodes[6] = new Node(2, 7);
+        nodes[7] = new Node(3, 14);
+        nodes[8] = new Node(3, 2);
+        nodes[9] = new Node(4, 1);
+
+        nodes[0].next = nodes[7];
+        nodes[7].next = nodes[8];
+
+        nodes[1].next = nodes[5];
+
+        nodes[2].next = nodes[2];
+        nodes[3].next = nodes[6];
+
+        nodes[4].next = nodes[9];
+
+        List<Node> list1 = new ArrayList<>();
+        list1.add(nodes[0]);
+        list1.add(nodes[1]);
+        list1.add(nodes[2]);
+        list1.add(nodes[4]);
+
         int[] output1 = mergeKLists1(list1, testTime);
         System.out.println(Arrays.toString(output1));
         // Ouput: [2, 1, 0, 0]
