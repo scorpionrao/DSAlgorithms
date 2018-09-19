@@ -22,6 +22,7 @@ public class MaxPairwiseProduct {
 
         int n = numbers.length;
         int max_index1 = -1;
+        // Array max
         for(int i = 0; i < n; ++i) {
             if((max_index1 == -1) || (numbers[i] > numbers[max_index1])) {
                 max_index1 = i;
@@ -29,6 +30,7 @@ public class MaxPairwiseProduct {
         }
 
         int max_index2 = -1;
+        // Array one less than max
         for(int j = 0; j < n; ++j) {
             if((j != max_index1) && ((max_index2 == -1) || (numbers[j] >= numbers[max_index2]))) {
                 max_index2 = j;

@@ -82,7 +82,7 @@ public class fibonacci {
   public static void main(String args[]) {
 
     while(true) {
-      int maxInput = 60;
+      int maxInput = 20;
       int minInput = 10;
       int randomNum = new Random().nextInt(maxInput - minInput + 1) + minInput;
       System.out.println("Size:" + randomNum);

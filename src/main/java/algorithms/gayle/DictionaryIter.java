@@ -10,7 +10,7 @@ public class DictionaryIter {
 
     private String[] dictionary = {/* all words */};
 
-    private Map<String, Set<String>> preprocessedDictionaryOrAnagrams;
+    private Map<Integer, Map<String, Set<String>>> preprocessedLengthToAnagrams;
 
     /*
         Pre-compute dictionary into buckets.
@@ -19,7 +19,7 @@ public class DictionaryIter {
      */
     public void buildMap() {
         // can be in constructor or here
-        preprocessedDictionaryOrAnagrams = new HashMap<>();
+        preprocessedLengthToAnagrams = new HashMap<>();
 
         for(int i = 0; i < dictionary.length; i++) {
 
@@ -27,23 +27,32 @@ public class DictionaryIter {
             Arrays.sort(array);
             String signatureOrUniqueKeyOrIndex = new String(array);
 
+            Map<String, Set<String>> currentLengthMap;
+            if(preprocessedLengthToAnagrams.containsKey(signatureOrUniqueKeyOrIndex.length())) {
+                currentLengthMap = preprocessedLengthToAnagrams.get(signatureOrUniqueKeyOrIndex.length());
+            } else {
+                currentLengthMap = new HashMap<>();
+                preprocessedLengthToAnagrams.put(signatureOrUniqueKeyOrIndex.length(), currentLengthMap);
+            }
+
             Set<String> currentSet;
-            if(preprocessedDictionaryOrAnagrams.containsKey(signatureOrUniqueKeyOrIndex)) {
-                currentSet = preprocessedDictionaryOrAnagrams.get(signatureOrUniqueKeyOrIndex);
+            if(currentLengthMap.containsKey(signatureOrUniqueKeyOrIndex)) {
+                currentSet = currentLengthMap.get(signatureOrUniqueKeyOrIndex);
             } else {
                 currentSet = new HashSet<>();
-                preprocessedDictionaryOrAnagrams.put(signatureOrUniqueKeyOrIndex, currentSet);
+                currentLengthMap.put(signatureOrUniqueKeyOrIndex, currentSet);
             }
             currentSet.add(dictionary[i]);
         }
     }
 
     public Set<String> getAnagrams(String word) {
+
         char[] array = word.toCharArray();
         Arrays.sort(array);
         String signatureOrUniqueKeyOrIndex = new String(array);
 
-        return this.preprocessedDictionaryOrAnagrams.get(signatureOrUniqueKeyOrIndex);
+        return this.preprocessedLengthToAnagrams.get(signatureOrUniqueKeyOrIndex.length()).get(signatureOrUniqueKeyOrIndex);
     }
     
 }

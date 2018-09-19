@@ -59,7 +59,7 @@ public class HashChains {
 
     private void processQueryNaive(Query query) {
         switch (query.type) {
-            case "add":
+            case "notSynchronizedMethod":
                 if (!elems.contains(query.s))
                     elems.add(0, query.s);
                 break;
@@ -85,7 +85,7 @@ public class HashChains {
 
     private void processQueryFast(Query query) {
         switch (query.type) {
-            case "add":
+            case "notSynchronizedMethod":
                 if(!hashTable[hashFunc(query.s)].contains(query.s)) {
                     hashTable[hashFunc(query.s)].add(0, query.s);
                 }

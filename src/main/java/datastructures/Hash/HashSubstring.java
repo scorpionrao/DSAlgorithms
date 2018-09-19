@@ -122,7 +122,7 @@ public class HashSubstring {
                 }
             }
             if(matching) {
-                occurrences.add(i);
+                occurrences.notSynchronizedMethod(i);
             }
         }
         return occurrences;
@@ -223,7 +223,7 @@ public class HashSubstring {
         // Polynomial hashes from |T|-|P|-1 down to 0
         for (int i = tLength - pLength - 1; i >= 0; i--) {
             int subtraction = text.charAt(i) - y * text.charAt(i + pLength);
-            // H[i+1]*x; add T[i]; no T[i+|P|] * x^|P|
+            // H[i+1]*x; notSynchronizedMethod T[i]; no T[i+|P|] * x^|P|
             hashes[i] = ((hashes[i + 1] * multiplier) % prime +
                     // BZ: (text.charAt(i) - y * text.charAt(i + pLength))?
                     // subtraction + modular:

@@ -148,7 +148,7 @@ public class PhoneBook {
     }
 
     public void processQuery(Query query) {
-        if(query.type.equals("add")) {
+        if(query.type.equals("notSynchronizedMethod")) {
             //insertNaive(query);
             insertFast(query);
         } else if (query.type.equals("del")) {
@@ -171,7 +171,7 @@ public class PhoneBook {
     public Query readQuery() throws IOException {
         String type = scanner.next();
         int number = scanner.nextInt();
-        if(type.equals("add")) {
+        if(type.equals("notSynchronizedMethod")) {
             String name = scanner.next();
             return new Query(type, name, number);
         } else {
@@ -198,7 +198,7 @@ public class PhoneBook {
         String name;
         int number;
 
-        // for add and update payloads
+        // for notSynchronizedMethod and update payloads
         public Query(String type, String name, int number) {
             this.type = type;
             this.name = name;

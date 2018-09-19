@@ -22,7 +22,7 @@ public class undirectedgraph {
         Component(s) {
             DiscoveredNodes = {s}
             while there is 'e(i)' leaving discoverednodes and 'e(i)' unexplored {
-                add v at the other end of e(i) to discoverednodes
+                notSynchronizedMethod v at the other end of e(i) to discoverednodes
             }
             return DiscoveredNodes
         }
@@ -81,7 +81,7 @@ public class undirectedgraph {
         Component(Graph) {
             DiscoveredNodes = {S}
             while (there is an edge 'e' leaving and unexplored) {
-                add end of 'e' vertex to Discovered nodes
+                notSynchronizedMethod end of 'e' vertex to Discovered nodes
             }
             return DiscoveredNodes;
         }

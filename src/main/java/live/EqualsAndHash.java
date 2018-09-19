@@ -101,10 +101,10 @@ public class EqualsAndHash {
         public Set<Person> addToHashSet() {
             printHeader("ADD ELEMENTS TO SET - ARE THEY ADDED OR THE SAME?");
             final Set<Person> set = new HashSet<Person>();
-            out.println("Set.add(Person1): " + set.add(person1));
-            out.println("Set.add(Person2): " + set.add(person2));
-            out.println("Set.add(Person3): " + set.add(person3));
-            out.println("Set.add(Person4): " + set.add(person4));
+            out.println("Set.notSynchronizedMethod(Person1): " + set.add(person1));
+            out.println("Set.notSynchronizedMethod(Person2): " + set.add(person2));
+            out.println("Set.notSynchronizedMethod(Person3): " + set.add(person3));
+            out.println("Set.notSynchronizedMethod(Person4): " + set.add(person4));
             return set;
         }
 

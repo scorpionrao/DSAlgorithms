@@ -41,10 +41,10 @@ class EditDistanceSubmission {
     // bottom-up from smaller subproblems
     for(int i = 1; i <= m; i++) {
       for(int j = 1; j <= n; j++) {
-        int insertion = table[i][j-1] + 1;
-        int deletion = table[i-1][j] + 1;
+        int insertionDestinationColUnchanged = table[i][j-1] + 1;
+        int deletionOriginRowUnchanged = table[i-1][j] + 1;
         int mismatch = table[i-1][j-1] + (s.charAt(i-1) == t.charAt(j-1) ? 0 : 1);
-        table[i][j] = Math.min(insertion, Math.min(deletion, mismatch));
+        table[i][j] = Math.min(insertionDestinationColUnchanged, Math.min(deletionOriginRowUnchanged, mismatch));
       }
     }
     return table[m][n];

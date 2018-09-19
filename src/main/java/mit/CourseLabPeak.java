@@ -57,7 +57,7 @@ public class CourseLabPeak {
 			return false;
 		}
 
-		// Pre-process
+		// Pre-mergeKLists
 		int middle = (start + end) / 2;
 		boolean isTallerThanLeft = array[middle] > array[middle-1];
 		boolean isTallerThanRight = array[middle] > array[middle+1];

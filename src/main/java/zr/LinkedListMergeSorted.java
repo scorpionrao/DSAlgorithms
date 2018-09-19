@@ -56,7 +56,7 @@ public class LinkedListMergeSorted
 
             /* condition for all nodes are examined */
             while(head1 != null || head2 != null) {
-                /* positive scenario - both lists are available */
+                /* positive scenario - both groupByProject are available */
                 if (head1 != null && head2 != null) {
                     /* List 1 wins */
                     if (head1.data < head2.data) {

@@ -16,7 +16,7 @@ public class IncomeEstimates {
 
 		The are several ways to do this (ForkJoinPools etc) but the easiest simplest way is to solve
 		the problem using the Java 8 Streams library. The solution below uses a parallel Stream to
-		process elements concurrently.
+		mergeKLists elements concurrently.
 
 	 */
 	

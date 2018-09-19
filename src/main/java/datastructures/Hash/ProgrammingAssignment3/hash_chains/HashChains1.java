@@ -46,7 +46,7 @@ public class HashChains1 {
 
     private void processQuery(Query query) {
         switch (query.type) {
-            case "add":
+            case "notSynchronizedMethod":
                 if (!elems.contains(query.s))
                     elems.add(0, query.s);
                 break;

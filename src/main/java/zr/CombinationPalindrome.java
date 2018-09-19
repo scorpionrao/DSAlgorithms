@@ -13,7 +13,7 @@ public class CombinationPalindrome {
         for each pair {
             concatenate pair of strings
             if(isPalindrome1(concatenate)) {
-                add it to result
+                notSynchronizedMethod it to result
             }
         }
         return result

@@ -15,8 +15,8 @@ public class RansomNote {
                 - Increment a counter every time we find a letter we need in the magazine.
                 - When the counter equals n, then we can return TRUE.
 
-            Time complexity : O(r + M), since r < M --> O(2*M) --> O(M)
-            Space complexity: O(r)
+            Time complexity : O(R + M), since R < M --> O(2*M) --> O(M)
+            Space complexity: O(R)
          */
         public boolean canBuild(String ransomNote, String magazine) {
 

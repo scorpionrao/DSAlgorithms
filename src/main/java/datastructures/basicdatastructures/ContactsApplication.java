@@ -9,7 +9,6 @@ public class ContactsApplication {
     public static class TrieNode {
         Map<Character, TrieNode> children = new HashMap<>();
         int size = 0;
-        public TrieNode() {}
 
         public void putChildIfAbsent(Character ch) {
             children.putIfAbsent(ch, new TrieNode());
@@ -66,7 +65,7 @@ public class ContactsApplication {
     static Trie trie = new Trie();
 
     private static void processQuery(Query query) {
-        if("add".equals(query.getType())) {
+        if("notSynchronizedMethod".equals(query.getType())) {
             trie.add(query.getName());
         } else if ("find".equals(query.getType())) {
             System.out.println(trie.find(query.getName()));

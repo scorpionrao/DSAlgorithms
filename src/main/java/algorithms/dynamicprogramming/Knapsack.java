@@ -36,18 +36,20 @@ public class Knapsack {
         item = 2: value(4, 2) = value(4 - 4) + v[2] = 16
         item = 3: value(4, 3) = value(4 - 2) + v[3] = value(2) + 9 = 9 + 9 = 18
      */
-    static int optimalWeight_repetition(int W, int[] w, int[] v) {
+    static int optimalWeight_repetition(int maxBagSize, int[] weights, int[] values) {
         // bottom up from each smaller weight W
-        int n = w.length;
-        int[] table = new int[W+1];
-        for(int weight = 1; weight <= W; weight++) {
+        int n = weights.length;
+        /* 1D array */
+        int[] table = new int[maxBagSize+1];
+        for(int weight = 1; weight <= maxBagSize; weight++) {
             for(int item = 0; item < n; item++) {
-                if(w[item] < weight) continue;
-                int value = table[weight - w[item]] + v[item];
+                if(weights[item] > weight) {continue;}
+                /* Always GUESS TAKE */
+                int value = table[weight - weights[item]] + values[item];
                 table[weight] = Math.max(table[weight], value);
             }
         }
-        return table[W];
+        return table[maxBagSize];
     }
 
     /*
@@ -89,37 +91,35 @@ public class Knapsack {
         return table[n][W];
     }
 
-    static int optimalWeight(int W, int[] w) {
-        // Example: 10 3 1 4 8 -> 9
-        // build from all combinations of smaller i and weight;
-        int n = w.length;
-        int[][] table = new int[n + 1][W + 1];
-        // fill in first row and first col by 0
-        // if total weight is 0 (weight=0)
-        for (int j = 0; j <= W; j++) {
-            table[0][j] = 0;
+    /* Default is without repetition */
+    static int optimalWeight(int maxBagSize, int[] weights) {
+
+        int numOfItems = weights.length;
+        int[][] table = new int[numOfItems + 1][maxBagSize + 1];
+
+        int noItem = 0;
+        for (int weightColumn = 0; weightColumn <= maxBagSize; weightColumn++) {
+            table[noItem][weightColumn] = 0;
         }
-        // if no item is chosen (i=0)
-        for (int i = 0; i <= n; i++) {
-            table[i][0] = 0;
+
+        int noCapacity = 0;
+        for (int itemRow = 0; itemRow <= numOfItems; itemRow++) {
+            table[itemRow][noCapacity] = 0;
         }
         // either take ith: (w - wi, i - 1); or no taking: (w, i - 1)
-        for (int item = 1; item <= n; item++) {
-            for (int weight = 1; weight <= W; weight++) {
-                // even wi exceeds, keep value of (w, i - 1) as no taking
-                table[item][weight] = table[item - 1][weight];
-                // BZ: the ith item has index i - 1,
-                // since row is from 0 to n
-                if (weight < w[item - 1]) {
+        for (int item = 1; item <= numOfItems; item++) {
+            for (int availableWeight = 1; availableWeight <= maxBagSize; availableWeight++) {
+
+                if (availableWeight < weights[item - 1]) {
                     continue;
                 }
-                table[item][weight] = Math.max(
-                        table[item][weight],
-                        table[item - 1][weight - w[item - 1]] + w[item - 1]);
-                // vi is related with wi, so add wi into knapsack
+                table[item][availableWeight] =
+                    Math.max(
+                        table[item - 1][availableWeight],
+                        table[item][availableWeight - weights[item - 1]] + weights[item - 1]);
             }
         }
-        return table[n][W];
+        return table[numOfItems][maxBagSize];
     }
 
     public static void main(String[] args) {

@@ -84,7 +84,7 @@ public class CourseLabBST {
 
                 /* Target >= root */
 
-                /* Blindly add left child size */
+                /* Blindly notSynchronizedMethod left child size */
                 if(root.leftChild != null) {
                     count = count + root.leftChild.size;
                 }

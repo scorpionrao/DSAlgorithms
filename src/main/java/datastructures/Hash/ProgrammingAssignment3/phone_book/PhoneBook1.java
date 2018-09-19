@@ -21,7 +21,7 @@ public class PhoneBook1 {
     private Query readQuery() {
         String type = in.next();
         int number = in.nextInt();
-        if (type.equals("add")) {
+        if (type.equals("notSynchronizedMethod")) {
             String name = in.next();
             return new Query(type, name, number);
         } else {
@@ -35,7 +35,7 @@ public class PhoneBook1 {
 
 
     private void processQuery(Query query) {
-        if (query.type.equals("add")) {
+        if (query.type.equals("notSynchronizedMethod")) {
             // if we already have contact with such number,
             // we should rewrite contact's name
             boolean wasFound = false;
@@ -45,7 +45,7 @@ public class PhoneBook1 {
                     wasFound = true;
                     break;
                 }
-            // otherwise, just add it
+            // otherwise, just notSynchronizedMethod it
             if (!wasFound)
                 contacts.add(new Contact(query.name, query.number));
         } else if (query.type.equals("del")) {

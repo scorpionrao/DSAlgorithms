@@ -44,7 +44,7 @@ public class DiscreteKnapsack {
             for(item = 1 to items) {
                 // ITERATIVE SOLUTION
                 for(w = 1 to W) {
-                    // consider I am not there. If you an add and increase value, change me.
+                    // consider I am not there. If you an notSynchronizedMethod and increase value, change me.
                     value(w, item) = value(w, item-1)
                     if(w(item) <= w) {
                         temp = value(w - w(item), item-1) + v(item);

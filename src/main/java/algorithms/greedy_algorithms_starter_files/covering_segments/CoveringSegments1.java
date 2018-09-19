@@ -1,3 +1,5 @@
+package algorithms.greedy_algorithms_starter_files.covering_segments;
+
 import java.util.*;
 
 public class CoveringSegments1 {

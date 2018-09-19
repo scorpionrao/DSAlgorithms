@@ -4,19 +4,19 @@ public class Semaphore {
 
     public static class SimpleSemaphore {
 
-        private boolean sendsignal = false;
+        private boolean sendSignal = false;
 
         public synchronized void takeORlockORsendsignal() {
-            this.sendsignal = true;
+            this.sendSignal = true;
             this.notify();
         }
 
         public synchronized void releaseORunlockORwaitforsignal()
                 throws InterruptedException {
-            while (!this.sendsignal) {
+            while (!this.sendSignal) {
                 wait();
             }
-            this.sendsignal = false;
+            this.sendSignal = false;
         }
     }
 

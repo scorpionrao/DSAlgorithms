@@ -8,9 +8,9 @@ import java.util.Queue;
  */
 public class Risk {
 
-    // add 12
+    // notSynchronizedMethod 12
     // get 1
-    // add 34
+    // notSynchronizedMethod 34
     // get 2
     // get 3
     // get 4
@@ -28,7 +28,7 @@ public class Risk {
     Solving the example given:
     data = 12
     get - 1 ==> data = 2
-    add 34 ==> data = 234
+    notSynchronizedMethod 34 ==> data = 234
     get - 2 ==> data = 34
     get - 3 ==> data = 4
     get - 4 ==> data = empty

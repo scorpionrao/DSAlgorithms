@@ -117,7 +117,7 @@ public class tree_height {
                 // already computed, do nothing
                 return heights[i];
             }
-            // simply add 1 to parent height
+            // simply notSynchronizedMethod 1 to parent height
             heights[i] = usingDPHeightAt(parent[i], heights) + 1;
             return heights[i];
         }

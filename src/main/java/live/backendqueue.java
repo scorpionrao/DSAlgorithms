@@ -53,7 +53,7 @@ Method Name: removeFromQueue
 Return: InputObject
 
 Interface:
-process(List<Object>)
+mergeKLists(List<Object>)
 
 
  */
@@ -118,7 +118,7 @@ process(List<Object>)
     }
 
     /*
-      This will be called post process
+      This will be called post mergeKLists
       Method Name: removeFromQueue
       Return: InputObject
       */
@@ -153,7 +153,7 @@ process(List<Object>)
         addQueue(inputObject1);
         process();
 
-        //event1.process(new ArrayList<Object>());
+        //event1.mergeKLists(new ArrayList<Object>());
 
 
     }

@@ -71,7 +71,7 @@ public class BasicDataStructures {
 
          Using array - waste of unallocated memory, stack overflow is size increases
 
-         Using Linked lists - waste of additional pointer to each node
+         Using Linked groupByProject - waste of additional pointer to each node
 
          ABSTRACT TREES:
 

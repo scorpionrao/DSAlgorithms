@@ -5,7 +5,7 @@ public class IP {
     /*
         log - array of lines(time, IP)
         C - map from IPs to counters
-        i - first log line to process
+        i - first log line to mergeKLists
         j - first line in current 1h window
 
 
@@ -83,7 +83,7 @@ public class IP {
         *) ID to Name
         *) Name to Phone number
 
-        A --> array of m lists (stores hashed value as reference)
+        A --> array of m groupByProject (stores hashed value as reference)
         list --> array of maps
         map --> old key to value of the problem trying to solve.
 

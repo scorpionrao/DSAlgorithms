@@ -28,10 +28,7 @@ public class BinarySearchTree {
             } else if(R.key < k) {
                 return Find(R.right, k)
             } else if(R.key > k) {
-                if(R.left != null) {
-                    return Find(R.left, k)
-                }
-                return R;
+                return Find(R.left, k)
             }
         }
 

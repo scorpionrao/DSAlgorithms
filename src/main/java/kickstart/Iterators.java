@@ -8,9 +8,9 @@ public class Iterators {
     public static void main(String[] args) {
 
         /*
-            Preferred to add or remove elements in the middle of the list.
+            Preferred to notSynchronizedMethod or remove elements in the middle of the list.
 
-            Use ArrayList - when the goal is to add or remove elements at the end of the list
+            Use ArrayList - when the goal is to notSynchronizedMethod or remove elements at the end of the list
          */
         LinkedList<String> linkedList = new LinkedList<>();
         linkedList.add("fox");

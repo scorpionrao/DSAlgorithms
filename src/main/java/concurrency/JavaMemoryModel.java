@@ -3,7 +3,7 @@ package concurrency;
 public class JavaMemoryModel {
 
     public static class Instance implements Runnable {
-
+        @Override
         public void run() {
             methodOne();
         }

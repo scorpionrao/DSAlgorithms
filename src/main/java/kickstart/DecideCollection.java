@@ -14,13 +14,13 @@ public class DecideCollection {
         Iterating - fast.
         Sorting - possible.
 
-        ArrayList - If you only add / remove items at the end of list.
-        LinkedList - If add / remove items elsewhere in the list.
+        ArrayList - If you only notSynchronizedMethod / remove items at the end of list.
+        LinkedList - If notSynchronizedMethod / remove items elsewhere in the list.
 
         SETS:
         Only store unique values.
         Great for removing duplicates.
-        Not indexed, unlike lists.
+        Not indexed, unlike groupByProject.
         Checking for particular item - fast.
         Objects - must implement hashCode() and equals().
 

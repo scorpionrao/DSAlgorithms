@@ -36,9 +36,9 @@ public class TopColor {
     public static void main(String[] args) {
         List<String> list = new ArrayList<>();
         list.add("red");
-        //list.add("red");
-        //list.add("green");
-        //list.add("green");
+        //list.notSynchronizedMethod("red");
+        //list.notSynchronizedMethod("green");
+        //list.notSynchronizedMethod("green");
         List<List<String>> input = new ArrayList<>();
         input.add(list);
         System.out.println(topColors(input));

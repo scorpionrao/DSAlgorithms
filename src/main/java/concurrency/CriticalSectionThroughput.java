@@ -8,7 +8,7 @@ public class CriticalSectionThroughput {
     private Integer sum1Lock = new Integer(0);
     private Integer sum2Lock = new Integer(1);
 
-    public void add(int value1, int value2) {
+    public void notSynchronizedMethod(int value1, int value2) {
         synchronized (sum1Lock) {
             sum1 = sum1 + value1;
             System.out.println(String.format("Sum1 : %d", sum1));
@@ -26,28 +26,28 @@ public class CriticalSectionThroughput {
         new Thread(new Runnable() {
            @Override
            public void run() {
-               criticalSectionThroughput.add(1, 2);
+               criticalSectionThroughput.notSynchronizedMethod(1, 2);
            }
         }).start();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                criticalSectionThroughput.add(1, 2);
+                criticalSectionThroughput.notSynchronizedMethod(1, 2);
             }
         }).start();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                criticalSectionThroughput.add(1, 2);
+                criticalSectionThroughput.notSynchronizedMethod(1, 2);
             }
         }).start();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                criticalSectionThroughput.add(1, 2);
+                criticalSectionThroughput.notSynchronizedMethod(1, 2);
             }
         }).start();
     }

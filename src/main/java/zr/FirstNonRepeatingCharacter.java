@@ -84,7 +84,7 @@ public class FirstNonRepeatingCharacter {
                         linkedHashSet.remove(str.charAt(i));
                         isRepeated[str.charAt(i) - 'a'] = true;
                     } else {
-                        /* O(1) add at the end */
+                        /* O(1) notSynchronizedMethod at the end */
                         linkedHashSet.add(str.charAt(i));
                     }
                 }

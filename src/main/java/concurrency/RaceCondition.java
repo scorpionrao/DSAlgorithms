@@ -12,28 +12,18 @@ public class RaceCondition {
     public static void main(String[] args) {
         RaceCondition raceCondition = new RaceCondition();
 
-        Thread thread1 = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                raceCondition.add(5);
-            }
-        }, "Thread1");
+        Thread[] threads = new Thread[20];
+        for(int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(new Runnable() {
+               @Override
+               public void run() {
+                   raceCondition.add(5);
+               }
+            }, "Thread"+i);
+        }
 
-        Thread thread2 = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                raceCondition.add(2);
-            }
-        }, "Thread2");
-
-        Thread thread3 = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                raceCondition.add(4);
-            }
-        }, "Thread3");
-        thread1.start();
-        thread2.start();
-        thread3.start();
+        for(int i = 0; i < threads.length; i++) {
+            threads[i].start();
+        }
     }
 }

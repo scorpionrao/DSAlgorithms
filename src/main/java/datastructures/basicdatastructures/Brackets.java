@@ -6,19 +6,19 @@ public class Brackets {
 
     static String isBalanced(String s) {
 
-        Stack<Integer> stack = new Stack<>();
-        Map<Integer, Integer> precompute = new HashMap<Integer, Integer>(){
+        Stack<Character> stack = new Stack<>();
+        Map<Character, Character> precompute = new HashMap<Character, Character>(){
             {
-                put(Character.getNumericValue('{'), Character.getNumericValue('}'));
-                put(Character.getNumericValue('('), Character.getNumericValue(')'));
-                put(Character.getNumericValue('['), Character.getNumericValue(']'));
+                put('{', '}');
+                put('(', ')');
+                put('[', ']');
             }
         };
 
         char[] charArray = s.toCharArray();
         for(int i = 0; i < charArray.length; i++) {
             if(charArray[i] == '{' || charArray[i] == '[' || charArray[i] == '(') {
-                stack.push(precompute.get(Character.getNumericValue(charArray[i])));
+                stack.push(precompute.get(charArray[i]));
             } else {
                 if(stack.isEmpty() || stack.pop() != Character.getNumericValue(charArray[i])) {
                     return "NO";

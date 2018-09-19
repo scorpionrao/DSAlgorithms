@@ -44,7 +44,7 @@ public class PrimMSTSophisticated
             //extract min value vertex from heap + map
             Vertex<Integer> current = minHeap.extractMin();
 
-            //get the corresponding edge for this vertex if present and add it to final result.
+            //get the corresponding edge for this vertex if present and notSynchronizedMethod it to final result.
             //This edge wont be present for first vertex.
             Edge<Integer> spanningTreeEdge = vertexToEdge.get(current);
             if(spanningTreeEdge != null) {
@@ -58,7 +58,7 @@ public class PrimMSTSophisticated
                 if(minHeap.containsData(adjacent) && minHeap.getWeight(adjacent) > edge.getWeight()){
                     //decrease the value of adjacent vertex to this edge weight.
                     minHeap.decrease(adjacent, edge.getWeight());
-                    //add vertex->edge mapping in the graph.
+                    //notSynchronizedMethod vertex->edge mapping in the graph.
                     vertexToEdge.put(adjacent, edge);
                 }
             }

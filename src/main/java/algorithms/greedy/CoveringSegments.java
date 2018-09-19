@@ -14,7 +14,7 @@ public class CoveringSegments {
         points[0] = current position
         for each segment {
             if (start > current position || end < current position) {
-                add end of this segment to points
+                notSynchronizedMethod end of this segment to points
              }
         }
 
@@ -23,7 +23,12 @@ public class CoveringSegments {
 
     private static int[] optimalPoints(Segment[] segments) {
 
-        int[] points = new int[segments.length];
+        if(segments == null) {
+            throw new NullPointerException();
+        } else  if (segments.length == 0) {
+            return new int[0];
+        }
+
         Arrays.sort(segments, new Comparator<Segment>() {
             @Override
             public int compare(Segment s1, Segment s2) {
@@ -31,10 +36,12 @@ public class CoveringSegments {
             }
         });
         int currentPosition = segments[0].end;
+
+        int[] points = new int[segments.length];
         int j = 0;
         points[j] = currentPosition;
         for(int i = 1; i < segments.length; i++) {
-            if(segments[i].start > currentPosition || segments[i].end < currentPosition) {
+            if(segments[i].end < currentPosition || segments[i].start > currentPosition) {
                 currentPosition = segments[i].end;
                 points[++j] = currentPosition;
             }

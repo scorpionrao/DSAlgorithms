@@ -53,7 +53,7 @@ public class Encoding
     /*
         representation for each of the encoded character
         read 5 elements at a time, look up for the encoded character
-        add it to the result
+        notSynchronizedMethod it to the result
 
         Edge cases: it is not guaranteed for length to be multiple of 5
         Edge cases: if length is 0 - return empty string, append false as required

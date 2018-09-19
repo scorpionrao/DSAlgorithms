@@ -28,16 +28,16 @@ public class DistanceBetweenNodesBinaryTree {
         }
 
         /* Time Complexity - O(h) */
-		private int findLevelBST(Node root, int key, int currentLevel) {
+		private int findLevelForParticularNodeBST(Node root, int key, int currentLevel) {
 			if (root == null) {
 				return -1;
 			} else if (root.key == key) {
 				return currentLevel;
 			}
 			if(key < root.key) {
-				return findLevelBST(root.left, key, currentLevel + 1);
+				return findLevelForParticularNodeBST(root.left, key, currentLevel + 1);
 			} else {
-				return findLevelBST(root.right, key, currentLevel + 1);
+				return findLevelForParticularNodeBST(root.right, key, currentLevel + 1);
 			}
 		}
 

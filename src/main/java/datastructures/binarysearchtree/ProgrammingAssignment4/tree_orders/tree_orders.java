@@ -41,7 +41,7 @@ public class tree_orders {
 		List<Integer> inOrder() {
 			ArrayList<Integer> result = new ArrayList<Integer>();
                         // Finish the implementation
-                        // You may need to add a new recursive method to do that
+                        // You may need to notSynchronizedMethod a new recursive method to do that
                         
 			return result;
 		}
@@ -49,7 +49,7 @@ public class tree_orders {
 		List<Integer> preOrder() {
 			ArrayList<Integer> result = new ArrayList<Integer>();
                         // Finish the implementation
-                        // You may need to add a new recursive method to do that
+                        // You may need to notSynchronizedMethod a new recursive method to do that
                         
 			return result;
 		}
@@ -57,7 +57,7 @@ public class tree_orders {
 		List<Integer> postOrder() {
 			ArrayList<Integer> result = new ArrayList<Integer>();
                         // Finish the implementation
-                        // You may need to add a new recursive method to do that
+                        // You may need to notSynchronizedMethod a new recursive method to do that
                         
 			return result;
 		}

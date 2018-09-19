@@ -61,7 +61,7 @@ public class StronglyConnected {
         for(int i = 0; i < adj.length; i++) {
             reverseAdjList[i] = new ArrayList<>();
         }
-        // for each vertex v, add v into reverse list of its neighbors.
+        // for each vertex v, notSynchronizedMethod v into reverse list of its neighbors.
         // BZ: O(V*E)? O(V+E)? traverse each vertex and each edge once.
         for(int i = 0; i < adj.length; i++) {
             for(Integer integer : adj[i]) {

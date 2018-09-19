@@ -2,7 +2,8 @@ package datastructures.basicdatastructures;
 
 import java.util.Random;
 
-public class kthelementinarray {
+public class RandomizedShuffle
+{
 
     public static void findMedian(int[] array) {
         int size = array.length;

@@ -36,8 +36,10 @@ public class EditDistance {
             distance[0][j] = j;
         }
         for(int i = 1; i < distance.length; i++) {
-            for(int j = 1; j < distance[0].length; j++) {
+            for(int j = 1; j < distance[i].length; j++) {
+                /* Insertion - Retain row data / from string data */
                 int insertion = distance[i][j-1] + 1;
+                /* Deletion - Retain column data / to string data */
                 int deletion = distance[i-1][j] + 1;
                 int match = distance[i-1][j-1];
                 int mismatch = distance[i-1][j-1] + 1;
