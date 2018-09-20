@@ -133,25 +133,25 @@ public class TestTime {
         while(testTime > 0) {
             /* find the list with least head time */
             int leastHeadTime = Integer.MAX_VALUE;
-            int projectID = -1;
+            int projectId = -1;
             // O(P)
             for(Map.Entry<Integer, LinkedList<Integer>> entry : groupByProject.entrySet()) {
                     LinkedList<Integer> list = entry.getValue();
                     if(list != null && list.peek() != null && list.peek() < leastHeadTime) {
-                        projectID = entry.getKey();
+                        projectId = entry.getKey();
                         leastHeadTime = list.peek();
                     }
             }
 
             /* Project has been identified && min time is within available time */
-            if(projectID != -1 && leastHeadTime < testTime) {
-                if(resultMap.get(projectID) == null) {
-                    resultMap.put(projectID, 0);
+            if(projectId != -1 && leastHeadTime < testTime) {
+                if(resultMap.get(projectId) == null) {
+                    resultMap.put(projectId, 0);
                 }
-                resultMap.put(projectID, resultMap.get(projectID)+1);
+                resultMap.put(projectId, resultMap.get(projectId)+1);
                 // clean up
                 testTime = testTime - leastHeadTime;
-                groupByProject.get(projectID).removeFirst();
+                groupByProject.get(projectId).removeFirst();
             } else {
                 // no more solutions are useful
                 break;
