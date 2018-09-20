@@ -53,63 +53,68 @@ import java.util.*;
 
 public class TestTime {
 
-        /*
-            N - number of test cases
+    /*
+        N - number of test cases
 
-            O(N) - Time
-        */
-        public static Map<Integer, LinkedList<Integer>> buildDS(int[][] testDetails) {
-            if(testDetails == null) {
-                throw new NullPointerException("Test Details is null");
-            }
-
-            Map<Integer, LinkedList<Integer>> groupByProject = new HashMap<>();
-
-            // O(N)
-            for(int i = 0; i < testDetails.length; i++) {
-                int projectID = testDetails[i][0];
-                int testTime = testDetails[i][1];
-                if(groupByProject.get(projectID) == null) {
-                    groupByProject.put(projectID, new LinkedList<>());
-                }
-                groupByProject.get(projectID).add(testTime);
-            }
-            return groupByProject;
+        O(N) - Time
+    */
+    public static Map<Integer, LinkedList<Integer>> buildDS(int[][] testDetails) {
+        if(testDetails == null) {
+            throw new NullPointerException("Test Details is null");
         }
+
+        Map<Integer, LinkedList<Integer>> groupByProject = new HashMap<>();
+
+        // O(N)
+        for(int i = 0; i < testDetails.length; i++) {
+            int projectId = testDetails[i][0];
+            int testTime = testDetails[i][1];
+            if(groupByProject.get(projectId) == null) {
+                groupByProject.put(projectId, new LinkedList<>());
+            }
+            groupByProject.get(projectId).add(testTime);
+        }
+        return groupByProject;
+    }
 
     public static class Node {
         int projectId;
         int time;
         Node next;
+        Node(int time) {
+            this.time = time;
+            this.next = null;
+        }
         Node(int projectId, int time) {
             this.projectId = projectId;
             this.time = time;
             this.next = null;
         }
     }
-    public static List<Node> buildDS1(int[][] testDetails) {
+
+    public static Map<Integer, Node> buildDS1(int[][] testDetails) {
         if(testDetails == null) {
             throw new NullPointerException("Test Details is null");
         }
 
-        ArrayList<Node> list = new ArrayList<>(1000);
+        Map<Integer, Node> groupByProject = new HashMap<>();
 
         // O(N)
         for(int i = 0; i < testDetails.length; i++) {
-            int projectID = testDetails[i][0];
+            int projectId = testDetails[i][0];
             int testTime = testDetails[i][1];
 
-            Node node = list.get(projectID);
+            Node node = groupByProject.get(projectId);
             if(node == null) {
-                list.add(projectID, new Node(projectID, testTime));
+                groupByProject.put(projectId, new Node(projectId, testTime));
             } else {
                 while (node.next != null) {
                     node = node.next;
                 }
-                node.next = new Node(projectID, testTime);
+                node.next = new Node(testTime);
             }
         }
-        return list;
+        return groupByProject;
     }
 
     /*
@@ -117,16 +122,13 @@ public class TestTime {
 
       O(P * N) - Time
     */
-    public static int[] mergeKLists(Map<Integer, LinkedList<Integer>> groupByProject, int testTime) {
+    public static Map<Integer, Integer> mergeKLists(Map<Integer, LinkedList<Integer>> groupByProject, int testTime) {
 
         if(groupByProject == null || testTime < 0) {
             throw new IllegalArgumentException();
         }
 
-        // no projectID = 0
-        int[] output = new int[groupByProject.size() + 1];
-        Arrays.fill(output, 0);
-
+        Map<Integer, Integer> resultMap = new HashMap<>();
 
         while(testTime > 0) {
             /* find the list with least head time */
@@ -143,7 +145,10 @@ public class TestTime {
 
             /* Project has been identified && min time is within available time */
             if(projectID != -1 && leastHeadTime < testTime) {
-                output[projectID]++;
+                if(resultMap.get(projectID) == null) {
+                    resultMap.put(projectID, 0);
+                }
+                resultMap.put(projectID, resultMap.get(projectID)+1);
                 // clean up
                 testTime = testTime - leastHeadTime;
                 groupByProject.get(projectID).removeFirst();
@@ -152,7 +157,7 @@ public class TestTime {
                 break;
             }
         }
-        return output;
+        return resultMap;
     }
 
     /*
@@ -160,15 +165,13 @@ public class TestTime {
 
       O(P * N) - Time
     */
-    public static int[] mergeKLists1(List<Node> list, int testTime) {
+    public static Map<Integer, Integer> mergeKLists1(List<Node> list, int testTime) {
 
         if(list == null || testTime < 0) {
             throw new IllegalArgumentException();
         }
 
-        // no projectID = 0
-        int[] output = new int[list.size() + 1];
-        Arrays.fill(output, 0);
+        Map<Integer, Integer> resultMap = new HashMap<>();
 
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(list.size(), new Comparator<Node>(){
             @Override
@@ -191,9 +194,12 @@ public class TestTime {
 
         while (!priorityQueue.isEmpty() && testTime > 0) {
             Node node = priorityQueue.poll();
-            System.out.println(node.time);
             if(node.time <= testTime) {
-                output[node.projectId]++;
+                if(resultMap.get(node.projectId) == null) {
+                    resultMap.put(node.projectId, 0);
+                }
+                resultMap.put(node.projectId, resultMap.get(node.projectId) + 1);
+
                 if(node.next != null) {
                     priorityQueue.add(node.next);
                 }
@@ -202,7 +208,7 @@ public class TestTime {
                 break;
             }
         }
-        return output;
+        return resultMap;
     }
 
 
@@ -222,39 +228,14 @@ public class TestTime {
         int testTime = 19;
 
         Map<Integer, LinkedList<Integer>> groupByProjectMap = buildDS(testDetails);
-        int[] output = mergeKLists(groupByProjectMap, testTime);
-        System.out.println(Arrays.toString(output));
+        Map<Integer, Integer> resultMap = mergeKLists(groupByProjectMap, testTime);
+        System.out.println(resultMap);
 
-        Node[] nodes = new Node[testDetails.length];
-        nodes[0] = new Node(3, 8);
-        nodes[1] = new Node(1, 4);
-        nodes[2] = new Node(2, 5);
-        nodes[3] = new Node(2, 10);
-        nodes[4] = new Node(4, 12);
-        nodes[5] = new Node(1, 3);
-        nodes[6] = new Node(2, 7);
-        nodes[7] = new Node(3, 14);
-        nodes[8] = new Node(3, 2);
-        nodes[9] = new Node(4, 1);
+        Map<Integer, Node> groupByProjectMap1 = buildDS1(testDetails);
+        Map<Integer, Integer> resultMap1 =
+                mergeKLists1(new ArrayList<>(groupByProjectMap1.values()), testTime);
+        System.out.println(resultMap1);
 
-        nodes[0].next = nodes[7];
-        nodes[7].next = nodes[8];
-
-        nodes[1].next = nodes[5];
-
-        nodes[2].next = nodes[2];
-        nodes[3].next = nodes[6];
-
-        nodes[4].next = nodes[9];
-
-        List<Node> list1 = new ArrayList<>();
-        list1.add(nodes[0]);
-        list1.add(nodes[1]);
-        list1.add(nodes[2]);
-        list1.add(nodes[4]);
-
-        int[] output1 = mergeKLists1(list1, testTime);
-        System.out.println(Arrays.toString(output1));
         // Ouput: [2, 1, 0, 0]
     }
 
