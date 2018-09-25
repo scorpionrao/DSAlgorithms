@@ -77,9 +77,9 @@ public class LCM {
         array[0] = array[1];
         array[1] = temp;
       }
-      System.out.print("Input: ");
+      System.out.printBoard("Input: ");
       for(int i = 0; i < array.length; i++) {
-        System.out.print(array[i] + " ");
+        System.out.printBoard(array[i] + " ");
       }
       System.out.println();
       long bruteForceSolution = lcm_naive(array[0], array[1]);

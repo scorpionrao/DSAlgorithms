@@ -5,8 +5,8 @@ public class TicTacToe {
     /*
         Implement Tic Tac Toe game.
         void ticTacToe(char[ ][ ] board, char A, char B)
-        if A wins, print “Winner: A”
-        if B wins, print “Winner: B”
+        if A wins, printBoard “Winner: A”
+        if B wins, printBoard “Winner: B”
 
         ******************************************
         Game:

@@ -1,6 +1,6 @@
 package algorithms.cracking;
 
-public class printkthtolast {
+public class KthToLastSinglyLinkedList {
 
     public static class Node {
 

@@ -55,7 +55,7 @@ public class MaxPairwiseProduct {
                 array[i] = new Random().nextInt((maxValue - minValue) + 1) + minValue;
             }
             for(int i = 0; i < randomNum; i++) {
-                System.out.print(array[i] + " ");
+                System.out.printBoard(array[i] + " ");
             }
             System.out.println();
             long bruteForceSolution = getMaxPairwiseProduct(array);

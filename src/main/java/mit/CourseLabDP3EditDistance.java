@@ -198,7 +198,7 @@ public class CourseLabDP3EditDistance {
 		//int[] counter = {0};
 		int result = recursionMemoizationEditDistance(word1, word2, word1.length(), word2.length(), memo);
 		//System.out.println("Memoized counter: " + counter[0]);
-		//print(memo);
+		//printBoard(memo);
 		return result;
 	}
 	

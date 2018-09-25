@@ -44,10 +44,10 @@ import java.util.*;
         Psuedo code:
             start with root node -> initial assumption is the first node
             store this data in a HashMap -> O(1) retrieval
-            recursive call to print the obj(root node id, hashmap) {
+            recursive call to printBoard the obj(root node id, hashmap) {
 
-                print id
-                print name
+                printBoard id
+                printBoard name
                 for(each refs) {
                     recursive call(root node id, hashmap)
                 }

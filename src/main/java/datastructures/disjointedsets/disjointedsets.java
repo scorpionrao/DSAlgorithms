@@ -62,7 +62,7 @@ public class disjointedsets {
         1	2	3	3	3	1	5	5	9	2	5	2
         UnionNaive(9, 6) = {9, 1} = 1
         1	2	3	3	3	1	5	5	1	2	5	2
-        print(Find(6) Find(3) Find(11) Find(9))
+        printBoard(Find(6) Find(3) Find(11) Find(9))
         1 3 5 1
 
         Makeset(i), Rank(i)
@@ -200,13 +200,13 @@ public class disjointedsets {
         d.UnionNaive(6, 2);
         d.UnionNaive(11, 1);
         d.UnionNaive(8, 5);
-        System.out.print(d.FindNaive(5) + 1);
-        System.out.print(d.FindNaive(2) + 1);
-        System.out.print(d.FindNaive(10) + 1);
-        System.out.print(d.FindNaive(8) + 1);
+        System.out.printBoard(d.FindNaive(5) + 1);
+        System.out.printBoard(d.FindNaive(2) + 1);
+        System.out.printBoard(d.FindNaive(10) + 1);
+        System.out.printBoard(d.FindNaive(8) + 1);
         System.out.println();
         for(int i = 0; i < n; i++) {
-            System.out.print(d.smallestNaive[i] + " ");
+            System.out.printBoard(d.smallestNaive[i] + " ");
         }
         */
 

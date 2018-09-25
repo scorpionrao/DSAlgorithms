@@ -15,7 +15,7 @@ public class BinaryTreeInOrderTraversalNoRecursion {
         }
     }
 
-    /* Class to print the Inorder traversal */
+    /* Class to printBoard the Inorder traversal */
     static class BinaryTree {
         Node root;
 

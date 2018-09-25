@@ -198,7 +198,7 @@ public class RecursionBinarySearchTree {
 
         //System.out.println(bst.search(bst.root, 12));
         //bst.root = bst.delete(bst.root, 15);
-        //bst.print(0, bst.root, 'L');
+        //bst.printBoard(0, bst.root, 'L');
         System.out.println(bst.getSuccessor(bst.root, 15).data);
     }
 }

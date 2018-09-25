@@ -104,7 +104,7 @@ public class BasicDataStructures {
                 return
             }
             InOrderTraversal(tree.left)
-            print(tree.key)
+            printBoard(tree.key)
             InOrderTraversal(tree.right)
         }
 
@@ -114,7 +114,7 @@ public class BasicDataStructures {
             if tree = null {
                 return
             }
-            print(tree.key)
+            printBoard(tree.key)
             PreOrderTraversal(tree.left)
             PreOrderTraversal(tree.right)
         }
@@ -127,7 +127,7 @@ public class BasicDataStructures {
             }
             PostOrderTraversal(tree.left)
             PostOrderTraversal(tree.right)
-            print(tree.key)
+            printBoard(tree.key)
         }
 
         BFS1 - LevelTraversal
@@ -139,7 +139,7 @@ public class BasicDataStructures {
 
             while !queue.empty() {
                 node = queue.deQueue()
-                print(node)
+                printBoard(node)
                 if(node.left != null) {
                     queue.enQueue(node.left)
                 }
