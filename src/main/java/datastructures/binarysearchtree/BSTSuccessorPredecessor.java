@@ -1,7 +1,7 @@
 package datastructures.binarysearchtree;
 
 public class BSTSuccessorPredecessor {
-	
+
 	public static class Node {
 		int val;
 		Node left;
@@ -12,16 +12,9 @@ public class BSTSuccessorPredecessor {
 	}
 
 	/*
-        Cases:
-            Left child + No Right child --> Traverse the parent.
-            Left child + Single right child --> Right child.
-            Right child + No Right child -->
-
-            If a node N has a single right child, it doesn't matter when N is a left or right child.
-
         Recursion:
-            If target < root, successorRecursion is in left tree or root.
-            If target >= root, successorRecursion is in right tree.
+            If target < root, successor is in left tree or root.
+            If target >= root, successor is in right tree.
 	 */
 	public Node successorRecursion(Node root, Node target) {
 
@@ -30,23 +23,27 @@ public class BSTSuccessorPredecessor {
         }
 
         if(target.val < root.val) {
-            printForward(root, target, "left");
+            //printForward(root, target, "left");
             Node left = successorRecursion(root.left, target);
             if(left != null) {
-                printReturn(root, left, "left");
+                //printReturn(root, left, "left");
                 return left;
             } else {
-                printReturn(root, root, "root");
+                //printReturn(root, root, "root");
                 return root;
             }
         } else {
-            printForward(root, target, "right");
+            //printForward(root, target, "right");
             Node result = successorRecursion(root.right, target);
-            printReturn(root, result, "right");
+            //printReturn(root, result, "right");
             return result;
         }
     }
 
+    /*
+        Case 1 - If target node has right child, find min of right child.
+        Case 2 - If target node has no right child, find latest ancestor from which we branched left.
+     */
     public Node successorIterative(Node root, int search) {
 
         if(root == null) {
@@ -123,17 +120,19 @@ public class BSTSuccessorPredecessor {
     }
 
     public void printAllSuccessors(Node root) {
-        System.out.println("Successor of 1 : " + successorIterative(root, 1).val);
-        System.out.println("Successor of 2 : " + successorIterative(root, 2).val);
-        System.out.println("Successor of 3 : " + successorIterative(root, 3).val);
-        System.out.println("Successor of 4 : " + successorIterative(root, 4).val);
-        System.out.println("Successor of 5 : " + successorIterative(root, 5).val);
-        System.out.println("Successor of 6 : " + successorIterative(root, 6).val);
-        // Null Node will be returned.
-        System.out.println("Successor of 7 : " + successorIterative(root, 7));
+        if(root == null) {
+            return;
+        }
+        printAllSuccessors(root.left);
+        Node successor = successorIterative(root, root.val);
+        if(successor != null) {
+            System.out.println("Successor of " + root.val + " : " + successor.val);
+        }
+        printAllSuccessors(root.right);
     }
 
 	public static void main(String[] args) {
+
 		Node root = new Node(4);
 		root.left = new Node(2);
 		root.right = new Node(6);
@@ -144,23 +143,6 @@ public class BSTSuccessorPredecessor {
 
         BSTSuccessorPredecessor bstSuccessorPredecessor = new BSTSuccessorPredecessor();
         bstSuccessorPredecessor.printAllSuccessors(root);
-/*
-		BSTSuccessorPredecessor bstSuccessorPredecessor = new BSTSuccessorPredecessor();
-		Node successor1 = bstSuccessorPredecessor.successorRecursion(root, root.left);
-		System.out.println(String.format("Successor of " + root.left.val + " is = " + successor1.val));
-        System.out.println();
-        Node predecessor1 = bstSuccessorPredecessor.predecessor(root, root.left);
-        System.out.println(String.format("Predecessor of " + root.left.val + " is = " + predecessor1.val));
-        System.out.println();
-        Node successor2 = bstSuccessorPredecessor.successorRecursion(root, root);
-        System.out.println(String.format("Successor of " + root.val + " is = " + successor2.val));
-        System.out.println();
-        Node predecessor2 = bstSuccessorPredecessor.predecessor(root, root);
-        System.out.println(String.format("Predecessor of " + root.val + " is = " + predecessor2.val));
-        System.out.println();
-        */
-
-
     }
 
 }
