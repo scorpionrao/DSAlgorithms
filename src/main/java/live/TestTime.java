@@ -57,12 +57,19 @@ public class TestTime {
         N - number of test cases
 
         O(N) - Time
+
+        Output Map:
+        1 : 4,3
+        2 : 5,2,10
+        3 : 8
+        4 : 12
     */
     public static Map<Integer, LinkedList<Integer>> buildDS(int[][] testDetails) {
         if(testDetails == null) {
             throw new NullPointerException("Test Details is null");
         }
 
+        // Order matters
         Map<Integer, LinkedList<Integer>> groupByProject = new HashMap<>();
 
         // O(N)
@@ -118,40 +125,47 @@ public class TestTime {
     }
 
     /*
-      Until the time is exhausted or all the tests are used
+        Until the time is exhausted or all the tests are used
 
-      O(P * N) - Time
+        O(P * N) - Time
+
+        Input Map:
+        1 : 4,3
+        2 : 5,2,10
+        3 : 8
+        4 : 12
+
     */
     public static Map<Integer, Integer> mergeKLists(Map<Integer, LinkedList<Integer>> groupByProject, int testTime) {
 
-        if(groupByProject == null || testTime < 0) {
-            throw new IllegalArgumentException();
+        if(groupByProject == null) {
+            throw new NullPointerException("Group by project is null");
         }
 
         Map<Integer, Integer> resultMap = new HashMap<>();
 
         while(testTime > 0) {
             /* find the list with least head time */
-            int leastHeadTime = Integer.MAX_VALUE;
-            int projectId = -1;
+            int shortestHead = Integer.MAX_VALUE;
+            int projectIdToChoose = -1;
             // O(P)
             for(Map.Entry<Integer, LinkedList<Integer>> entry : groupByProject.entrySet()) {
                     LinkedList<Integer> list = entry.getValue();
-                    if(list != null && list.peek() != null && list.peek() < leastHeadTime) {
-                        projectId = entry.getKey();
-                        leastHeadTime = list.peek();
+                    if(list != null && list.peek() != null && list.peek() < shortestHead) {
+                        projectIdToChoose = entry.getKey();
+                        shortestHead = list.peek();
                     }
             }
 
             /* Project has been identified && min time is within available time */
-            if(projectId != -1 && leastHeadTime < testTime) {
-                if(resultMap.get(projectId) == null) {
-                    resultMap.put(projectId, 0);
+            if(projectIdToChoose != -1 && shortestHead < testTime) {
+                if(resultMap.get(projectIdToChoose) == null) {
+                    resultMap.put(projectIdToChoose, 0);
                 }
-                resultMap.put(projectId, resultMap.get(projectId)+1);
+                resultMap.put(projectIdToChoose, resultMap.get(projectIdToChoose)+1);
                 // clean up
-                testTime = testTime - leastHeadTime;
-                groupByProject.get(projectId).removeFirst();
+                testTime = testTime - shortestHead;
+                groupByProject.get(projectIdToChoose).removeFirst();
             } else {
                 // no more solutions are useful
                 break;
@@ -165,13 +179,11 @@ public class TestTime {
 
       O(P * N) - Time
     */
-    public static Map<Integer, Integer> mergeKLists1(List<Node> list, int testTime) {
+    public static Map<Integer, Integer> mergeKLists1(List<Node> list, int remainingTime) {
 
-        if(list == null || testTime < 0) {
+        if(list == null) {
             throw new IllegalArgumentException();
         }
-
-        Map<Integer, Integer> resultMap = new HashMap<>();
 
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(list.size(), new Comparator<Node>(){
             @Override
@@ -192,18 +204,21 @@ public class TestTime {
             }
         }
 
-        while (!priorityQueue.isEmpty() && testTime > 0) {
+        Map<Integer, Integer> resultMap = new HashMap<>();
+        while (!priorityQueue.isEmpty() && remainingTime > 0) {
+            // Priority Queue has lost this entire list.
             Node node = priorityQueue.poll();
-            if(node.time <= testTime) {
+            if(node.time <= remainingTime) {
                 if(resultMap.get(node.projectId) == null) {
                     resultMap.put(node.projectId, 0);
                 }
                 resultMap.put(node.projectId, resultMap.get(node.projectId) + 1);
 
+                // Bringing the entire list back to Priority queue
                 if(node.next != null) {
                     priorityQueue.add(node.next);
                 }
-                testTime = testTime - node.time;
+                remainingTime = remainingTime - node.time;
             } else {
                 break;
             }

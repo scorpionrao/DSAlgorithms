@@ -26,6 +26,10 @@ public class Derivative {
             return this.coefficient;
         }
 
+        public Term derivative() {
+            return new Term(this.exponent - 1, this.coefficient * this.exponent);
+        }
+
         @Override
         public String toString() {
             return this.exponent + "-->" + this.coefficient;
@@ -44,9 +48,7 @@ public class Derivative {
                 if(term.getExponent() == 0) {
                     continue;
                 }
-                int exponent = term.getExponent() - 1;
-                int coefficient = term.getCoefficient() * term.getExponent();
-                result.add(new Term(exponent, coefficient));
+                result.add(term.derivative());
             }
             return result;
         }

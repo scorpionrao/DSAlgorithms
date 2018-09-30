@@ -49,6 +49,35 @@ public class HeightBalancedBinaryTree
 		return recursivePreOrderDecideAtEachLeaf(root.left, height + 1, maxMin) 
 			&& recursivePreOrderDecideAtEachLeaf(root.right, height + 1, maxMin);
 	}
+
+	private static boolean recursiveIsBalanced(Node root) {
+		return dfsHeightOrReject(root) != -1;
+	}
+
+	private static int dfsHeightOrReject(Node root) {
+		if(root == null) {
+			return 0;
+		}
+
+		int leftHeight = dfsHeightOrReject(root.left);
+		if(leftHeight == -1) {
+			// Push up short circuit
+			return leftHeight;
+		}
+
+		int rightHeight = dfsHeightOrReject(root.right);
+		if(rightHeight == -1) {
+			// Push up short circuit
+			return rightHeight;
+		}
+
+		if(Math.abs(leftHeight - rightHeight) > 1) {
+			// BEGIN short circuit
+			return -1;
+		}
+
+		return Math.max(leftHeight, rightHeight) + 1;
+	}
 	
 	private static boolean iterateDfsPreOrderDecisionAtEnd(Node root) {
 		int maxLeafHeight = Integer.MIN_VALUE;
@@ -141,6 +170,8 @@ public class HeightBalancedBinaryTree
 		}
 		return true;
 	}
+
+
 	
 	private static boolean isBalanced(int maxLeafHeight, int minLeafHeight) {
 		return Math.abs(maxLeafHeight - minLeafHeight) <= 1;
@@ -150,18 +181,23 @@ public class HeightBalancedBinaryTree
 		Node root = new Node(1);
 		root.left = new Node(2);
 		root.right = new Node(3);
+		/*
         root.left.left = new Node(4);
         root.left.right = new Node(5);       
         root.left.left.left = new Node(6);
+        */
         /*
         root.right.right = new Node(7);
         root.right.left.right = new Node(8);
-        */
+
 		System.out.println("Recursive - \tTraverse InOrder - \tDecision at End : \t\t" + recursiveDecideAtEnd(root));
 		System.out.println("Recursive - \tTraverse PreOrder - \tDecision at Each Leaf : \t" + recursiveDecideAtEachLeaf(root));
 		System.out.println("Iterate DFS - \tTraverse PreOrder - \tDecision at End : \t\t" + iterateDfsPreOrderDecisionAtEnd(root));
 		System.out.println("Iterate DFS - \tTraverse PreOrder - \tDecision at Each Leaf : \t" + iterateDfsPreOrderDecisionAtEachLeaf(root));
 		System.out.println("Iterate BFS - \t\t\t\tDecision at End : \t\t" + iterateBfsDecisionAtEnd(root));
 		System.out.println("Iterate BFS - \t\t\t\tDecision at Each Leaf : \t" + iterateBfsDecisionAtEachLeaf(root));
+		*/
+
+		System.out.println(recursiveIsBalanced(root));
 	}
 }
