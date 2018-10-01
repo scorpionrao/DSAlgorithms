@@ -81,8 +81,7 @@ public class BoldSubTree {
                 Node node = root.childNodes.get(i);
                 root.childNodes.set(i, extractBoldSubTree(node));
             }
-            while (root.childNodes.remove(null)) {
-            }
+            while (root.childNodes.remove(null)) {}
 
             // leaf
             if (root.childNodes.isEmpty() && !root.isBold) {
@@ -90,6 +89,35 @@ public class BoldSubTree {
             }
             return root;
         }
+
+        /*
+            2012 - Novice Answer.
+
+            public Node extractBoldSubTree (Node rootNode) {
+                node1 = rootNode;
+                return extractBoldSubTree(rootNode, 0, 0);
+            }
+
+            private Node extractBoldSubTree (Node rootNode, int level, int childNumber) {
+
+                Node currentNode = rootNode;
+                while (currentNode != null) {
+                    if (currentNode.itemArray[childNumber].isBold != true &&
+                            currentNode.isLeaf())
+                        currentNode.getParent().disconnectChild(childNumber);
+                    } else {
+                        int numItems = rootNode.getNumItems();
+                        for(int j=0; j<numItems+1; j++) {
+                            Node nextNode = rootNode.getChild(j);
+                            if(nextNode != null)
+                                extractBoldSubTree(nextNode, level+1, j);
+                        }
+                    }
+                }
+                return node1;
+            }
+
+         */
     }
 
     public static void main(String[] args) {
