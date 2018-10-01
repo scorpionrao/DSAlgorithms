@@ -21,21 +21,24 @@ public class BoldSubTree {
 */
 
     public static class Node {
+
         int key;
         boolean isBold;
-        List<Node> childNodes = new ArrayList<>();
+        List<Node> childNodes;
 
         Node(int key, boolean isBold) {
             this.key = key;
             this.isBold = isBold;
+            this.childNodes = new ArrayList<>();
         }
 
-        void addChild(Node node) {
+        void addChild(Node node)
+        {
             childNodes.add(node);
         }
 
         public void printPreOrder() {
-            if(!childNodes.isEmpty()) {
+            if (!childNodes.isEmpty()) {
                 System.out.println(key + " --> " + childNodes.toString());
                 for (Node node : childNodes) {
                     node.printPreOrder();
@@ -45,21 +48,11 @@ public class BoldSubTree {
 
         @Override
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            if(isBold) {
-                sb.append("*");
-            }
-            sb.append(key);
-            if(isBold) {
-                sb.append("*");
-            }
-            return sb.toString();
+            return this.isBold ? "*" + key + "*" : key + "";
         }
-    }
 
-    public static class Solution {
         /*
-            DFS
+            DFS - O(N)
 
             1 --> [2, 3, *4*, 5]
             2 --> [21, *22*]
@@ -78,20 +71,21 @@ public class BoldSubTree {
             42 --> [*421*]
 
         */
-        Node extractBoldSubTree(Node root) {
+        public static Node extractBoldSubTree(Node root) {
 
-            if(root == null) {
+            if (root == null) {
                 return root;
             }
 
-            for(int i = 0; i < root.childNodes.size(); i++) {
+            for (int i = 0; i < root.childNodes.size(); i++) {
                 Node node = root.childNodes.get(i);
                 root.childNodes.set(i, extractBoldSubTree(node));
             }
-            while(root.childNodes.remove(null)){}
+            while (root.childNodes.remove(null)) {
+            }
 
             // leaf
-            if(root.childNodes.isEmpty() && !root.isBold) {
+            if (root.childNodes.isEmpty() && !root.isBold) {
                 return null;
             }
             return root;
@@ -139,7 +133,7 @@ public class BoldSubTree {
 
         one.printPreOrder();
         System.out.println();
-        one = new Solution().extractBoldSubTree(one);
+        one.extractBoldSubTree(one);
         one.printPreOrder();
         System.out.println();
     }
