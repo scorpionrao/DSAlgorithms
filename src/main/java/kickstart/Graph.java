@@ -38,7 +38,7 @@ public class Graph {
 
             DS3 - ADJACENCY LIST:
                 Space Complexity:
-                    1. Vertex and Edges - [heads] ( [DoublyLinkedLists] / [ArrayLists] / [BST] / [array] )
+                    1. Vertex and Edges - [heads] ( [SinglyLinkedLists] / [ArrayLists] / [BST] / [array] )
                                         - O(|V|+|E|)
 
                 Time Complexity:

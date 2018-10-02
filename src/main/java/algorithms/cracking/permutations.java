@@ -1,6 +1,6 @@
 package algorithms.cracking;
 
-public class permutations {
+public class Permutations {
     /*
         combinations of last char: ['A', 'B', 'C', 'D', 'E']
         combinations of last 2 char: ['AB', 'AC', 'AD', 'AE',
@@ -13,28 +13,28 @@ public class permutations {
 
      */
 
-    void permutation(String str) {
-        System.out.println(permutation(str, ""));
+    void permutation(String remaining) {
+        System.out.println(permutation(remaining, ""));
     }
 
-    int permutation(String str, String prefix) {
+    int permutation(String remaining, String fixedPart) {
         int count = 0;
         // n C r = n C 0 = n!
-        if(str.isEmpty() || prefix.length() == str.length()) {
+        if(remaining.isEmpty() || fixedPart.length() == remaining.length()) {
         // n C r = n C 2 = n! / 2
         // if(str.length() <= 2) {
-            System.out.println(prefix);
+            System.out.println(fixedPart);
             count++;
         } else {
-            for(int i = 0; i < str.length(); i++) {
-                String rem = str.substring(0, i) + str.substring(i + 1);
-                count = count + permutation(rem, prefix + str.charAt(i));
+            for(int i = 0; i < remaining.length(); i++) {
+                String rem = remaining.substring(0, i) + remaining.substring(i + 1);
+                count = count + permutation(rem, fixedPart + remaining.charAt(i));
             }
         }
         return count;
     }
 
     public static void main(String[] args) {
-        new permutations().permutation("ABC");
+        new Permutations().permutation("ABC");
     }
 }

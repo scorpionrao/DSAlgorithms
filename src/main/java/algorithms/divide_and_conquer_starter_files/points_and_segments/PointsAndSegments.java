@@ -1,3 +1,5 @@
+package algorithms.divide_and_conquer_starter_files.points_and_segments;
+
 import java.util.Scanner;
 
 public class PointsAndSegments {

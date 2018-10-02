@@ -1,6 +1,7 @@
 package algorithms.cracking;
 
-public class polynomialexpressions {
+public class PolynomialExpressions
+{
 
     public static class ExprTerm {
         public double coefficient;
@@ -32,7 +33,7 @@ public class polynomialexpressions {
 
         ExprTerm[] exp1 = {term1, term2, term3};
         ExprTerm[] exp2 = {term4, term5, term6};
-        ExprTerm[] result = new polynomialexpressions().sum(exp1, exp2);
+        ExprTerm[] result = new PolynomialExpressions().sum(exp1, exp2);
 
         for(int i = 0; i < result.length; i++) {
             System.out.println(result[i].coefficient + " " + result[i].exponent);

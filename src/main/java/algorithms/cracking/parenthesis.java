@@ -2,7 +2,8 @@ package algorithms.cracking;
 
 import java.util.ArrayList;
 
-public class parenthesis {
+public class Parenthesis
+{
     public static void addParen(ArrayList<String> list, int leftRem, int rightRem, char[] str, int index) {
         if (leftRem < 0 || rightRem < leftRem) return; // invalid state
 

@@ -1,11 +1,10 @@
 package algorithms.cracking;
 
-public class DoublyLinkedLists {
+public class SinglyLinkedLists {
 
     public static class Node {
         int key = 0;
         Node next = null;
-        Node prev = null;
 
         Node(int key) {
             this.key = key;
@@ -14,7 +13,7 @@ public class DoublyLinkedLists {
 
     public Node head;
 
-    public DoublyLinkedLists(Node node) {
+    public SinglyLinkedLists(Node node) {
         head = node;
     }
 
@@ -32,8 +31,8 @@ public class DoublyLinkedLists {
 
     public static void main(String[] args) {
         Node node = new Node(1);
-        DoublyLinkedLists doublyLinkedLists = new DoublyLinkedLists(node);
-        doublyLinkedLists.addNode(5);
-        doublyLinkedLists.addNode(10);
+        SinglyLinkedLists singlyLinkedLists = new SinglyLinkedLists(node);
+        singlyLinkedLists.addNode(5);
+        singlyLinkedLists.addNode(10);
     }
 }
