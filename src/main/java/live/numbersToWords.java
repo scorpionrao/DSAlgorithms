@@ -62,32 +62,33 @@ public class NumbersToWords
         // get rid of sign
         input = Math.abs(input);
 
-        if(input >= 1000000000) {
-            int billion = input / 1000000000;
-            sb.append(convert(billion) + map.get(1000000000));
-            input = input % 1000000000;
-        }
+        sb.append(convertValuesMoreThanThousand(input, 1000000000));
+        input = input % 1000000000;
 
-        if(input >= 1000000) {
-            int million = input / 1000000;
-            sb.append(convert(million) + map.get(1000000));
-            input = input % 1000000;
-        }
+        sb.append(convertValuesMoreThanThousand(input, 1000000));
+        input = input % 1000000;
 
-        if(input >= 1000) {
-            int thousand = input / 1000;
-            sb.append(convert(thousand) + map.get(1000));
-            input = input % 1000;
-        }
+        sb.append(convertValuesMoreThanThousand(input, 1000));
+        input = input % 1000;
 
         if(input > 0) {
-            sb.append(convert(input));
+            sb.append(convertValuesLessThanThousand(input));
         }
 
         return sb.toString().trim();
     }
 
-    private static String convert(int input) {
+    private static String convertValuesMoreThanThousand(int input, int units) {
+        StringBuilder sb = new StringBuilder();
+        if(input >= units) {
+            int dividend = input / units;
+            sb.append(convertValuesLessThanThousand(dividend) + map.get(units));
+            input = input % units;
+        }
+        return sb.toString();
+    }
+
+    private static String convertValuesLessThanThousand(int input) {
 
         StringBuilder sb = new StringBuilder();
 
