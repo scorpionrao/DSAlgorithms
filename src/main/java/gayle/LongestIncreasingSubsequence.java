@@ -1,7 +1,6 @@
-package algorithms.gayle;
+package gayle;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class LongestIncreasingSubsequence {
 

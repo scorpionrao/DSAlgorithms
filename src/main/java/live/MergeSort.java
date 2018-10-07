@@ -4,16 +4,16 @@ import java.util.Arrays;
 
 public class MergeSort {
 
-    public static void merge(int[] zipCodes, int left, int mid, int right) {
+    public static void merge(int[] zipCodes, int low, int mid, int high) {
 
-        int leftSize = mid - left + 1;
-        int rightSize = right - mid; // mid is already in left arry
+        int leftSize = mid - low + 1;
+        int rightSize = high - mid;
 
         int[] leftArray = new int[leftSize];
         int[] rightArray = new int[rightSize];
 
         for(int i = 0; i < leftSize; i++) {
-            leftArray[i] = zipCodes[left + i];
+            leftArray[i] = zipCodes[low + i];
         }
 
         for(int j = 0; j < rightSize; j++) {
@@ -22,7 +22,7 @@ public class MergeSort {
 
         int leftPointer = 0;
         int rightPointer = 0;
-        int resultPointer = left;
+        int resultPointer = low;
 
         while(leftPointer < leftArray.length && rightPointer < rightArray.length) {
             if(leftArray[leftPointer] <= rightArray[rightPointer]) {
@@ -48,20 +48,19 @@ public class MergeSort {
         }
     }
 
-    public static int[] sortZipCodes(int[] zipCodes, int low, int high) {
+    public static void divide(int[] zipCodes, int low, int high) {
 
         if(low < high) {
             int midIndex = (low + high) / 2;
-            sortZipCodes(zipCodes, low, midIndex);
-            sortZipCodes(zipCodes, midIndex + 1, high);
+            divide(zipCodes, low, midIndex);
+            divide(zipCodes, midIndex + 1, high);
             merge(zipCodes, low, midIndex, high);
         }
-        return zipCodes;
     }
 
     public static void main(String[] args) {
         int[] zipCodes = {98052, 95050, 95051, 91231, 81913, 94568};
-        int[] sortedZipCodes = sortZipCodes(zipCodes, 0, zipCodes.length - 1);
-        System.out.println(Arrays.toString(sortedZipCodes));
+        divide(zipCodes, 0, zipCodes.length - 1);
+        System.out.println(Arrays.toString(zipCodes));
     }
 }

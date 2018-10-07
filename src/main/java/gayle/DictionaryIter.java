@@ -1,4 +1,4 @@
-package algorithms.gayle;
+package gayle;
 
 import java.util.*;
 
