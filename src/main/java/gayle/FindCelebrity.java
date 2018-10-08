@@ -17,8 +17,10 @@ public class FindCelebrity {
         // until stranger and celebrity meet
         while(stranger < celebrity) {
             if(knows(matrix, stranger, celebrity)) {
+                // stranger fails to be a celebrity
                 stranger++;
             } else {
+                // very likely celebrity is farther.
                 celebrity--;
             }
         }

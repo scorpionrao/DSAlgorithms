@@ -18,7 +18,7 @@ public class FrequencyOfAges {
         N - number of elements.
     */
     private static void frequency(int[] input, int begin, int end, int[] freq) {
-
+        System.out.println("Solving: Begin = " + begin + ", End = " + end);
         if(input[begin] == input[end]) {
             int value = input[begin];
             freq[value] = end - begin + 1;

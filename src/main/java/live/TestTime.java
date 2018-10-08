@@ -226,6 +226,50 @@ public class TestTime {
         return resultMap;
     }
 
+    public static class MatrixNode {
+        int value;
+        int row;
+        int col;
+
+        MatrixNode(int value, int row, int col) {
+            this.value = value;
+            this.row = row;
+            this.col = col;
+        }
+    }
+    public static List<Integer> mergeKRows(int[][] matrix) {
+
+        PriorityQueue<MatrixNode> pq = new PriorityQueue<>(matrix.length, new Comparator<MatrixNode>(){
+
+            @Override
+            public int compare(MatrixNode o1, MatrixNode o2) {
+                if(o1.value > o2.value) {
+                    return 1;
+                } else if (o1.value < o2.value) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+        for(int i = 0; i < matrix.length; i++) {
+            pq.add(new MatrixNode(matrix[i][0], i, 0));
+        }
+
+        List<Integer> sortedList = new ArrayList<>();
+
+        while(!pq.isEmpty()) {
+            MatrixNode node = pq.poll();
+            sortedList.add(node.value);
+            if(node.col < matrix.length - 1) {
+                pq.add(new MatrixNode(matrix[node.row][node.col+1], node.row, node.col+1));
+            }
+        }
+
+        return sortedList;
+    }
+
 
     public static void main(String[] args) {
         int[][] testDetails = {
@@ -252,6 +296,14 @@ public class TestTime {
         System.out.println(resultMap1);
 
         // Ouput: [2, 1, 0, 0]
+
+        int[][] matrix = {
+                {20, 40, 80},
+                {5, 60, 90},
+                {45, 50, 55}
+        };
+
+        System.out.println(mergeKRows(matrix));
     }
 
 }
