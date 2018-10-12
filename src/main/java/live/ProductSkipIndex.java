@@ -15,15 +15,15 @@ public class ProductSkipIndex {
 
         int product = 1;
         for(int i = 0; i < inputArray.length; i++) {
-            if(inputArray[i] != 0) {
+            if(inputArray[i] > 0) {
                 product = product * inputArray[i];
             }
         }
 
-        // Space Optimized to O(N)
+        // Space Optimized to O(1)
         int[] resultArray = new int[inputArray.length];
         for(int i = 0; i < inputArray.length; i++) {
-            if(inputArray[i] != 0) {
+            if(inputArray[i] > 0) {
                 resultArray[i] = product / inputArray[i];
             }
         }

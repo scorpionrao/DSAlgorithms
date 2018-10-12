@@ -25,8 +25,29 @@ public class LeastEditToBalance {
                 sb.append(ch);
             } else if (ch == ')') {
                 if(!openParanthesisStack.isEmpty()) {
-                    openParanthesisStack.pop();
-                    sb.append(ch);
+                    sb.append(openParanthesisStack.pop());
+                } else {
+                    // do nothing --> clean up closed parenthesis
+                }
+            } else {
+                sb.append(ch);
+            }
+        }
+
+        str = sb.toString();
+
+        // clean up open paranthesis
+        Stack<Character> closedParanthesisStack = new Stack<>();
+        for(int i = str.length() - 1; i >= 0; i--) {
+            char ch = str.charAt(i);
+            if(ch == ')') {
+                closedParanthesisStack.push(ch);
+                sb.insert(0, ch);
+            } else if (ch == '(') {
+                if(!closedParanthesisStack.isEmpty()) {
+                    sb.insert(0, closedParanthesisStack.pop());
+                } else {
+                    // do nothing --> clean up closed parenthesis
                 }
             } else {
                 sb.append(ch);
