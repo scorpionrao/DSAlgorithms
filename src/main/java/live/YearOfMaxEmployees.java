@@ -123,6 +123,7 @@ public class YearOfMaxEmployees {
 
         while (!priorityQueue.isEmpty()) {
             Node node = priorityQueue.poll();
+            System.out.println(node.year + " " + node.type.toString() + " " + maxEmployees);
             if(node.type == Type.START) {
                 currentEmployees++;
                 if(currentEmployees > maxEmployees) {
@@ -139,11 +140,19 @@ public class YearOfMaxEmployees {
     }
 
     public static void main(String[] args) {
+        /*
         Employee e0 = new Employee(1940, 1945);
         Employee e1 = new Employee(1945, 1945);
         Employee e2 = new Employee(1945, 1950);
+        */
 
-        Employee[] employees = {e0, e1, e2};
+        Employee e0 = new Employee(1, 4);
+        Employee e1 = new Employee(2, 5);
+        Employee e2 = new Employee(10, 12);
+        Employee e3 = new Employee(5, 9);
+        Employee e4 = new Employee(5, 12);
+
+        Employee[] employees = {e0, e1, e2, e3, e4};
 
         int yearOfMaxEmployees = getYearOfMaxEmployeesOptimized(employees);
         System.out.println("Max Employees Year = " + yearOfMaxEmployees);

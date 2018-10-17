@@ -112,16 +112,89 @@ public class CourseLabDFS {
     }
 
     // O(adjList[v] = O(E)
-    private static void dfsOverEdgesRecursion(int sourceVertex, List<Integer>[] adjList,
-                                              List<Integer> visitingTimes) {
-    	// iterate over edges
-        adjList[sourceVertex]
-                .stream()
-                .filter(oppositeVertex -> !visitingTimes.contains(oppositeVertex))
-                .forEach(oppositeVertex -> dfsOverEdgesRecursion(oppositeVertex, adjList, visitingTimes));
+    private static void dfsOverEdgesRecursion(int sourceVertex, List<Integer>[] adjList, List<Integer> visitingTimes) {
+    	// iterate over edges, DFS
+        for(int oppositeVertex : adjList[sourceVertex]) {
+            if(!visitingTimes.contains(oppositeVertex)) {
+                dfsOverEdgesRecursion(oppositeVertex, adjList, visitingTimes);
+            }
+        }
+        // adding pre-req at the end
     	visitingTimes.add(sourceVertex);
     }
-    
+
+
+
+
+    private static boolean dfsOverEdgesRecursionSearch(int sourceVertex, int target, List<Integer>[] adjList) {
+
+        boolean[] visited = new boolean[adjList.length];
+        Arrays.fill(visited, false);
+
+        return dfsOverEdgesRecursionSearch(sourceVertex, target, adjList, visited);
+    }
+
+    // O(adjList[v] = O(E)
+    private static boolean dfsOverEdgesRecursionSearch(int sourceVertex, int target, List<Integer>[] adjList, boolean[] visited) {
+
+        // End when target node is met
+        if(sourceVertex == target) {
+            return true;
+        }
+        // iterate over edges, DFS
+        visited[sourceVertex] = true;
+        for(int oppositeVertex : adjList[sourceVertex]) {
+            if(!visited[oppositeVertex]) {
+                boolean search = dfsOverEdgesRecursionSearch(oppositeVertex, target, adjList, visited);
+                if(search) {
+                    // found, report back
+                    return search;
+                }
+                // continue searching
+            }
+        }
+        return false;
+    }
+
+    private static boolean dfsOverEdgesIterativeSearch(int sourceVertex, int target, List<Integer>[] adjList) {
+
+        boolean[] visited = new boolean[adjList.length];
+        Arrays.fill(visited, false);
+
+        return dfsOverEdgesIterativeSearch(sourceVertex, target, adjList, visited);
+    }
+
+    // O(adjList[v] = O(E)
+    private static boolean dfsOverEdgesIterativeSearch(int sourceVertex, int target, List<Integer>[] adjList, boolean[] visited) {
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(sourceVertex);
+        visited[sourceVertex] = true;
+
+        while(!stack.isEmpty()) {
+            Integer candidate = stack.pop();
+            visited[candidate] = true;
+            for(Integer oppositeVertex : adjList[candidate]) {
+                if(!visited[oppositeVertex]) {
+                    stack.push(oppositeVertex);
+                }
+            }
+            if(candidate == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /*
+        4
+        3
+        0 3
+        1 2
+        2 3
+        [1, 2, 0, 3]
+     */
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
         int numOfNodes = scanner.nextInt();
@@ -130,14 +203,105 @@ public class CourseLabDFS {
         for (int node = 0; node < numOfNodes; node++) {
             adjList[node] = new ArrayList<>();
         }
+
         for (int edge = 0; edge < numOfEdges; edge++) {
             int rootVertex = scanner.nextInt();
             int endVertex = scanner.nextInt();
             // directed graph
             adjList[rootVertex].add(endVertex);
         }
+
         scanner.close();
-        //topologicalSort(adjList);
-        singleComponentDriver(0, adjList);
+        topologicalSortDriver(adjList);
+        //singleComponentDriver(0, adjList);
+
+        /*
+
+        int numOfNodes = 4;
+        ArrayList<Integer>[] adjList = new ArrayList[numOfNodes];
+        for (int node = 0; node < numOfNodes; node++) {
+            adjList[node] = new ArrayList<>();
+        }
+
+        adjList[0].add(3);
+        adjList[1].add(2);
+        adjList[2].add(3);
+
+        boolean[][] result = {
+                {true, false, false, true},
+                {false, true, true, true},
+                {false, false, true, true},
+                {false, false, false, true}
+        };
+        System.out.println("RECURSIVE");
+        for(int i = 0; i < result.length; i++) {
+            for(int j = 0; j < result[i].length; j++) {
+                boolean search = dfsOverEdgesRecursionSearch(i, j, adjList);
+                System.out.println(i + " " + j + ", Expected: " + result[i][j] + ", \tActual: " + search + ", \tOVERALL : " + (result[i][j] == search));
+            }
+        }
+        System.out.println("ITERATIVE");
+        for(int i = 0; i < result.length; i++) {
+            for(int j = 0; j < result[i].length; j++) {
+                boolean search = dfsOverEdgesIterativeSearch(i, j, adjList);
+                System.out.println(i + " " + j + ", Expected: " + result[i][j] + ", \tActual: " + search + ", \tOVERALL : " + (result[i][j] == search));
+            }
+        }
+        */
     }
+
+    /*
+DEPEND TELNET TCPIP NETCARD
+DEPEND TCPIP NETCARD
+DEPEND NETCARD TCPIP
+TCPIP depends on NETCARD, ignoring command
+DEPEND DNS TCPIP NETCARD
+DEPEND BROWSER TCPIP HTML
+INSTALL NETCARD
+Installing NETCARD
+INSTALL TELNET
+Installing TCPIP
+Installing TELNET
+INSTALL foo
+Installing foo
+REMOVE NETCARD
+NETCARD is still needed
+INSTALL BROWSER
+Installing HTML
+Installing BROWSER
+INSTALL DNS
+Installing DNS
+LIST
+NETCARD
+TCPIP
+TELNET
+foo
+HTML
+BROWSER
+DNS
+REMOVE TELNET
+Removing TELNET
+REMOVE NETCARD
+NETCARD is still needed
+REMOVE DNS
+Removing DNS
+REMOVE NETCARD
+NETCARD is still needed
+INSTALL NETCARD
+NETCARD is already installed
+REMOVE TCPIP
+TCPIP is still needed
+REMOVE BROWSER
+Removing BROWSER
+Removing TCPIP
+Removing HTML
+REMOVE TCPIP
+TCPIP is not installed
+LIST
+NETCARD
+foo
+END
+
+
+     */
 }
