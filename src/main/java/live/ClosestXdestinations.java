@@ -26,9 +26,13 @@ public class ClosestXdestinations {
 
         @Override
         public int compareTo(Node other) {
-            if(this == other) {
+
+            if(other == null) {
+                return -1;
+            } else if (this == other) {
                 return 0;
             }
+
             Double distance1 = new Double(this.drivingDistance);
             Double distance2 = new Double(other.drivingDistance);
             return distance1.compareTo(distance2);
