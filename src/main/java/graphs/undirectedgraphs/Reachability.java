@@ -1,6 +1,7 @@
 package graphs.undirectedgraphs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Reachability {
@@ -21,21 +22,19 @@ public class Reachability {
         }
         int entryCell = scanner.nextInt() - 1;
         int exitCell = scanner.nextInt() - 1;
-        System.out.println(dfs(adjacentList, entryCell, exitCell));
+        System.out.println(dfsVertexes(adjacentList, entryCell, exitCell));
         scanner.close();
     }
 
-    private static int dfs(ArrayList<Integer>[] adjacentList, int x, int y) {
-        // DFS to explore connectivity between x and y */
+    private static int dfsVertexes(ArrayList<Integer>[] adjacentList, int x, int y) {
+        // DFS to dfsEdges connectivity between x and y */
         boolean[] visited = new boolean[adjacentList.length];
-        for(int i = 0; i < visited.length; i++) {
-            visited[i] = false;
-        }
+        Arrays.fill(visited, false);
 
         for(int rootVertex = 0; rootVertex < adjacentList.length; rootVertex++) {
             if(!visited[rootVertex]) {
-                explore(rootVertex, adjacentList, visited);
-                // specific to this problem at the end of each connected component
+                dfsEdges(rootVertex, adjacentList, visited);
+                // if one of this found, check for the other before component finishes.
                 if (visited[x] || visited[y]) {
                     return visited[x] == visited[y] ? 1 : 0;
                 }
@@ -44,43 +43,12 @@ public class Reachability {
         return 0;
     }
 
-    private static int dfs(int x, int y, ArrayList<Integer>[] adjacentList) {
-        boolean[] visited = new boolean[adjacentList.length];
-        for(int i = 0; i < adjacentList.length; i++) {
-            visited[i] = false;
-        }
+    private static void dfsEdges(int rootVertex, ArrayList<Integer>[] adjacentList, boolean[] visited) {
 
-        for(int rootVertex = 0; rootVertex < adjacentList.length; rootVertex++) {
-            if(!visited[rootVertex]) {
-                explore(adjacentList, visited, rootVertex);
-            }
-            // specific to problem
-            if(visited[x] || visited[y]) {
-                return visited[x] == visited[y] ? 1 : 0;
-            }
-        }
-        return 0;
-    }
-
-    private static void explore(ArrayList<Integer>[] adjacentList, boolean[] visited, int rootVertex) {
         visited[rootVertex] = true;
         for(int oppositeVertex : adjacentList[rootVertex]) {
             if(!visited[oppositeVertex]) {
-                explore(adjacentList, visited, oppositeVertex);
-            }
-        }
-    }
-
-    private static void explore(int rootVertex,
-                                ArrayList<Integer>[] adjacentList,
-                                boolean[] visited) {
-
-        // All connected vertices have same count of CC.
-        visited[rootVertex] = true;
-        // recursively explore unvisited adjacent vertices
-        for(int oppositeVertex : adjacentList[rootVertex]) {
-            if(!visited[oppositeVertex]) {
-                explore(oppositeVertex, adjacentList, visited);
+                dfsEdges(oppositeVertex, adjacentList, visited);
             }
         }
     }

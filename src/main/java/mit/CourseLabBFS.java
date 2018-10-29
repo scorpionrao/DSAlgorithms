@@ -2,6 +2,21 @@ package mit;
 
 import java.util.*;
 
+/*
+    Theory - Level order
+
+    Eg: Size of Tree (DFS), Maximum of Tree (DFS), Min of Tree (DFS), Print left view (BFS)
+
+    Time Complexity - O(N) for all 4 traversals.
+
+    Space Complexity - O(W) - Maximum width of Binary Tree, stored in queue.
+
+    Extra Space is WORST when tree is more balanced.
+
+    Iterative code.
+
+    Types of problem: Search something that is more likely to closer to root.
+ */
 public class CourseLabBFS {
 
     /*
@@ -62,10 +77,10 @@ public class CourseLabBFS {
             currentLevel++;
         }
         for(int i = 0; i < level.length; i++) {
-            System.out.println("Array Solution - Level[" + i + "]=" + level[i]);
+            System.out.println("Array ClosestXdestinations - Level[" + i + "]=" + level[i]);
         }
         for(int i = 0; i < parent.length; i++) {
-            System.out.println("Array Solution - Parent[" + i +"]=" + parent[i]);
+            System.out.println("Array ClosestXdestinations - Parent[" + i +"]=" + parent[i]);
         }
     }
 
@@ -95,8 +110,8 @@ public class CourseLabBFS {
             frontier = nextLevelSet;
             currentLevel++;
         }
-        System.out.println("Map Solution - Levels - " + levelMap.toString());
-        System.out.println("Map Solution - Parent - " + parentMap.toString());
+        System.out.println("Map ClosestXdestinations - Levels - " + levelMap.toString());
+        System.out.println("Map ClosestXdestinations - Parent - " + parentMap.toString());
     }
 
     public static class Node {

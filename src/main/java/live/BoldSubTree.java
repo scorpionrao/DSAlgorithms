@@ -71,6 +71,7 @@ public class BoldSubTree {
             42 --> [*421*]
 
         */
+
         public static Node extractBoldSubTree(Node root) {
 
             if (root == null) {

@@ -1,6 +1,6 @@
 package graphs.undirectedgraphs;
 
-public class undirectedgraph {
+public class UndirectedgraphComplexity {
 
     /*
         Types of data structures for Matrix:

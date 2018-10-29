@@ -17,7 +17,7 @@ public class YearOfMaxEmployees {
     }
 
     /*
-        Solution: Create a histogram of years vs employees and find the tallest BAR.
+        ClosestXdestinations: Create a histogram of years vs employees and find the tallest BAR.
 
         1. Traverse all start years and find MIN value
         2. Traverse all end years and find MAX value
@@ -28,7 +28,7 @@ public class YearOfMaxEmployees {
 
         5. Find index of max value
 
-        6. Solution: maxIndex + MIN
+        6. ClosestXdestinations: maxIndex + MIN
 
         Worst Case: All employees started on Day 1 and ended on Day End.
 

@@ -7,7 +7,7 @@ public class RansomNote {
     public static class Solution {
 
         /*
-            Solution :
+            ClosestXdestinations :
                 - Build ransom histogram
                 - Scan magazine and decrement ransom frequency when needed
                 - Maintain an increment counter to check if it reaches length of ransom note length.

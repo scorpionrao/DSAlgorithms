@@ -1,6 +1,7 @@
 package graphs.undirectedgraphs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ConnectedComponents {
@@ -19,37 +20,31 @@ public class ConnectedComponents {
             adjacentList[x - 1].add(y - 1);
             adjacentList[y - 1].add(x - 1);
         }
-        System.out.println(dfs(adjacentList));
+        System.out.println(dfsVertexes(adjacentList));
         scanner.close();
     }
 
-    private static int dfs(ArrayList<Integer>[] adjacentList) {
-        // DFS to explore connectivity between x and y */
+    private static int dfsVertexes(ArrayList<Integer>[] adjacentList) {
+
         boolean[] visited = new boolean[adjacentList.length];
-        for(int i = 0; i < adjacentList.length; i++) {
-            visited[i] = false;
-        }
+        Arrays.fill(visited, false);
+
         int numOfComponents = 0;
         for(int rootVertex = 0; rootVertex < adjacentList.length; rootVertex++) {
             if(!visited[rootVertex]) {
-                explore(rootVertex, adjacentList, visited);
-                // specific to this problem
-                numOfComponents = numOfComponents + 1;
+                dfsEdges(rootVertex, adjacentList, visited);
+                numOfComponents++;
             }
         }
         return numOfComponents;
     }
 
-    private static void explore(int rootVertex,
-                               ArrayList<Integer>[] adjacentList,
-                               boolean[] visited) {
+    private static void dfsEdges(int rootVertex, ArrayList<Integer>[] adjacentList, boolean[] visited) {
 
-        // All connected vertices have same count of CC.
         visited[rootVertex] = true;
-        // recursively explore unvisited adjacent vertices
         for(int oppositeVertex : adjacentList[rootVertex]) {
             if(!visited[oppositeVertex]) {
-                explore(oppositeVertex, adjacentList, visited);
+                dfsEdges(oppositeVertex, adjacentList, visited);
             }
         }
     }

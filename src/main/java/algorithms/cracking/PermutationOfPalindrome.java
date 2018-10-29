@@ -40,7 +40,7 @@ public class PermutationOfPalindrome
 
     /*
 
-        Solution: Phrase is palindrome if ONE or NO odd entries exist in frequency table.
+        ClosestXdestinations: Phrase is palindrome if ONE or NO odd entries exist in frequency table.
 
         N - Length of Phrase
         M - Length of Charset

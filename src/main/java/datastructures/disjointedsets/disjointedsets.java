@@ -23,13 +23,13 @@ public class disjointedsets {
         }
 
 
-        Naive Solution: Disjointed sets as arrays
+        Naive ClosestXdestinations: Disjointed sets as arrays
         MakeSet(i) and Find(i) - O(1); UnionNaive(i,j) - O(n); bottle neck - merging. solution: linked list.
 
-        Better Solution: Disjointed sets as linked list
+        Better ClosestXdestinations: Disjointed sets as linked list
         Use tail of linked list as ID. UnionNaive(i,j) - O(1); Find(i) - O(n) to get to tail.
 
-        Better Solution: Disjointed sets as trees
+        Better ClosestXdestinations: Disjointed sets as trees
         Implementation: array with parent indices at each index.
         MakeSet(i) --> O(1) --> {parent[i] = i;}
         Find(i) --> O(tree height) --> while i != parent[i] {i = parent[i]} return i;

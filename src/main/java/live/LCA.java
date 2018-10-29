@@ -2,7 +2,7 @@ package live;
 
 /*
  * To execute Java, please define "static void main" on a class
- * named Solution.
+ * named ClosestXdestinations.
  *
  * If you need more classes, simply define them inline.
  */

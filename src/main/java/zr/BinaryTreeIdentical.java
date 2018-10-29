@@ -44,27 +44,47 @@ public class BinaryTreeIdentical {
                         && isIdenticalRecursionBoolean(node2.right, node2.right);
         }
 
+        /* O(N) */
+        public boolean isMirrorRecursionBoolean(Node node1, Node node2) {
+            // covers null or same tree
+            if(node1 == node2) {
+                return true;
+            }
+
+            if(node1 == null || node2 == null) {
+                return false;
+            }
+
+            return node1.data == node2.data
+                    && isMirrorRecursionBoolean(node1.left, node2.right)
+                    && isMirrorRecursionBoolean(node1.right, node2.left);
+        }
+
+
+        /*
+            1 - Identical
+            0 - Not Identical
+         */
         public int isIdenticalRecursionInteger(Node root1, Node root2) {
             // covers null or same tree
             if(root1 == root2) {
                 return 1;
             }
 
-            if(root1 != null && root2 != null) {
-                int data;
-                if(root1.data == root2.data) {
-                    data = 1;
-                } else {
-                    data = 0;
-                }
-                int left = isIdenticalRecursionInteger(root1.left, root2.left);
-                int right = isIdenticalRecursionInteger(root1.right, root2.right);
+            else if(root1 == null || root2 == null) {
+                return 0;
+            }
 
-                if(left == 1 && right == 1 && data == 1) {
+            else {
+                if (root1.data == root2.data
+                        && isIdenticalRecursionInteger(root1.left, root2.left) == 1
+                        && isIdenticalRecursionInteger(root1.right, root2.right) == 1) {
+
                     return 1;
+                } else {
+                    return 0;
                 }
             }
-            return 0;
         }
 
         /* Verify with Inorder Traversal */
@@ -83,9 +103,8 @@ public class BinaryTreeIdentical {
             Node rightCurrent = rightRoot;
 
             /* traverse the tree */
-            while(
-                    (leftCurrent != null && rightCurrent != null) || (!leftStack.isEmpty() && !rightStack.isEmpty())
-                  ) {
+            while((leftCurrent != null && rightCurrent != null)
+                    || (!leftStack.isEmpty() && !rightStack.isEmpty())) {
 
                 while (leftCurrent !=  null && rightCurrent != null) {
                     leftStack.push(leftCurrent);

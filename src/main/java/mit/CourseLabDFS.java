@@ -2,6 +2,23 @@ package mit;
 
 import java.util.*;
 
+/*
+    Theory - PreOrder, InOrder, PostOrder
+
+    Eg: Size of Tree (DFS), Maximum of Tree (DFS), Min of Tree (DFS), Print left view (BFS)
+
+    Time Complexity - O(N) for all 4 traversals.
+
+    Space Complexity - O(h) - Maximum height of Binary Tree.
+
+    Where are ancestor nodes stored ? - Stack OR Function call stack stores.
+
+    Extra Space is WORST when tree is less balanced.
+
+    Recursive code.
+
+    Types of problem: Search something that is close to a leaf.
+ */
 public class CourseLabDFS {
 	
 	/*

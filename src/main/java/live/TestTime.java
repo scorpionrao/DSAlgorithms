@@ -33,7 +33,7 @@ package live;
     3,8
     4,12
 
-    Solution: Look at the head of each bucket grouped by project id with least time
+    ClosestXdestinations: Look at the head of each bucket grouped by project id with least time
 
     until time is exhausted or time is less than time required for tests at the head of each bucket
 
@@ -198,6 +198,8 @@ public class TestTime {
             }
         });
 
+
+
         for(Node node : list) {
             if(node != null) {
                 priorityQueue.add(node);
@@ -304,6 +306,12 @@ public class TestTime {
         };
 
         System.out.println(mergeKRows(matrix));
+
+        int x = 2;
+        int y = 2;
+
+        double hypotenuse = Math.sqrt(Math.pow(x,2) + Math.pow(y, 2));
+        System.out.println(hypotenuse);
     }
 
 }
