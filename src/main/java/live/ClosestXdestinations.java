@@ -42,7 +42,7 @@ public class ClosestXdestinations {
     public List<List<Integer>> closestXDestinations(int numOfDestinations, List<List<Integer>> allLocations,
                                                     int numOfDeliveries) {
 
-        if(numOfDestinations < 1) {
+        if(allLocations == null || numOfDestinations < 1) {
             return new ArrayList<>();
         }
 /*

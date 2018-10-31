@@ -1,41 +1,35 @@
 package datastructures.basicdatastructures;
 
+import java.util.Arrays;
 import java.util.Random;
 
-public class RandomizedShuffle
-{
-
-    public static void findMedian(int[] array) {
-        int size = array.length;
-        int k = size / 2;
-
-        int pivot = new Random().nextInt(array.length - 0 + 1) + 0;
-    }
+public class RandomizedShuffle {
 
     /** Returns a random shuffling of the array. */
-    public static void shuffle(int[] nums) {
-        if(nums == null) return;
-        int[] a = nums.clone();
-        Random random = new Random();
-        for(int j = 1; j < a.length; j++) {
-            int i = random.nextInt(j + 1);
-            System.out.println("Index: " + j + ", RandomIndex: 0 to " + (j));
-            swap(a, i, j);
+    public static int[] shuffle(int[] nums) {
+        if(nums == null) {
+            new NullPointerException();
         }
-        for(int i = 0; i < a.length; i++) {
-            System.out.print(a[i] + " ");
-        }
-        System.out.println();
-    }
 
-    private static void swap(int[] a, int i, int j) {
-        int t = a[i];
-        a[i] = a[j];
-        a[j] = t;
+        Random random = new Random();
+        for (int solvingIndex = 0; solvingIndex < nums.length; solvingIndex++) {
+            int range = nums.length - solvingIndex;
+            int randomIndex = solvingIndex + random.nextInt(range);
+            System.out.println(String.format("Solving index: %d, Random range: %d, Random index picked: %d", solvingIndex, range, randomIndex));
+            int temp = nums[randomIndex];
+            nums[randomIndex] = nums[solvingIndex];
+            nums[solvingIndex] = temp;
+            System.out.println(Arrays.toString(nums));
+        }
+        return nums;
     }
 
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        shuffle(nums);
+        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8};
+        int[] shuffledArray = shuffle(nums);
+        for(int i = 0; i < shuffledArray.length; i++) {
+            System.out.print(shuffledArray[i] + " ");
+        }
+        System.out.println();
     }
 }
