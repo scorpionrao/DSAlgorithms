@@ -7,20 +7,19 @@ public class DataTransform {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        String firstLine = scanner.nextLine();
+        String firstInputLine = scanner.nextLine();
 
         String[] firstLineElements = null;
-        if(firstLine != null) {
-            firstLineElements = firstLine.split(",");
+        if(firstInputLine != null) {
+            firstLineElements = firstInputLine.split(",");
         }
 
         System.out.println("city,zip,year,median value");
-        while(scanner.hasNextLine()) {
+        while(true) {
             String data = scanner.nextLine();
             if(data == null || data.isEmpty()) {
-                break;
+                return;
             }
-
             String[] elements = data.split(",");
             for(int i = 2; i < elements.length; i++) {
                 System.out.println(
