@@ -81,6 +81,7 @@ public class ContactsApplication {
 
     private static void processQueries() {
         Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
         int numQueries = scanner.nextInt();
         for(int i = 0; i < numQueries; i++) {
             processQuery(readQuery(scanner));

@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Filesystem {
 
@@ -49,8 +52,12 @@ public class Filesystem {
     }
 
     public static void main(String[] args) throws IOException {
-
+        /*
         double result = sum("file2.txt");
         System.out.println("Sum = " + result);
+        */
+
+
+
     }
 }
