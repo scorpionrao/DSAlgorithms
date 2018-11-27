@@ -18,7 +18,7 @@ public class CellExists {
 
             Path sampleFile = Paths.get("src/main/resources/webpage.html");
             String filePath = sampleFile.toUri().toString();
-            System.out.println("File Path = " + filePath);
+            //System.out.println("File Path = " + filePath);
             webDriver.get(filePath);
 
             List<WebElement> rows = webDriver.findElements(By.xpath("//table//tr"));
@@ -26,8 +26,8 @@ public class CellExists {
                 WebElement rowElement = rows.get(row);
                 List<WebElement> cols = rowElement.findElements(By.xpath(".//td"));
                 for(int col = 0; col < cols.size(); col++) {
-                    WebElement colElement = cols.get(col);
-                    String cellText = colElement.getText();
+                    WebElement cellElement = cols.get(col);
+                    String cellText = cellElement.getText();
                     if(cellText != null && cellText.equals("8")) {
                         System.out.println("Row = " + (row+1));
                         System.out.println("Column = " + (col+1));
