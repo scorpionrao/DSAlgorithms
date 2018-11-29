@@ -253,15 +253,15 @@ public class CourseLabDFS {
         System.out.println("RECURSIVE");
         for(int i = 0; i < result.length; i++) {
             for(int j = 0; j < result[i].length; j++) {
-                boolean search = dfsOverEdgesRecursionSearch(i, j, adjList);
-                System.out.println(i + " " + j + ", Expected: " + result[i][j] + ", \tActual: " + search + ", \tOVERALL : " + (result[i][j] == search));
+                boolean searchAllPermutations = dfsOverEdgesRecursionSearch(i, j, adjList);
+                System.out.println(i + " " + j + ", Expected: " + result[i][j] + ", \tActual: " + searchAllPermutations + ", \tOVERALL : " + (result[i][j] == searchAllPermutations));
             }
         }
         System.out.println("ITERATIVE");
         for(int i = 0; i < result.length; i++) {
             for(int j = 0; j < result[i].length; j++) {
-                boolean search = dfsOverEdgesIterativeSearch(i, j, adjList);
-                System.out.println(i + " " + j + ", Expected: " + result[i][j] + ", \tActual: " + search + ", \tOVERALL : " + (result[i][j] == search));
+                boolean searchAllPermutations = dfsOverEdgesIterativeSearch(i, j, adjList);
+                System.out.println(i + " " + j + ", Expected: " + result[i][j] + ", \tActual: " + searchAllPermutations + ", \tOVERALL : " + (result[i][j] == searchAllPermutations));
             }
         }
         */

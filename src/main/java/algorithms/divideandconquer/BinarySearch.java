@@ -8,25 +8,25 @@ public class BinarySearch {
             low <= i <= high
             A[i] <= A[i+1] - duplicates allowed
             A[i] < A[i+1] - duplicates not allowed
-            search - keyword
+            searchAllPermutations - keyword
 
     Source Input : user
-    Output : An index i (low <= i <= high) where A[i] = search
-            Otherwise, greatest index i, where A[i] < search
-            Otherwise, low - 1, (search < A[low])
+    Output : An index i (low <= i <= high) where A[i] = searchAllPermutations
+            Otherwise, greatest index i, where A[i] < searchAllPermutations
+            Otherwise, low - 1, (searchAllPermutations < A[low])
 
     RECURSIVE PSUEDO CODE:
 
-    BinarySearch1(array, low, high, search) {
+    BinarySearch1(array, low, high, searchAllPermutations) {
         if(high < low)
             return NOT FOUND
         midIndex = low + (high - low) / 2
-        if(A[midIndex] == search)
+        if(A[midIndex] == searchAllPermutations)
             return midIndex;
-        if(A[midIndex] > search) {
-            return BinarySearch1(A, low, midIndex - 1, search);
+        if(A[midIndex] > searchAllPermutations) {
+            return BinarySearch1(A, low, midIndex - 1, searchAllPermutations);
         } else {
-            return BinarySearch1(A, midIndex + 1, high, search);
+            return BinarySearch1(A, midIndex + 1, high, searchAllPermutations);
         }
     }
     Analysis:
@@ -42,13 +42,13 @@ public class BinarySearch {
 
     ITERATIVE PSEUDO CODE:
 
-    BinarySearch1(array, low, high, search) {
+    BinarySearch1(array, low, high, searchAllPermutations) {
         base case (reverse of condition) stops while SinglyLinkedListLoop
         while(low <= high) {
             midIndex = low + (high - low) / 2
-            if(A[midIndex] == search)
+            if(A[midIndex] == searchAllPermutations)
                 return midIndex;
-            else if(A[midIndex] > search)
+            else if(A[midIndex] > searchAllPermutations)
                 high = midIndex - 1
             else
                 low = midIndex + 1

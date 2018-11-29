@@ -16,14 +16,14 @@ public class LinearSearch {
         Recursive correlation: T(n) = T(n-1) + c
         O(1) * n --> O(n)
 
-        int LinearSearch(A, low, high, search) {
+        int LinearSearch(A, low, high, searchAllPermutations) {
             if(high < low) {
                 return very large index;
             }
-            if(A[low] == search) {
+            if(A[low] == searchAllPermutations) {
                 return low;
             }
-            return LinearSearch(A, low+1, high, search);
+            return LinearSearch(A, low+1, high, searchAllPermutations);
         }
      */
 
@@ -42,16 +42,16 @@ public class LinearSearch {
         Recursive correlation: T(n) = T(n-1) + c
         O(1) * n --> O(n)
 
-        int LinearSearchIterative(A, low, high, search) {
+        int LinearSearchIterative(A, low, high, searchAllPermutations) {
             while(low <= high) {
-                if(A[low] == search)
+                if(A[low] == searchAllPermutations)
                     return low;
                 low = low + 1;
             }
             return NOT FOUND
 
             for(int i=low; i<=high; i++) {
-                if(A[low] == search) {
+                if(A[low] == searchAllPermutations) {
                     return i;
                 }
             }

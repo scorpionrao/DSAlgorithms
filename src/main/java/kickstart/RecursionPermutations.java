@@ -2,8 +2,7 @@ package kickstart;
 
 import java.util.Set;
 
-public class RecursionPermutations
-{
+public class RecursionPermutations {
 
     public static void main(String[] args) {
       wrapper("abc");
@@ -25,8 +24,8 @@ public class RecursionPermutations
         }
         for(int i = 0; i < remaining.length(); i++) {
             String prefix = soFar + remaining.charAt(i);
-            String suffix = remaining.substring(0, i) + remaining.substring(i+1);
-            permutationsSimple(prefix, suffix);
+            String newRemaining = remaining.substring(0, i) + remaining.substring(i+1);
+            permutationsSimple(prefix, newRemaining);
         }
     }
 

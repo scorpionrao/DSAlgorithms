@@ -191,12 +191,12 @@ public class RecursionBinarySearchTree {
         System.out.println(bst.findMin(bst.root));
         System.out.println(bst.findMax(bst.root));
         System.out.println(bst.findHeight(bst.root));
-        System.out.println(bst.search(bst.root, 15));
+        System.out.println(bst.searchAllPermutations(bst.root, 15));
         */
 
         //System.out.println(bst.isBST(bst.root));
 
-        //System.out.println(bst.search(bst.root, 12));
+        //System.out.println(bst.searchAllPermutations(bst.root, 12));
         //bst.root = bst.delete(bst.root, 15);
         //bst.printBoard(0, bst.root, 'L');
         System.out.println(bst.getSuccessor(bst.root, 15).data);

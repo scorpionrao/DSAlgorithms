@@ -46,9 +46,6 @@ public class RecursionCombination {
 
     public static void combinations(int level, String path, String soFar,
                                     String remaining, int size) {
-        //indent(level);
-        //System.out.println(String.format("Level: %d, Path: %s, SoFar: %s, " +
-                //"Remaining: %s", level, path, soFar, remaining));
 
         // restrict which size range of leaves to display
         if(soFar.length() == size && remaining.isEmpty()) {
