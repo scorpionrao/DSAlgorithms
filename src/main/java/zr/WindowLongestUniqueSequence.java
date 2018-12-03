@@ -32,15 +32,15 @@ public class WindowLongestUniqueSequence {
 
                                 - Update best candidate with this window
 
-                            - END does it improve
+                            - END_YEAR_TYPE does it improve
 
-                        - END yes
+                        - END_YEAR_TYPE yes
 
-                    - END isCandidate
+                    - END_YEAR_TYPE isCandidate
 
-                - END end window
+                - END_YEAR_TYPE end window
 
-            - END start window
+            - END_YEAR_TYPE start window
 
          */
 

@@ -57,7 +57,7 @@ public class UndirectedgraphComplexity {
             // blindly explores all vertices irrespective of islands
             for all v of Graph {
                 if not visited(v) {
-                    // ***EXPLORE START - Explore(v)***
+                    // ***EXPLORE START_YEAR_TYPE - Explore(v)***
                     visited(v) = true
                     PREVISITFUNCTION(v)
                     connectedComponents(v) = connectedComponents
@@ -70,7 +70,7 @@ public class UndirectedgraphComplexity {
                     // time to explore
                     POSTVISITFUNCTION(V)
                     connectedComponents = connectedComponents + 1
-                    // ***EXPLORE END***
+                    // ***EXPLORE END_YEAR_TYPE***
                 }
             }
         }

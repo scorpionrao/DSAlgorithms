@@ -1,7 +1,6 @@
 package live;
 
 import java.util.Comparator;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 public class YearOfMaxEmployees {
@@ -42,6 +41,7 @@ public class YearOfMaxEmployees {
         int maxYear = Integer.MIN_VALUE;
 
         // O(N)
+        // Find min year and max year in the set.
         for(int i = 0; i < employees.length; i++) {
             if(employees[i].startYear < minYear) {
                 minYear = employees[i].startYear;
@@ -51,12 +51,13 @@ public class YearOfMaxEmployees {
             }
         }
 
-        int[] freq = new int[maxYear - minYear + 1];
+        int[] histogram = new int[maxYear - minYear + 1];
         // O(N)
+        // Add 1 to each year employed
         for(int i = 0; i < employees.length; i++) {
             // O(max-min+1)
             for(int year = employees[i].startYear; year <= employees[i].endYear; year++) {
-                freq[year - minYear]++;
+                histogram[year - minYear]++;
             }
         }
 
@@ -64,9 +65,9 @@ public class YearOfMaxEmployees {
         int maxValue = Integer.MIN_VALUE;
 
         // O(max-min+1)
-        for(int index = 0; index < freq.length; index++) {
-            if(freq[index] > maxValue) {
-                maxValue = freq[index];
+        for(int index = 0; index < histogram.length; index++) {
+            if(histogram[index] > maxValue) {
+                maxValue = histogram[index];
                 maxIndex = index;
             }
         }
@@ -74,7 +75,7 @@ public class YearOfMaxEmployees {
     }
 
     public enum Type {
-        START, END
+        START_YEAR_TYPE, END_YEAR_TYPE
     }
     public static class Node {
         int year;
@@ -92,6 +93,13 @@ public class YearOfMaxEmployees {
      */
     public static int getYearOfMaxEmployeesOptimized(Employee[] employees) {
 
+        /*
+            Sort based on year.
+            If year is equal, sort based on type.
+
+            Type sorting order: START_YEAR_TYPE, END_YEAR_TYPE
+         */
+
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(2 * employees.length, new Comparator<Node>(){
             @Override
             public int compare(Node node1, Node node2) {
@@ -100,20 +108,21 @@ public class YearOfMaxEmployees {
                 } else if (node1.year < node2.year) {
                     return -1;
                 } else {
-                    if(node1.type == node2.type) {
-                        return 0;
-                    } else if(node1.type == Type.END) {
+                    if(node1.type == Type.START_YEAR_TYPE) {
+                        return -1;
+                    } else if(node1.type == Type.END_YEAR_TYPE) {
                         return 1;
                     } else {
-                        return -1;
+                        return 0;
                     }
                 }
             }
         });
 
-        for(int i = 0; i < employees.length; i++) {
-            priorityQueue.add(new Node(employees[i].startYear, Type.START));
-            priorityQueue.add(new Node(employees[i].endYear + 1, Type.END));
+        // Push into Priority Queue.
+        for(Employee employee : employees) {
+            priorityQueue.add(new Node(employee.startYear, Type.START_YEAR_TYPE));
+            priorityQueue.add(new Node(employee.endYear + 1, Type.END_YEAR_TYPE));
         }
 
         int maxEmployeesYear = Integer.MIN_VALUE;
@@ -124,13 +133,13 @@ public class YearOfMaxEmployees {
         while (!priorityQueue.isEmpty()) {
             Node node = priorityQueue.poll();
             System.out.println(node.year + " " + node.type.toString() + " " + maxEmployees);
-            if(node.type == Type.START) {
+            if(node.type == Type.START_YEAR_TYPE) {
                 currentEmployees++;
                 if(currentEmployees > maxEmployees) {
                     maxEmployees = currentEmployees;
                     maxEmployeesYear = node.year;
                 }
-            } else if(node.type == Type.END){
+            } else if(node.type == Type.END_YEAR_TYPE){
                 currentEmployees--;
             } else {
                 throw new IllegalArgumentException();

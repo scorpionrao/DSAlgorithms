@@ -5,8 +5,22 @@ import java.util.List;
 
 public class GraphIsValidTree {
 
+    /* Methods checks for cycle in multiple components */
+    private static boolean hasCycleDfsVertexes(List<List<Integer>> graph) {
+
+        boolean[] visited = new boolean[graph.size()];
+
+        for(int i = 0; i < graph.size(); i++) {
+            if(!visited[i] && hasCycleDfsEdges(graph, visited, i, -1)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /*
+        Method searches over edges in particular component.
+
         Has Cycle - check an edge - two cases
 
         1 - Opposite vertex is already visited + it is not a PARENT of Source (alternate way is found).
@@ -17,23 +31,41 @@ public class GraphIsValidTree {
         visited[sourceVertex] = true;
         for(Integer oppositeVertex : graph.get(sourceVertex)) {
             boolean oppositeVisitedAndNotParent = visited[oppositeVertex] && oppositeVertex != parentVertex;
-            boolean oppositeNotVisitedAndHasCycle = !visited[oppositeVertex] && hasCycleDfsEdges(graph, visited, oppositeVertex, sourceVertex);
+            if(oppositeVisitedAndNotParent) {
+                return true;
+            }
 
-            if(oppositeVisitedAndNotParent || oppositeNotVisitedAndHasCycle) {
+            boolean oppositeNotVisitedAndHasCycle = !visited[oppositeVertex] && hasCycleDfsEdges(graph, visited, oppositeVertex, sourceVertex);
+            if(oppositeNotVisitedAndHasCycle) {
                 return true;
             }
         }
         return false;
     }
 
-    private static boolean isStronglyConnected(boolean[] visited) {
-        // only one component exist
-        for(int i = 0; i < visited.length; i++) {
-            if(!visited[i]) {
-                return false;
+
+    private static boolean isSingleComponentDfsVertexes(List<List<Integer>> graph) {
+
+        boolean[] visited = new boolean[graph.size()];
+
+        int numOfComponents = 0;
+        for(int rootVertex = 0; rootVertex < graph.size(); rootVertex++) {
+            if(!visited[rootVertex]) {
+                dfsEdges(rootVertex, graph, visited);
+                numOfComponents++;
             }
         }
-        return true;
+        return numOfComponents == 1;
+    }
+
+    private static void dfsEdges(int rootVertex, List<List<Integer>> graph, boolean[] visited) {
+
+        visited[rootVertex] = true;
+        for(int oppositeVertex : graph.get(rootVertex)) {
+            if(!visited[oppositeVertex]) {
+                dfsEdges(oppositeVertex, graph, visited);
+            }
+        }
     }
 
     /*
@@ -51,15 +83,12 @@ public class GraphIsValidTree {
             graph.get(edgeArray[i][1]).add(edgeArray[i][0]);
         }
 
-        boolean[] visited = new boolean[numOfNodes];
+        boolean hasCycle = hasCycleDfsVertexes(graph);
+        boolean isStronglyConnected = isSingleComponentDfsVertexes(graph);
+        boolean isValidTree = !hasCycle && isStronglyConnected;
 
-        boolean isCycle = hasCycleDfsEdges(graph, visited, 0, -1);
-        System.out.println("Is Cycle Exist : " + isCycle);
-
-        boolean isStronglyConnected = isStronglyConnected(visited);
+        System.out.println("Is Cycle Exist : " + hasCycle);
         System.out.println("Is Strongly Connected : " + isStronglyConnected);
-
-        boolean isValidTree = !isCycle && isStronglyConnected;
         System.out.println("Is Valid Tree : " + isValidTree);
     }
 

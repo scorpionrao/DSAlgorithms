@@ -16,39 +16,39 @@ public class WindowNeedlePermutationsInHaystack {
         }
 
         /* DS 1 - index is char value */
-        char[] histogramStatic = new char[numOfChars];
-        char[] histogramShifter = new char[numOfChars];
+        char[] histogramStaticShortString = new char[numOfChars];
+        char[] histogramShifterLongString = new char[numOfChars];
 
         /* O(S) */
         for(int i = 0; i < S.length(); i++) {
             /* O(1) */
-            histogramStatic[S.charAt(i)]++;
-            histogramShifter[L.charAt(i)]++;
+            histogramStaticShortString[S.charAt(i)]++;
+            histogramShifterLongString[L.charAt(i)]++;
         }
 
         Set<String> result = new LinkedHashSet<>();
         /* O(L) */
         for(int endWindow = S.length() - 1; endWindow < L.length() - 1; endWindow++) {
-            if(exactMatch(histogramStatic, histogramShifter)) {
+            if(histogramMatch(histogramStaticShortString, histogramShifterLongString)) {
                 String candidate = L.substring(endWindow - S.length() + 1, endWindow + 1);
                 result.add(candidate);
             }
 
             int removeIndex = endWindow - S.length() + 1;
             int addIndex = endWindow + 1;
-            histogramShifter[L.charAt(removeIndex)]--;
-            histogramShifter[L.charAt(addIndex)]++;
+            histogramShifterLongString[L.charAt(removeIndex)]--;
+            histogramShifterLongString[L.charAt(addIndex)]++;
 
         }
         /* O(numOfChars) - Boundary Case */
-        if(exactMatch(histogramStatic, histogramShifter)) {
+        if(histogramMatch(histogramStaticShortString, histogramShifterLongString)) {
             String candidate = L.substring(L.length() - S.length());
             result.add(candidate);
         }
         return result;
     }
 
-    private static boolean exactMatch(char[] freqS, char[] freqW) {
+    private static boolean histogramMatch(char[] freqS, char[] freqW) {
         /* O(numOfChars) */
         for(int j = 0; j < numOfChars; j++) {
             if(freqS[j] != freqW[j]) {

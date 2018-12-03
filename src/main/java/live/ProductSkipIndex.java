@@ -30,10 +30,35 @@ public class ProductSkipIndex {
         return resultArray;
     }
 
+    public static int[] productExceptSelf(int[] nums) {
+        System.out.println("Input: \t\t" + Arrays.toString(nums));
+        int n = nums.length;
+        int[] res = new int[n];
+        res[0] = 1;
+        for (int i = 1; i < n; i++) {
+            res[i] = res[i - 1] * nums[i - 1];
+        }
+        System.out.println("First scan: " + Arrays.toString(res));
+        int right = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            res[i] = res[i] * right;
+            System.out.println("Intermediate: " + Arrays.toString(res));
+            right = right * nums[i];
+            System.out.println("Right: " + right);
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
-        int[] inputArray = {1, 2, 3};
+        int[] inputArray = {9, 3, 5};
+        /*
         System.out.println("Input Array: " + Arrays.toString(inputArray));
         System.out.println("Output Array: " + Arrays.toString(solve(inputArray)));
+        */
+
+        int[] result = productExceptSelf(inputArray);
+        System.out.println("Answer: \t" + Arrays.toString(result));
+
 
     }
 }

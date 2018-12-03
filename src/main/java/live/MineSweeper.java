@@ -83,7 +83,7 @@ public class MineSweeper {
                 System.out.println();
                 System.out.println("- - - - - - - - -");
             }
-            System.out.println("\nEND\n");
+            System.out.println("\nEND_YEAR_TYPE\n");
         }
 
         private void printGameMatrix() {
@@ -117,7 +117,7 @@ public class MineSweeper {
                 System.out.println("- - - - - - - - -");
 
             }
-            System.out.println("\nEND\n");
+            System.out.println("\nEND_YEAR_TYPE\n");
 
             if(openCells == (preComputedMatrix.length * preComputedMatrix[0].length) - bombCount) {
                 System.out.println("***GAME WON***");

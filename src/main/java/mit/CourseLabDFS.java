@@ -317,7 +317,7 @@ TCPIP is not installed
 LIST
 NETCARD
 foo
-END
+END_YEAR_TYPE
 
 
      */
