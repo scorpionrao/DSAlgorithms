@@ -14,13 +14,13 @@ public class ArrayEquilibrium {
             return 0;
         }
 
-        int total = 0;
+        long total = 0;
         for(int num : nums) {
             total = total + num;
         }
 
-        int preTotal = 0;
-        int postTotal = total;
+        long preTotal = 0;
+        long postTotal = total;
         for(int i = 0; i < nums.length; i++) {
             /* First index - preTotal is unchanged */
             if(i != 0) {
@@ -44,6 +44,7 @@ public class ArrayEquilibrium {
         System.out.println(Arrays.toString(nums3) + " --> Equilibrium index: " + getEquilibrium(nums3));
         int[] nums4 = {2, 2};
         System.out.println(Arrays.toString(nums4) + " --> Equilibrium index: " + getEquilibrium(nums4));
-
+        int[] nums5 = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
+        System.out.println(Arrays.toString(nums5) + " --> Equilibrium index: " + getEquilibrium(nums5));
     }
 }
