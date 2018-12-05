@@ -20,17 +20,17 @@ public class ArrayEquilibrium {
         }
 
         /*
-                Input Array
-                     \
-                      \
-            Var -------\
+              Input Array
+               \       \
+                \       \
+                Agg --- Agg (COMPARE)
          */
         long leftVarRunningValue = 0;
          /*
-                    Input Array
-                        |
-                        |
-                        |------ Var
+                       Input Array
+                        |       |
+                        |       |
+                       Ded --- Ded (COMPARE)
          */
         long rightVarRunningValue = total;
         for(int i = 0; i < input.length; i++) {
@@ -38,7 +38,7 @@ public class ArrayEquilibrium {
                 leftVarRunningValue = leftVarRunningValue + input[i-1];
             }
             rightVarRunningValue = rightVarRunningValue - input[i];
-            System.out.println(i + " --> " + leftVarRunningValue + " " + rightVarRunningValue);
+            //System.out.println(i + " --> " + leftVarRunningValue + " " + rightVarRunningValue);
             if(leftVarRunningValue == rightVarRunningValue) {
                 return i;
             }
