@@ -46,10 +46,10 @@ public class IP {
 
         // convert IP to Integer
         int(IP) {
-            // move the first part of IP (8-bit format) to the left 24 places in (32-bit format)
-            // move the second part of IP (8-bit format) to the left 16 places in (32-bit format)
-            // move the third part of IP (8-bit format) to the left 8 places in (32-bit format)
-            // move the fourth part of IP (8-bit format) nowhere in (32-bit format)
+            // makeMove the first part of IP (8-bit format) to the left 24 places in (32-bit format)
+            // makeMove the second part of IP (8-bit format) to the left 16 places in (32-bit format)
+            // makeMove the third part of IP (8-bit format) to the left 8 places in (32-bit format)
+            // makeMove the fourth part of IP (8-bit format) nowhere in (32-bit format)
 
             return IP[1] * 2 ^ 24 + IP[2] * 2 ^ 16 + IP[3] * 2 ^ 8 + IP[4]
         }

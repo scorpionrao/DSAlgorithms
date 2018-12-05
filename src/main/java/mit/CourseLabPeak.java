@@ -1,5 +1,6 @@
 package mit;
 
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CourseLabPeak {
@@ -95,35 +96,63 @@ public class CourseLabPeak {
 		}
 	}
 
-	/*
-
-	 */
 	private static int findMaxRowIndex(int[][] array, int column) {
 		return 0;
 	}
 
 
-	public static void findPeakOptimizedIterative(int[] array) {
-		long start = System.nanoTime();
-		boolean peakExists = false;
+	/*
+		PEAK OF THE MOUNTAIN == VALUE WHOSE BOTH SIDES ARE LESS
+
+		Input --> OUTPUT
+		[1, 3, 2] --> 3
+		[1, 2, 5] --> 5 (ONE SIDED MOUNTAIN)
+		[4, 3, 1] --> 4 (ONE SIDED MOUNTAIN)
+
+		NULL --> -1
+		[] --> -1
+		[3] --> 3 (ONLY ELEMENT)
+	 */
+
+	public static int findPeak(int[] array) {
+
+		if(array == null || array.length == 0) {
+			return -1;
+		}
+		if(array.length == 1) {
+			return array[0];
+		}
+		if(array.length == 2) {
+			return array[0] > array[1] ? array[0] : array[1];
+		}
+
 		int low = 0;
 		int high = array.length - 1;
+		int mid = 0;
 		while(low <= high) {
-			int mid = low + (high - low) / 2;
-			if(array[mid] < array[mid - 1]) {
-				high = mid - 1;
-			} else if (array[mid] < array[mid + 1]) {
+			mid = (low + high) / 2;
+			if(mid == 0 || mid == array.length - 1) {
+				return array[mid];
+			}
+			if (array[mid] > array[mid - 1] && array[mid] > array[mid+1]) {
+				return array[mid];
+			}
+			if(array[mid] < array[mid + 1]) {
 				low = mid + 1;
 			} else {
-				peakExists = true;
-				break;
+				high = mid - 1;
 			}
 		}
-		System.out.println(peakExists);
-		System.out.println("Optimized Iterative: " + (System.nanoTime() - start));
+		return array[mid];
 	}
-	
+
+
+	static void print(int[] nums) {
+		System.out.println(Arrays.toString(nums) + " --> " + findPeak(nums));
+	}
+
 	public static void main(String[] args) {
+		/*
 		int[] array = new int[10];
 		for(int i = 0; i < array.length; i++) {
 			array[i] = ThreadLocalRandom.current().nextInt(0, 50 + 1);
@@ -132,6 +161,27 @@ public class CourseLabPeak {
 		System.out.println();
 		findPeakNaive(array);
 		findPeakOptimizedIterative(array);
+		*/
+		System.out.println("PEAK OF MOUNTAIN == VALUE WHOSE BOTH SIDES ARE LESS");
+		System.out.println("LOOKING EVERY ELEMENT TO FIND ANSWER - INEFFICIENT SOLUTION");
+		System.out.println("EFFICIENT SOLUTION - ABOVE CODE");
+		System.out.println("Input --> OUTPUT");
+		int[] nums1 = {1, 3, 2};
+		print(nums1);
+		int[] nums2 = {1, 2, 5};
+		print(nums2);
+		int[] nums3 = {4, 3, -5};
+		print(nums3);
+		int[] nums4 = {10};
+		print(nums4);
+		int[] nums5 = {};
+		print(nums5);
+		int[] nums6 = null;
+		print(nums6);
+		int[] nums7 = {0, 2};
+		print(nums7);
+		int[] nums8 = {-500, -499, 7, -99, -100};
+		print(nums8);
 	}
 
 }

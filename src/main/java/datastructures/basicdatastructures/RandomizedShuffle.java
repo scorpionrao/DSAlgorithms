@@ -8,7 +8,7 @@ public class RandomizedShuffle {
     /** Returns a random shuffling of the array. */
     public static int[] shuffle(int[] nums) {
         if(nums == null) {
-            new NullPointerException();
+            return new int[0];
         }
 
         Random random = new Random();
@@ -22,7 +22,8 @@ public class RandomizedShuffle {
     }
 
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8};
+        //int[] nums = {1, 2, 3, 4, 5, 6, 7, 8};
+        int[] nums = {};
         shuffle(nums);
         System.out.println(Arrays.toString(nums));
     }

@@ -89,18 +89,18 @@ public class BSTSuccessorPredecessor {
         }
 
         if(target.val <= root.val) {
-            printForward(root, target, "left");
+            //printForward(root, target, "left");
             Node result = predecessor(root.left, target);
-            printReturn(root, result, "left");
+            //printReturn(root, result, "left");
             return result;
         } else {
-            printForward(root, target, "right");
+            //printForward(root, target, "right");
             Node right = predecessor(root.right, target);
             if(right != null) {
-                printReturn(root, right, "right");
+                //printReturn(root, right, "right");
                 return right;
             } else {
-                printReturn(root, root, "right");
+                //printReturn(root, root, "right");
                 return root;
             }
             //return (right != null) ? right : root;

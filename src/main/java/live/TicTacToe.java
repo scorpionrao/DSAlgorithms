@@ -79,9 +79,9 @@ public class TicTacToe {
                     }
                 }
             }
-            // AI cannot make a move
+            // AI cannot make a makeMove
             if(!isFull()) {
-                throw new IllegalArgumentException("AI cannot make a move");
+                throw new IllegalArgumentException("AI cannot make a makeMove");
             }
         }
 
@@ -115,7 +115,7 @@ public class TicTacToe {
 
         /*
             Play until no winner yet and board is not full
-                Play until there is valid move
+                Play until there is valid makeMove
                 Change Player
 
             No Winner and Board is full - Tie

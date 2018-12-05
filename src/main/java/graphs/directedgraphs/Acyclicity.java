@@ -6,7 +6,11 @@ import java.util.Scanner;
 public class Acyclicity {
 
     // actually DFS
-    private static int acyclic(ArrayList<Integer>[] adjacentList) {
+    /*
+        1 - Has Cycle
+        0 - No Cycle
+     */
+    private static int isCyclic(ArrayList<Integer>[] adjacentList) {
 
         boolean[] visited = new boolean[adjacentList.length];
         boolean[] onstack = new boolean[adjacentList.length];
@@ -16,17 +20,16 @@ public class Acyclicity {
         }
 
         for(int rootVertex = 0; rootVertex < adjacentList.length; rootVertex++) {
-            if(!visited[rootVertex]) {
-                if(explore(rootVertex, adjacentList, visited, onstack) == 1) {
+            if(!visited[rootVertex]
+                && explore(rootVertex, adjacentList, visited, onstack) == 1) {
                     return 1;
                 }
-            }
         }
+        // no cycle
         return 0;
     }
 
-    private static int explore(int rootVertex,
-                                ArrayList<Integer>[] adjacentList,
+    private static int explore(int rootVertex, ArrayList<Integer>[] adjacentList,
                                 boolean[] visited,
                                 boolean[] onstack) {
 
@@ -36,9 +39,8 @@ public class Acyclicity {
         for(int oppositeVertex : adjacentList[rootVertex]) {
             if(!visited[oppositeVertex]) {
                 if(explore(oppositeVertex, adjacentList, visited, onstack) == 1) {
+                    // CYCLE
                     return 1;
-                } else {
-                    // no cycle but continue other vertexes
                 }
             }
             // cycle - base condition post visit (post order)
@@ -52,6 +54,8 @@ public class Acyclicity {
         onstack[rootVertex] = false;
         return 0;
     }
+
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -70,7 +74,7 @@ public class Acyclicity {
             adj[x - 1].add(y - 1);
             // for directed graph - no reverse edge added to adjacent list
         }
-        System.out.println(acyclic(adj));
+        System.out.println(isCyclic(adj));
     }
 }
 

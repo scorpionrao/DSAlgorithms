@@ -146,7 +146,6 @@ public class CourseLabDFS {
     private static boolean dfsOverEdgesRecursionSearch(int sourceVertex, int target, List<Integer>[] adjList) {
 
         boolean[] visited = new boolean[adjList.length];
-        Arrays.fill(visited, false);
 
         return dfsOverEdgesRecursionSearch(sourceVertex, target, adjList, visited);
     }
@@ -176,7 +175,6 @@ public class CourseLabDFS {
     private static boolean dfsOverEdgesIterativeSearch(int sourceVertex, int target, List<Integer>[] adjList) {
 
         boolean[] visited = new boolean[adjList.length];
-        Arrays.fill(visited, false);
 
         return dfsOverEdgesIterativeSearch(sourceVertex, target, adjList, visited);
     }
@@ -230,6 +228,8 @@ public class CourseLabDFS {
 
         scanner.close();
         topologicalSortDriver(adjList);
+
+
         //singleComponentDriver(0, adjList);
 
         /*
@@ -266,59 +266,4 @@ public class CourseLabDFS {
         }
         */
     }
-
-    /*
-DEPEND TELNET TCPIP NETCARD
-DEPEND TCPIP NETCARD
-DEPEND NETCARD TCPIP
-TCPIP depends on NETCARD, ignoring command
-DEPEND DNS TCPIP NETCARD
-DEPEND BROWSER TCPIP HTML
-INSTALL NETCARD
-Installing NETCARD
-INSTALL TELNET
-Installing TCPIP
-Installing TELNET
-INSTALL foo
-Installing foo
-REMOVE NETCARD
-NETCARD is still needed
-INSTALL BROWSER
-Installing HTML
-Installing BROWSER
-INSTALL DNS
-Installing DNS
-LIST
-NETCARD
-TCPIP
-TELNET
-foo
-HTML
-BROWSER
-DNS
-REMOVE TELNET
-Removing TELNET
-REMOVE NETCARD
-NETCARD is still needed
-REMOVE DNS
-Removing DNS
-REMOVE NETCARD
-NETCARD is still needed
-INSTALL NETCARD
-NETCARD is already installed
-REMOVE TCPIP
-TCPIP is still needed
-REMOVE BROWSER
-Removing BROWSER
-Removing TCPIP
-Removing HTML
-REMOVE TCPIP
-TCPIP is not installed
-LIST
-NETCARD
-foo
-END_YEAR_TYPE
-
-
-     */
 }

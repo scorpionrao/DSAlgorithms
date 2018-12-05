@@ -4,10 +4,10 @@ package algorithms.greedy;
 Greedy Algorithms
 
 - Reduction to Subproblem
-- Safe move - if there is an optimal solution consistent with this first move
+- Safe makeMove - if there is an optimal solution consistent with this first makeMove
 
-- refill at closest station - not a safe move
-- refill at farthest station - safe move
+- refill at closest station - not a safe makeMove
+- refill at farthest station - safe makeMove
 
 - currentRefill change from 0 to n and increments by 1.
 - numOfRefills change from 0 to n and increments by 1.

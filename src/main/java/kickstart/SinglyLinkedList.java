@@ -41,9 +41,9 @@ public class SinglyLinkedList {
             nextDisconnected = current.next;
             // reverse
             current.next = prevDisconnected;
-            // move previous forward
+            // makeMove previous forward
             prevDisconnected = current;
-            // move current forward
+            // makeMove current forward
             current = nextDisconnected;
         }
         head = prevDisconnected;

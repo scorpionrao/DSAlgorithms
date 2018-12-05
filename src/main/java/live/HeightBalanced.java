@@ -22,7 +22,7 @@ public class HeightBalanced {
     private static boolean recursiveDecideAtEnd(Node root) {
         int[] maxMin = {Integer.MIN_VALUE, Integer.MAX_VALUE};
         recursiveInOrderNoDecision(root, 0, maxMin);
-        return isBalanced(maxMin[0], maxMin[1]);
+        return Math.abs(maxMin[0] - maxMin[1]) <= 1;
     }
     private static void recursiveInOrderNoDecision(Node root, int height, int[] maxMin) {
         if(root == null) { return; }
@@ -71,7 +71,7 @@ public class HeightBalanced {
         if(isLeaf(root)) {
             maxMin[0] = Math.max(maxMin[0], height);
             maxMin[1] = Math.min(maxMin[1], height);
-            return isBalanced(maxMin[0], maxMin[1]);
+            return Math.abs(maxMin[0] - maxMin[1]) <= 1;
         }
         return recursivePreOrderDecideAtEachLeaf(root.left, height + 1, maxMin)
                 && recursivePreOrderDecideAtEachLeaf(root.right, height + 1, maxMin);
@@ -97,7 +97,7 @@ public class HeightBalanced {
                 stack.push(node.left);
             }
         }
-        return isBalanced(maxLeafHeight, minLeafHeight);
+        return Math.abs(maxLeafHeight - minLeafHeight) <= 1;
     }
 
         private static boolean iterateDfsPreOrderDecisionAtEachLeaf(Node root) {
@@ -110,7 +110,7 @@ public class HeightBalanced {
                 if(isLeaf(node)) {
                     maxLeafHeight = Math.max(maxLeafHeight, node.height);
                     minLeafHeight = Math.max(minLeafHeight, node.height);
-                    if(!isBalanced(maxLeafHeight, minLeafHeight)) {
+                    if(!(Math.abs(maxLeafHeight - minLeafHeight) <= 1)) {
                         return false;
                     }
                 }
@@ -142,7 +142,7 @@ public class HeightBalanced {
                     queue.offer(node.right);
                 }
             }
-            return isBalanced(maxLeafHeight, minLeafHeight);
+            return Math.abs(maxLeafHeight - minLeafHeight) <= 1;
         }
 
         private static boolean iterateBfsDecisionAtEachLeaf(Node root) {
@@ -155,7 +155,7 @@ public class HeightBalanced {
                 if(isLeaf(node)) {
                     maxLeafHeight = Math.max(maxLeafHeight, node.height);
                     minLeafHeight = Math.max(minLeafHeight, node.height);
-                    if(!isBalanced(maxLeafHeight, minLeafHeight)) {
+                    if(!(Math.abs(maxLeafHeight - minLeafHeight) <= 1)) {
                         return false;
                     }
                 }
@@ -169,11 +169,7 @@ public class HeightBalanced {
             return true;
         }
 
-        private static boolean isBalanced(int maxLeafHeight, int minLeafHeight) {
-            return Math.abs(maxLeafHeight - minLeafHeight) <= 1;
-        }
-
-        public static void main(String[] args) {
+    public static void main(String[] args) {
             Node root = new Node(1);
             root.left = new Node(2);
             root.right = new Node(3);

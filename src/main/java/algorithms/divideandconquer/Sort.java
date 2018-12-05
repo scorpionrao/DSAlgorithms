@@ -48,9 +48,9 @@ public class Sort {
                 b -> first element of B
                 c -> first element of C
                 if(b >= c) {
-                    move b from B to end of D
+                    makeMove b from B to end of D
                 } else {
-                    move c from C to end of D
+                    makeMove c from C to end of D
                 }
 
             append B and C to the end of D

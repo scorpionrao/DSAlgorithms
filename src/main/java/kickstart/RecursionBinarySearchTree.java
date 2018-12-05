@@ -147,8 +147,8 @@ public class RecursionBinarySearchTree {
         Case 1  - Target Node Right child exists --> find min of right sub tree.
         Case 2  - Target Node Right child does NOT exists -->
 
-        Case 2.1 Right child does not exist - Tree root is Ancestor every time we move left.
-        Case 2.2 Right child does not exist - Tree root is unchanged every time we move right.
+        Case 2.1 Right child does not exist - Tree root is Ancestor every time we makeMove left.
+        Case 2.2 Right child does not exist - Tree root is unchanged every time we makeMove right.
 
      */
     public Node getSuccessor(Node root, int data) {
