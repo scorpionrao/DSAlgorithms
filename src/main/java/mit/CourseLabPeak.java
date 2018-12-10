@@ -128,22 +128,19 @@ public class CourseLabPeak {
 
 		int low = 0;
 		int high = array.length - 1;
-		int mid = 0;
-		while(low <= high) {
-			mid = (low + high) / 2;
+
+		while(low < high) {
+			int mid = (low + high) / 2;
 			if(mid == 0 || mid == array.length - 1) {
-				return array[mid];
+				return mid;
 			}
-			if (array[mid] > array[mid - 1] && array[mid] > array[mid+1]) {
-				return array[mid];
-			}
-			if(array[mid] < array[mid + 1]) {
-				low = mid + 1;
+			if(array[mid] > array[mid + 1]) {
+				high = mid;
 			} else {
-				high = mid - 1;
+				low = mid + 1;
 			}
 		}
-		return array[mid];
+		return low;
 	}
 
 

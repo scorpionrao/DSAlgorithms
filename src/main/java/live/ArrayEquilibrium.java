@@ -4,14 +4,22 @@ import java.util.Arrays;
 
 public class ArrayEquilibrium {
 
-    /* Time: O(N), Space: O(1) */
+    /*
+        Time: O(N)
+        Space: O(1)
+
+        1) Initialize leftsum  as 0
+        2) Get the total sum of the array as sum
+        3) Iterate through the array and for each index i, do following.
+            a)  Update sum to get the right sum.
+            b) If leftsum is equal to sum, then return current index.
+            c) leftsum = leftsum + arr[i]
+        4) return -1 // there is no equilibrium index
+    */
     public int getEquilibrium(int[] input) {
 
         if(input == null || input.length == 0) {
             return -1;
-        }
-        if(input.length == 1) {
-            return 0;
         }
 
         long total = 0;
@@ -19,29 +27,12 @@ public class ArrayEquilibrium {
             total = total + num;
         }
 
-        /*
-              Input Array
-               \       \
-                \       \
-                Agg --- Agg (COMPARE)
-         */
-        long leftVarRunningValue = 0;
-         /*
-                       Input Array
-                        |       |
-                        |       |
-                       Ded --- Ded (COMPARE)
-         */
-        long rightVarRunningValue = total;
+        long leftSum = 0;
         for(int i = 0; i < input.length; i++) {
-            if(i > 0) {
-                leftVarRunningValue = leftVarRunningValue + input[i-1];
-            }
-            rightVarRunningValue = rightVarRunningValue - input[i];
-            //System.out.println(i + " --> " + leftVarRunningValue + " " + rightVarRunningValue);
-            if(leftVarRunningValue == rightVarRunningValue) {
+            if(leftSum == total - leftSum - input[i]) {
                 return i;
             }
+            leftSum = leftSum + input[i];
         }
         return -1;
     }
