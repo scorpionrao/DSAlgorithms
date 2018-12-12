@@ -13,7 +13,7 @@ end
 if __FILE__ == $0
   data = STDIN.read.split().map(&:to_i)
   n = data.size - 1
-  x = (1..n).step(2).map { |i| data[i] }
-  y = (2..n).step(2).map { |i| data[i] }
+  x = (1..n).step(2).map { |row| data[row] }
+  y = (2..n).step(2).map { |row| data[row] }
   puts "#{'%.4f' % minimum_distance(x, y)}"
 end

@@ -55,7 +55,7 @@ class QueryProcessor:
 
     def process_queries(self):
         n = int(input())
-        for i in range(n):
+        for row in range(n):
             self.process_query(self.read_query())
 
 if __name__ == '__main__':

@@ -8,15 +8,15 @@ end
 
 def partition2(a, l, r)
   x = a[l]
-  j = l
-  (l + 1..r).each do |i|
-    if a[i] <= x
-      j += 1
-      a[i], a[j] = a[j], a[i]
+  col = l
+  (l + 1..r).each do |row|
+    if a[row] <= x
+      col += 1
+      a[row], a[col] = a[col], a[row]
     end
   end
-  a[l], a[j] = a[j], a[l]
-  j
+  a[l], a[col] = a[col], a[l]
+  col
 end
 
 def randomized_quick_sort(a, l, r)

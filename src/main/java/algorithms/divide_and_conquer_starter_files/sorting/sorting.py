@@ -8,13 +8,13 @@ def partition3(a, l, r):
 
 def partition2(a, l, r):
     x = a[l]
-    j = l;
-    for i in range(l + 1, r + 1):
-        if a[i] <= x:
-            j += 1
-            a[i], a[j] = a[j], a[i]
-    a[l], a[j] = a[j], a[l]
-    return j
+    col = l;
+    for row in range(l + 1, r + 1):
+        if a[row] <= x:
+            col += 1
+            a[row], a[col] = a[col], a[row]
+    a[l], a[col] = a[col], a[l]
+    return col
 
 
 def randomized_quick_sort(a, l, r):

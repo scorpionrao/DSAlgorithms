@@ -14,10 +14,10 @@ class datastructures.basicdatastructures.tree_height.tree_height:
                 maxHeight = 0
                 for vertex in range(self.n):
                         height = 0
-                        i = vertex
-                        while i != -1:
+                        row = vertex
+                        while row != -1:
                                 height += 1
-                                i = self.parent[i]
+                                row = self.parent[row]
                         maxHeight = max(maxHeight, height);
                 return maxHeight;
 

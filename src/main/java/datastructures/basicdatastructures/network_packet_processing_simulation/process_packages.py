@@ -21,7 +21,7 @@ class datastructures.basicdatastructures.Buffer:
 
 def ReadRequests(count):
     request1s = []
-    for i in range(count):
+    for row in range(count):
         arrival_time, process_time = map(int, input().strip().split())
         request1s.append(datastructures.basicdatastructures.Request(arrival_time, process_time))
     return request1s

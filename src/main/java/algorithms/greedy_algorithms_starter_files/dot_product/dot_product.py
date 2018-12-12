@@ -5,8 +5,8 @@ import sys
 def max_dot_product(a, b):
     #write your code here
     res = 0
-    for i in range(len(a)):
-        res += a[i] * b[i]
+    for row in range(len(a)):
+        res += a[row] * b[row]
     return res
 
 if __name__ == '__main__':

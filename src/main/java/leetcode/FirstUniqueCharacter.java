@@ -1,4 +1,4 @@
-package datastructures.leetcode;
+package leetcode;
 
 public class FirstUniqueCharacter {
     public int firstUniqChar(String s) {

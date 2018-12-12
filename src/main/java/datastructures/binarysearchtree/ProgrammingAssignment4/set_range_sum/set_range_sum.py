@@ -153,7 +153,7 @@ def sum(fr, to):
 MODULO = 1000000001
 n = int(stdin.readline())
 last_sum_result = 0
-for i in range(n):
+for row in range(n):
   line = stdin.readline().split()
   if line[0] == '+':
     x = int(line[1])

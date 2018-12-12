@@ -1,4 +1,4 @@
-package datastructures.leetcode;
+package leetcode;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

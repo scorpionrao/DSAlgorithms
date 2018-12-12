@@ -7,8 +7,8 @@ def fibonacci_partial_sum_naive(from_, to):
     current = 0
     next  = 1
 
-    for i in range(to + 1):
-        if i >= from_:
+    for row in range(to + 1):
+        if row >= from_:
             sum += current
 
         current, next = next, current + next

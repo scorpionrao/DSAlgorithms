@@ -23,11 +23,11 @@ class HeapBuilder:
     # but in the worst case gives a quadratic number of swaps.
     #
     # TODO: replace by a more efficient implementation
-    for i in range(len(self._data)):
-      for j in range(i + 1, len(self._data)):
-        if self._data[i] > self._data[j]:
-          self._swaps.append((i, j))
-          self._data[i], self._data[j] = self._data[j], self._data[i]
+    for row in range(len(self._data)):
+      for col in range(row + 1, len(self._data)):
+        if self._data[row] > self._data[col]:
+          self._swaps.append((row, col))
+          self._data[row], self._data[col] = self._data[col], self._data[row]
 
   def Solve(self):
     self.ReadData()

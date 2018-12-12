@@ -8,9 +8,9 @@ def print_occurrences(output):
 
 def get_occurrences(pattern, text):
     return [
-        i 
-        for i in range(len(text) - len(pattern) + 1) 
-        if text[i:i + len(pattern)] == pattern
+        row
+        for row in range(len(text) - len(pattern) + 1)
+        if text[row:row + len(pattern)] == pattern
     ]
 
 if __name__ == '__main__':

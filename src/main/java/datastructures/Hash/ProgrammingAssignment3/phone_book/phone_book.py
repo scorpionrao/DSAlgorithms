@@ -9,14 +9,14 @@ class Query:
 
 def read_queries():
     n = int(input())
-    return [Query(input().split()) for i in range(n)]
+    return [Query(input().split()) for row in range(n)]
 
 def write_responses(result):
     print('\n'.join(result))
 
 def process_queries(queries):
     result = []
-    # Keep list of all existing (i.e. not deleted yet) contacts.
+    # Keep list of all existing (row.e. not deleted yet) contacts.
     contacts = []
     for cur_query in queries:
         if cur_query.type == 'add':
@@ -29,9 +29,9 @@ def process_queries(queries):
             else: # otherwise, just add it
                 contacts.append(cur_query)
         elif cur_query.type == 'del':
-            for j in range(len(contacts)):
-                if contacts[j].number == cur_query.number:
-                    contacts.pop(j)
+            for col in range(len(contacts)):
+                if contacts[col].number == cur_query.number:
+                    contacts.pop(col)
                     break
         else:
             response = 'not found'

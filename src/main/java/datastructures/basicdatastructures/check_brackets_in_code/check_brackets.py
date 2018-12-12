@@ -20,7 +20,7 @@ if __name__ == "__main__":
     text = sys.stdin.read()
 
     opening_brackets_stack = []
-    for i, next in enumerate(text):
+    for row, next in enumerate(text):
         if next == '(' or next == '[' or next == '{':
             # Process opening bracket, write your code here
             pass

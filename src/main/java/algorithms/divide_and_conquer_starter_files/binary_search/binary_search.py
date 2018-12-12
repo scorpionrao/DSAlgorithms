@@ -6,9 +6,9 @@ def binary_search(a, x):
     # write your code here
 
 def linear_search(a, x):
-    for i in range(len(a)):
-        if a[i] == x:
-            return i
+    for row in range(len(a)):
+        if a[row] == x:
+            return row
     return -1
 
 if __name__ == '__main__':

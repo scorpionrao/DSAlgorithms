@@ -7,13 +7,13 @@ class Rope:
 		self.s = s
 	def result(self):
 		return self.s
-	def process(self, i, j, k):
+	def process(self, row, col, k):
                 # Write your code here
                 
 
 rope = Rope(sys.stdin.readline().strip())
 q = int(sys.stdin.readline())
 for _ in range(q):
-	i, j, k = map(int, sys.stdin.readline().strip().split())
-	rope.process(i, j, k)
+	row, col, k = map(int, sys.stdin.readline().strip().split())
+	rope.process(row, col, k)
 print(rope.result())
