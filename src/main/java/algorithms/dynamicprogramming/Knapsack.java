@@ -1,7 +1,5 @@
 package algorithms.dynamicprogramming;
 
-import java.util.*;
-
 public class Knapsack {
 
     /*
@@ -122,7 +120,71 @@ public class Knapsack {
         return table[numOfItems][maxBagSize];
     }
 
+    /*
+        Time complexity: 2^n (2 guesses for each item. N items)
+     */
+    private static int knapsackRecursion(int[] weights, int[] values, int maxWeight) {
+        return knapsackRecursion(weights, values, maxWeight, 0);
+    }
+
+    private static int knapsackRecursion(int[] weights, int[] values, int maxWeight, int index) {
+        // All weights are explored
+        if(index == weights.length) {
+            return 0;
+        }
+        // Not enough space for this weight
+        if(maxWeight < weights[index]) {
+            return knapsackRecursion(weights, values, maxWeight, index+1);
+        }
+        return Math.max(
+                /* include */
+                knapsackRecursion(weights, values, maxWeight - weights[index], index+1) + values[index],
+                /* exclude */
+                knapsackRecursion(weights, values, maxWeight, index+1)
+        );
+    }
+
+    private static int dpBottomUpCacheIsGiven(int[] weights, int[] values, int maxWeight) {
+        int[][] cache = new int[weights.length+1][maxWeight+1];
+        for(int i = 1; i < cache.length; i++) {
+            for(int j = 1; j < cache[i].length; j++) {
+                // Is this item more than max weight in this loop
+                if(weights[i-1] > j) {
+                    // not taken scenario
+                    cache[i][j] = cache[i-1][j];
+                } else {
+                    // not taken OR taken (add value,
+                    int notTaken = cache[i-1][j];
+                    int taken = cache[i-1][j-weights[i-1]] + values[i-1];
+                    cache[i][j] = Math.max(notTaken, taken);
+                }
+            }
+        }
+
+        return cache[weights.length][maxWeight];
+    }
+
+    /*
+        Dynamic Programming - Optimal Substructure, Overlapping subproblems.
+
+        Optimal substructure
+            - All recursion problems have optimal substructures.
+            - By solving subproblems, we can solve bigger subproblems.
+
+        Overlapping subproblems
+            - Same inputs are used multiple times in calling subproblems.
+
+        Topdown solution:
+            - Start with end solution to smallest subproblem.
+            - Cache will address this problem. Cache should be based on variants.
+        Bottomup solution:
+            - Start with subproblems and build up to end solution.
+
+
+     */
+
     public static void main(String[] args) {
+        /*
         Scanner scanner = new Scanner(System.in);
         int W, n;
         W = scanner.nextInt();
@@ -132,15 +194,23 @@ public class Knapsack {
             w[i] = scanner.nextInt();
         }
         System.out.println(optimalWeight(W, w));
-        /*
+
+
         int[] v = new int[n];
         for (int i = 0; i < n; i++) {
             v[i] = scanner.nextInt();
         }
         System.out.println(optimalWeight_repetition(W, w, v));
         System.out.println(optimalWeight_norepetition(W, w, v));
-        */
+
         scanner.close();
+        */
+
+        int[] weights = {1, 2, 3};
+        int[] values = {6, 10, 12};
+        int maxWeight = 5;
+        System.out.println("Recursion: Max Value: Expected - 22, Actual - " + knapsackRecursion(weights, values, maxWeight));
+        System.out.println("DynamicPr: Max Value: Expected - 22, Actual - " + dpBottomUpCacheIsGiven(weights, values, maxWeight));
     }
 }
 
