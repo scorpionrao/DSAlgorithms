@@ -1,4 +1,4 @@
-package leetcode;
+package bbb.Arrays;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,12 +16,13 @@ public class MedianTwoSortedArrays {
             list.add(b);
         }
         Collections.sort(list);
+
+        int mid1 = list.size() / 2;
+        int mid2 = mid1 - 1;
         if(list.size() % 2 == 0) {
-            int mid1 = list.size() / 2;
-            int mid2 = mid1 - 1;
             return ((double) (list.get(mid1) + list.get(mid2))) / 2;
         } else {
-            return list.get(list.size()/2);
+            return list.get(mid1);
         }
     }
 

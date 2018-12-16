@@ -36,7 +36,7 @@ public class OneEditDistance {
     private boolean oneSubstitution(String target, String word) {
 
         if(target == null || word == null) {
-            throw new NullPointerException("Input is null");
+            return false;
         }
 
         if(target.length() != word.length()) {
@@ -55,7 +55,7 @@ public class OneEditDistance {
     public boolean singleTypo(String target, List<String> vocabulary) {
 
         if(target == null || vocabulary == null) {
-            throw new NullPointerException("Input is null");
+            return false;
         }
 
         for(String word : vocabulary) {

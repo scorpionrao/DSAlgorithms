@@ -36,7 +36,7 @@ public class BasicDataStructures {
 
          PushFront(key) {
 
-            node = new Node
+            node = new TrieNode
             node.key = key
             node.next = head
             head = node
@@ -56,7 +56,7 @@ public class BasicDataStructures {
          }
 
          PushBack(key) {
-            node = new Node
+            node = new TrieNode
             node.key = key
             node.next = nill
             if(tail == nill) {

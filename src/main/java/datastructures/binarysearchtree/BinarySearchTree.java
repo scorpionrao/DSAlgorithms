@@ -76,9 +76,9 @@ public class BinarySearchTree {
         Insert(k,R) {
             P = Find(k,R)
             if(k < P.key) {
-                P.leftchild = new Node(k)
+                P.leftchild = new TrieNode(k)
             } else {
-                P.rightchild = new Node(k)
+                P.rightchild = new TrieNode(k)
             }
         }
 

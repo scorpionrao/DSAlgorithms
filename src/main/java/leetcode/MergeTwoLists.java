@@ -123,9 +123,9 @@ public class MergeTwoLists {
         root2.next = new Node(3);
         root2.next.next = new Node(4);
 
-        //Node mergedHeadRecurse = mergeTwoListsRecurse(root1, root2);
+        //TrieNode mergedHeadRecurse = mergeTwoListsRecurse(root1, root2);
         //print(mergedHeadRecurse);
-        //Node mergedHeadIterative = mergeTwoListsIterative(root1, root2);
+        //TrieNode mergedHeadIterative = mergeTwoListsIterative(root1, root2);
         //print(mergedHeadIterative);
 
         Node mergedHeadNaive = mergeTwoNaive(root1, root2);

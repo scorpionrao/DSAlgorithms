@@ -104,7 +104,7 @@ public class OneSubstitution {
     }
 
     /* Vocabulary static list. If this API becomes a service, avoid passing entire vocabulary in the request */
-    Set<String> vocabulary = new HashSet<>(Arrays.asList("apple", "pineapple", "banana", "cucumber"));
+    static Set<String> vocabulary = new HashSet<>(Arrays.asList("apple", "pineapple", "banana", "cucumber"));
 
     /* O(N * K) */
     public boolean singleTypoPreCompute(String target) {
@@ -219,6 +219,84 @@ public class OneSubstitution {
         return dp[str1.length()][str2.length()] < 2;
     }
 
+    private static class TrieNode {
+        char ch;
+        Map<Character, TrieNode> childNodeMap;
+        boolean isEndOfWord;
+
+        public TrieNode(char ch) {
+            this.ch = ch;
+            this.childNodeMap = new HashMap<>();
+            this.isEndOfWord = false;
+        }
+    }
+
+    private static class Trie {
+
+        private TrieNode root;
+
+        public Trie() {
+            root = new TrieNode('#');
+        }
+
+        public void buildTrie() {
+            for(String word : OneSubstitution.vocabulary) {
+                addWord(word);
+            }
+        }
+
+        private void addWord(String word) {
+            TrieNode current = root;
+            for(int i = 0; i < word.length(); i++) {
+                char ch = word.charAt(i);
+                if(!current.childNodeMap.containsKey(ch)) {
+                    current.childNodeMap.put(ch, new TrieNode(ch));
+                }
+                current = current.childNodeMap.get(ch);
+                if(i == word.length()-1) {
+                    current.isEndOfWord = true;
+                }
+            }
+        }
+
+        public boolean searchExactMatch(String word) {
+            TrieNode current = root;
+            for(char ch : word.toCharArray()) {
+                if(current.childNodeMap.containsKey(ch)) {
+                    current = current.childNodeMap.get(ch);
+                } else {
+                    return false;
+                }
+            }
+            return current != root && current.isEndOfWord == true;
+        }
+    }
+
+    private boolean trieApproach(String searchWord) {
+        Trie trie = new Trie();
+        trie.buildTrie();
+
+        char[] array = searchWord.toCharArray();
+
+        char[] alphabets = new char[26];
+        for(int i = 0; i < alphabets.length; i++) {
+            alphabets[i] = (char) ('a' + i);
+        }
+
+        for(int i = 0; i < array.length; i++) {
+            for(char alphabet : alphabets) {
+                if(searchWord.charAt(i) != alphabet) {
+                    array[i] = alphabet;
+                    if(trie.searchExactMatch(String.valueOf(array))) {
+                        return true;
+                    }
+                }
+            }
+            array[i] = searchWord.charAt(i);
+        }
+        return false;
+    }
+
     private void evaluate(String str1, String str2) {
         System.out.println(String.format("String1: %s, String2: %s", str1, str2));
         System.out.println("Naive: " + editDistanceNaive(str1, str2));
@@ -228,9 +306,14 @@ public class OneSubstitution {
     }
 
     public static void main(String[] args) {
+        /*
         OneSubstitution oneSubstitution = new OneSubstitution();
         System.out.println("#adple: " + oneSubstitution.singleTypoPreComputeConstantTime("adple"));
         System.out.println("#addle: " + oneSubstitution.singleTypoPreComputeConstantTime("addle"));
         System.out.println("#aple: " + oneSubstitution.singleTypoPreComputeConstantTime("aple"));
+        */
+
+        OneSubstitution oneSubstitution = new OneSubstitution();
+        System.out.println("#adple: " + oneSubstitution.trieApproach("adple"));
     }
 }

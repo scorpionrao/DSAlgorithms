@@ -1,4 +1,4 @@
-package bbb;
+package bbb.Arrays;
 
 import java.util.*;
 
@@ -55,7 +55,7 @@ public class FindDuplicates {
     }
 
     /*
-        Time: O(N), Space: O(N)
+        Time: O(N), Space: O(1)
         Linear Time, Constant Space
 
         1 <= X <= len(array)

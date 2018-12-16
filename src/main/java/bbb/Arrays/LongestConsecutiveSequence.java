@@ -1,4 +1,4 @@
-package bbb;
+package bbb.Arrays;
 
 import java.util.*;
 

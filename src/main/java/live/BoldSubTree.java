@@ -94,14 +94,14 @@ public class BoldSubTree {
         /*
             2012 - Novice Answer.
 
-            public Node extractBoldSubTree (Node rootNode) {
+            public TrieNode extractBoldSubTree (TrieNode rootNode) {
                 node1 = rootNode;
                 return extractBoldSubTree(rootNode, 0, 0);
             }
 
-            private Node extractBoldSubTree (Node rootNode, int level, int childNumber) {
+            private TrieNode extractBoldSubTree (TrieNode rootNode, int level, int childNumber) {
 
-                Node currentNode = rootNode;
+                TrieNode currentNode = rootNode;
                 while (currentNode != null) {
                     if (currentNode.itemArray[childNumber].isBold != true &&
                             currentNode.isLeaf())
@@ -109,7 +109,7 @@ public class BoldSubTree {
                     } else {
                         int numItems = rootNode.getNumItems();
                         for(int j=0; j<numItems+1; j++) {
-                            Node nextNode = rootNode.getChild(j);
+                            TrieNode nextNode = rootNode.getChild(j);
                             if(nextNode != null)
                                 extractBoldSubTree(nextNode, level+1, j);
                         }

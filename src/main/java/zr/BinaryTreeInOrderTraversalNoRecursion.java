@@ -40,7 +40,7 @@ public class BinaryTreeInOrderTraversalNoRecursion {
             /* traverse the tree */
             while (curr != null || !s.isEmpty()) {
 
-                /* Reach the left most Node of the curr Node */
+                /* Reach the left most TrieNode of the curr TrieNode */
                 while (curr !=  null) {
                     /* place pointer to a tree node on the stack
                     before traversing the node's left subtree */
@@ -81,7 +81,7 @@ public class BinaryTreeInOrderTraversalNoRecursion {
             /* traverse the tree */
             while (curr != null || !s.isEmpty()) {
 
-                /* Reach the left most Node of the curr Node */
+                /* Reach the left most TrieNode of the curr TrieNode */
                 while (curr !=  null) {
                     /* place pointer to a tree node on the stack
                     before traversing the node's left subtree */

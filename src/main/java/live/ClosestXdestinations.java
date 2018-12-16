@@ -46,10 +46,10 @@ public class ClosestXdestinations {
             return new ArrayList<>();
         }
 /*
-        PriorityQueue<Node> pq = new PriorityQueue<>(allLocations.size(),
-                new Comparator<Node>() {
+        PriorityQueue<TrieNode> pq = new PriorityQueue<>(allLocations.size(),
+                new Comparator<TrieNode>() {
                     @Override
-                    public int compare(Node node1, Node node2) {
+                    public int compare(TrieNode node1, TrieNode node2) {
                         Double distance1 = new Double(node1.drivingDistance);
                         Double distance2 = new Double(node2.drivingDistance);
                         return distance1.compareTo(distance2);

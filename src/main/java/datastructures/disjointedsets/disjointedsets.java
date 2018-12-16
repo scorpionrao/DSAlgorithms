@@ -254,7 +254,7 @@ public class disjointedsets {
             d4.FindRankHeuristicPathCompression(i);
         }
 
-        System.out.print("Node\t:\t");
+        System.out.print("TrieNode\t:\t");
         for(int i = 1; i <= n4; i++) {
             System.out.print(i + "\t");
         }
