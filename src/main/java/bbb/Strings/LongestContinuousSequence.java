@@ -36,6 +36,7 @@ public class LongestContinuousSequence {
     /* Time: O(m * n), Space: O(m * n) */
     private static String longestContinuousSequence2(String shortString, String longString) {
 
+        // Same Length + Considers only matches
         int[][] dpCache = new int[shortString.length()][longString.length()];
 
         int maxLength = 0;
@@ -67,6 +68,36 @@ public class LongestContinuousSequence {
         return candidate;
     }
 
+    /* Time: O(m * n), Space: O(m * n) */
+    /* ONLY DELETION ALLOWED */
+    private static int longestContinuousSequence3(String shortString, String longString) {
+
+        // Same Length + Considers only matches
+        int[][] dpCache = new int[shortString.length()+1][longString.length()+1];
+
+        String candidate = "";
+        for(int i = 0; i < dpCache.length; i++) {
+            for(int j = 0; j < dpCache[i].length; j++) {
+                if(i == 0 || j == 0) {
+                    // Empty String
+                    dpCache[i][j] = 0;
+                } else {
+                    if(shortString.charAt(i-1) == longString.charAt(j-1)) {
+                        // Either beginning or extending sequence
+                        dpCache[i][j] = 1 + dpCache[i-1][j-1];
+                    } else {
+                        // deletion or insertion
+                        dpCache[i][j] = Math.max(dpCache[i-1][j], dpCache[i][j-1]);
+                    }
+                }
+            }
+        }
+        int maxLength = dpCache[shortString.length()][longString.length()];
+        System.out.println("Max Length : " + maxLength);
+        return maxLength;
+    }
+
+
     public static void evaluate(String str1, String  str2) {
         System.out.println("String1 : " + str1);
         System.out.println("String2 : " + str2);
@@ -74,6 +105,8 @@ public class LongestContinuousSequence {
         System.out.println("Approach1 : " + result1);
         String result2 = longestContinuousSequence2(str1, str2);
         System.out.println("Approach2 : " + result2);
+        int result3 = longestContinuousSequence3(str1, str2);
+        System.out.println("Approach3 : " + result3);
     }
 
     public static void main(String[] args) {

@@ -4,37 +4,70 @@ import java.util.*;
 
 public class StringDeletion {
 
-    private static List<String> generateCombinations(String word) {
-        List<String> combinations = new ArrayList<>();
-        generateCombinations(word, "", combinations);
+    private static Set<String> generateCombinationsRecurse(String word) {
+        Set<String> combinations = new LinkedHashSet<>();
+        generateCombinationsRecurse(word, "", combinations);
         return combinations;
     }
 
-    private static void generateCombinations(String remaining, String soFar, List<String> combinations) {
+    private static void generateCombinationsRecurse(String remaining, String soFar, Set<String> combinations) {
         if(remaining.isEmpty()) {
             combinations.add(soFar);
             return;
         }
-        generateCombinations(remaining.substring(1), soFar + remaining.charAt(0), combinations);
-        generateCombinations(remaining.substring(1), soFar, combinations);
+        // BFS
+        generateCombinationsRecurse(remaining.substring(1), soFar + remaining.charAt(0), combinations);
+        generateCombinationsRecurse(remaining.substring(1), soFar, combinations);
     }
 
     /* Typical Backtrack example */
     private static int stringDeleteApproach1(String word, List<String> dictionary) {
-        List<String> combinations = generateCombinations(word);
+        Set<String> combinations = generateCombinationsRecurse(word);
         for(String str : combinations) {
             if(dictionary.contains(str)) {
                 return word.length() - str.length();
             }
         }
+        // Can be -1
         return word.length();
     }
+
+    private static Set<String> generateCombinationsIterate(String word) {
+
+        Set<String> set = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(word);
+        while(!queue.isEmpty()) {
+            String node = queue.poll();
+            set.add(node);
+            for(int i = 0; i < node.length(); i++) {
+                String nextLevelNode = node.substring(0, i) + node.substring(i+1);
+                queue.add(nextLevelNode);
+            }
+        }
+        return set;
+    }
+
+    private static int stringDeleteApproach2(String word, List<String> dictionary) {
+
+        Set<String> combinations = generateCombinationsIterate(word);
+        for(String str : combinations) {
+            if(dictionary.contains(str)) {
+                return word.length() - str.length();
+            }
+        }
+        // Can be -1
+        return word.length();
+    }
+
 
     public static void evaluate(String word, List<String> dictionary) {
         System.out.println("Dictionary : " + dictionary.toString());
         System.out.println("Word : " + word);
-        int minLength = stringDeleteApproach1(word, dictionary);
-        System.out.println("Approach1 : " + minLength);
+        int minLength1 = stringDeleteApproach1(word, dictionary);
+        System.out.println("Approach1 : " + minLength1);
+        int minLength2 = stringDeleteApproach2(word, dictionary);
+        System.out.println("Approach2 : " + minLength2);
     }
 
     public static void main(String[] args) {
