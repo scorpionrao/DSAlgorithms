@@ -151,27 +151,26 @@ public class Encoding
     }
     */
 
-    // Signature: String runLengthEncoding(String base32EncodedString)
-    public String runLengthEncoding(String base32EncodedString) {
+    // Signature: String runLengthEncoding(String encodedString)
+    public String runLengthEncoding(String encodedString) {
 
-        if(base32EncodedString == null || base32EncodedString.length() < 2) {
-            return base32EncodedString;
+        if(encodedString == null || encodedString.length() < 2) {
+            return encodedString;
         }
 
         StringBuilder sb = new StringBuilder();
         int counter = 1;
-        char ch = base32EncodedString.charAt(0);
-        for(int i = 1; i < base32EncodedString.length(); i++) {
-            if (base32EncodedString.charAt(i) == ch) {
+        char ch = encodedString.charAt(0);
+        for(int i = 1; i < encodedString.length(); i++) {
+            if (encodedString.charAt(i) == ch) {
                 counter++;
-                continue;
             } else {
                 sb.append(ch);
                 if(counter > 1) {
                     sb.append(counter);
                 }
                 counter = 1;
-                ch = base32EncodedString.charAt(i);
+                ch = encodedString.charAt(i);
             }
         }
         sb.append(ch);
