@@ -38,7 +38,7 @@ public class FindDuplicates {
     }
 
     /*
-        Time: O(N), Space: O(N)
+        Time: O(N), Space: O(2*N)
         Linear Time, Linear Space
     */
     private static Set<Integer> findDupsApproach3(List<Integer> nums) {
@@ -67,8 +67,10 @@ public class FindDuplicates {
         for(int i = 0; i < nums.size(); i++) {
             int index = Math.abs(nums.get(i)) - 1;
             if(nums.get(index) < 0) {
+                // already processed index, candidate for result
                 set.add(Math.abs(nums.get(i)));
             } else {
+                // -Ve the value at the index
                 nums.set(index, nums.get(index).intValue() * -1);
             }
         }

@@ -49,6 +49,7 @@ public class is_bst {
             }
         }
 
+        /* Time: O(N) */
         boolean isBinarySearchTree() {
             if(nodes <= 1) {
                 return true;

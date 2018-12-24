@@ -61,12 +61,7 @@ public class LCA {
             return root;
         }
 
-        if(left != null) {
-            return left;
-        } else {
-            return right;
-        }
-
+        return (left != null) ? left : right;
     }
 
     public static void main(String[] args) {

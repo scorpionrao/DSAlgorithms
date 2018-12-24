@@ -128,7 +128,7 @@ public class Knapsack {
     }
 
     private static int knapsackRecursion(int[] weights, int[] values, int maxWeight, int index) {
-        // All weights are explored
+        // All items are explored
         if(index == weights.length) {
             return 0;
         }
@@ -146,17 +146,17 @@ public class Knapsack {
 
     private static int dpBottomUpCacheIsGiven(int[] weights, int[] values, int maxWeight) {
         int[][] cache = new int[weights.length+1][maxWeight+1];
-        for(int i = 1; i < cache.length; i++) {
-            for(int j = 1; j < cache[i].length; j++) {
+        for(int item = 1; item < cache.length; item++) {
+            for(int weight = 1; weight < cache[item].length; weight++) {
                 // Is this item more than max weight in this loop
-                if(weights[i-1] > j) {
+                if(weights[item-1] > weight) {
                     // not taken scenario
-                    cache[i][j] = cache[i-1][j];
+                    cache[item][weight] = cache[item-1][weight];
                 } else {
                     // not taken OR taken (add value,
-                    int notTaken = cache[i-1][j];
-                    int taken = cache[i-1][j-weights[i-1]] + values[i-1];
-                    cache[i][j] = Math.max(notTaken, taken);
+                    int notTaken = cache[item-1][weight];
+                    int taken = cache[item-1][weight-weights[item-1]] + values[item-1];
+                    cache[item][weight] = Math.max(notTaken, taken);
                 }
             }
         }

@@ -41,11 +41,11 @@ public class Autocomplete {
 
         TrieNode root;
 
-        public Trie() {
+        private Trie() {
             this.root = new TrieNode('#', "");
         }
 
-        public void preCompute(List<String> dictionary) {
+        private void preCompute(List<String> dictionary) {
             for(String word : dictionary) {
                 addToTrie(word);
             }
@@ -66,7 +66,7 @@ public class Autocomplete {
             }
         }
 
-        public List<String> searchWithPrefix(String prefix) {
+        private List<String> searchWithPrefix(String prefix) {
 
             List<String> result = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public class Autocomplete {
             return result;
         }
 
-        public boolean searchExact(String prefix) {
+        private boolean searchExact(String prefix) {
 
             // Traverse to the prefix
             TrieNode prefixTrieNode = root;
@@ -114,8 +114,7 @@ public class Autocomplete {
     private static List<String> autocompleteApproach2(List<String> dictionary, String search) {
         Trie trie = new Trie();
         trie.preCompute(dictionary);
-        List<String> result = trie.searchWithPrefix(search);
-        return result;
+        return trie.searchWithPrefix(search);
     }
 
     /* Time: O(L), Space: O(D) */

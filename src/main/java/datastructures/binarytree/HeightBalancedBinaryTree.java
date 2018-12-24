@@ -2,8 +2,7 @@ package datastructures.binarytree;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
-public class HeightBalancedBinaryTree
-{
+public class HeightBalancedBinaryTree {
 	private static class Node {
 		int val;
 		int height;
@@ -59,24 +58,21 @@ public class HeightBalancedBinaryTree
 			return 0;
 		}
 
-		int leftHeight = dfsHeightOrReject(root.left);
-		if(leftHeight == -1) {
-			// Push up short circuit
-			return leftHeight;
+		int leftChildHeightOrReject = dfsHeightOrReject(root.left);
+		if(leftChildHeightOrReject == -1) {
+			return leftChildHeightOrReject;
 		}
 
-		int rightHeight = dfsHeightOrReject(root.right);
-		if(rightHeight == -1) {
-			// Push up short circuit
-			return rightHeight;
+		int rightChildHeightOrReject = dfsHeightOrReject(root.right);
+		if(rightChildHeightOrReject == -1) {
+			return rightChildHeightOrReject;
 		}
 
-		if(Math.abs(leftHeight - rightHeight) > 1) {
-			// BEGIN short circuit
+		if(Math.abs(leftChildHeightOrReject - rightChildHeightOrReject) > 1) {
 			return -1;
 		}
 
-		return Math.max(leftHeight, rightHeight) + 1;
+		return Math.max(leftChildHeightOrReject, rightChildHeightOrReject) + 1;
 	}
 	
 	private static boolean iterateDfsPreOrderDecisionAtEnd(Node root) {
@@ -181,11 +177,10 @@ public class HeightBalancedBinaryTree
 		Node root = new Node(1);
 		root.left = new Node(2);
 		root.right = new Node(3);
-		/*
-        root.left.left = new TrieNode(4);
-        root.left.right = new TrieNode(5);
-        root.left.left.left = new TrieNode(6);
-        */
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.left.left.left = new Node(6);
+
         /*
         root.right.right = new TrieNode(7);
         root.right.left.right = new TrieNode(8);

@@ -4,19 +4,46 @@ import java.util.Arrays;
 
 public class LargestMatrixProduct {
 
+    private static long maxProductRecurse1(int[][] matrix) {
+        return maxProductRecurse1(matrix, 0, 0);
+    }
+
+    private static long maxProductRecurse1(int[][] matrix, int row, int col) {
+        if(row == matrix.length || col == matrix[row].length) {
+            return 1;
+        }
+
+        return matrix[row][col] * Math.max(
+                maxProductRecurse1(matrix, row, col + 1),
+                maxProductRecurse1(matrix, row + 1, col));
+    }
+
+    private static long maxProductRecurse2(int[][] matrix) {
+        return maxProductRecurse2(matrix, matrix.length - 1, matrix[0].length - 1);
+    }
+
+    private static long maxProductRecurse2(int[][] matrix, int row, int col) {
+        if(row < 0 || col < 0) {
+            return 1;
+        }
+        return matrix[row][col] * Math.max(
+                maxProductRecurse2(matrix, row - 1, col),
+                maxProductRecurse2(matrix, row, col - 1));
+    }
+
     /*
         Time: O(2 ^ (m+n))
         Space: O(m * n) cache, O(m * n) recursion stack
      */
-    private static long maxProductRecurse(int[][] matrix) {
+    private static long maxProductRecurseWithCache(int[][] matrix) {
         long[][] cache = new long[matrix.length][matrix[0].length];
         for(long[] rows : cache) {
             Arrays.fill(rows, -1);
         }
-        return maxProductRecurse(matrix, 0, 0, cache);
+        return maxProductRecurseWithCache(matrix, 0, 0, cache);
     }
 
-    private static long maxProductRecurse(int[][] matrix, int row, int col, long[][] cache) {
+    private static long maxProductRecurseWithCache(int[][] matrix, int row, int col, long[][] cache) {
         if(row == matrix.length || col == matrix[row].length) {
             return 1;
         }
@@ -25,8 +52,8 @@ public class LargestMatrixProduct {
         }
 
         cache[row][col] = matrix[row][col] * Math.max(
-                            maxProductRecurse(matrix, row, col + 1, cache),
-                            maxProductRecurse(matrix, row + 1, col, cache));
+                maxProductRecurseWithCache(matrix, row, col + 1, cache),
+                maxProductRecurseWithCache(matrix, row + 1, col, cache));
 
         return cache[row][col];
     }
@@ -79,7 +106,9 @@ public class LargestMatrixProduct {
             System.out.print(Arrays.toString(rows) + " ");
         }
         System.out.println();
-        System.out.println("Recurse : " + maxProductRecurse(matrix));
+        System.out.println("Recurse1 : " + maxProductRecurse1(matrix));
+        System.out.println("Recurse2 : " + maxProductRecurse2(matrix));
+        System.out.println("RecurseWithCache : " + maxProductRecurseWithCache(matrix));
         System.out.println("BottomUp: " + maxProductBottomUp(matrix));
     }
 

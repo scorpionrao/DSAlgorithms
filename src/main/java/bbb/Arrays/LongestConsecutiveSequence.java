@@ -27,6 +27,7 @@ public class LongestConsecutiveSequence {
         int maxLength = 0;
         int count = 1;
         for(int i = 0; i < list.size() - 1; i++) {
+            // IGNORE DUPLICATES
             if(list.get(i).intValue() == list.get(i+1).intValue()) {
                 continue;
             } else if(list.get(i).intValue() + 1 == list.get(i+1).intValue()) {
@@ -40,17 +41,19 @@ public class LongestConsecutiveSequence {
         return maxLength;
     }
 
-    /* Time: O(N), Space: O(1) */
+    /* Time: O(N), Space: O(N) */
     private static int longestConsecutiveSequenceApproach3(List<Integer> list) {
 
         int maxLength = 0;
+        // Avoids duplicates
         Set<Integer> set = new HashSet<>();
         for(Integer num : list) {
             set.add(num);
         }
         for(Integer unique : set) {
             if(set.contains(unique-1)) {
-                // Unique is a subset of unique-1
+                // current unique is a sub problem.
+                // Main problem might already or in future will be calculated.
                 continue;
             }
             int count = 0;

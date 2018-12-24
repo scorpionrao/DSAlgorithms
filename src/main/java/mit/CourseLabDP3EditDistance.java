@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class CourseLabDP3EditDistance {
 	
 	/*
-	 * Remember, dynamic programming in five easy steps. 
+	 * Remember, dynamic programming in five Easy steps.
 	 * 
 	 * 1. You define what your sub problems are and count how many there are, to solve a sub problem.
 	 *
@@ -24,7 +24,7 @@ public class CourseLabDP3EditDistance {
 	 * They do exactly the same computations, more or less, and you need to check that this recurrence is acyclic, 
 	 * that you never end up depending on yourself, otherwise these will be infinite algorithms or incorrect algorithms. 
 	 * Either way is bad. From the bottom up, you really like to explicitly know a topological order on the subproblems, 
-	 * and that's usually pretty easy, but you've got make sure that it's acyclic. 
+	 * and that's usually pretty Easy, but you've got make sure that it's acyclic.
 	 * And then, to compute the running time of the algorithm, you just take the number of subproblems from part 1 and
 	 * you multiply it by the time it takes per subproblem,
 	 * ignoring recursion, in part 3. 
