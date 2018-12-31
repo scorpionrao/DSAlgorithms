@@ -19,7 +19,6 @@ public class MergeSortedArrays {
         Space: O(1)
 
         K - comparisons
-
     */
     private static List<Integer> mergeSortedArraysApproach2(List<List<Integer>> input) {
         List<Integer> result = new ArrayList<>();

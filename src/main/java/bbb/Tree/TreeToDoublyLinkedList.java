@@ -15,63 +15,33 @@ public class TreeToDoublyLinkedList {
     }
 
     private static void print(Node head) {
+
+        while(head.left != null) {
+            head = head.left;
+        }
         Node current = head;
         while(current != null) {
-            System.out.print(current.key + " --> ");
+            System.out.print(current.key + " <--> ");
             current = current.right;
         }
-        System.out.print("NULL");
-    }
-
-    private static Node treeToDLLApproach1Util(Node root) {
-
-        if(root == null) {
-            return root;
-        }
-
-        if(root.left != null) {
-
-            Node sameLeftNode = treeToDLLApproach1Util(root.left);
-            while(sameLeftNode.right != null) {
-                sameLeftNode = sameLeftNode.right;
-            }
-            sameLeftNode.right = root;
-            root.left = sameLeftNode;
-        }
-
-        if(root.right != null) {
-
-            Node sameRightNode = treeToDLLApproach1Util(root.right);
-            while(sameRightNode.left != null) {
-                sameRightNode = sameRightNode.left;
-            }
-            sameRightNode.left = root;
-            root.right = sameRightNode;
-        }
-
-        return root;
     }
 
     public static Node treeToDLLApproach1(Node root) {
         if(root == null) {
             return null;
         }
-
-        Node head = treeToDLLApproach1Util(root);
-        while(head.left != null) {
-            head = head.left;
-        }
-        return head;
+        fixPrevPtr(root);
+        return fixNextPtr(root);
     }
 
-    private static Node previous;
+    private static Node previousApproach1;
     private static void fixPrevPtr(Node root) {
         if(root == null) {
             return;
         }
         fixPrevPtr(root.left);
-        root.left = previous;
-        previous = root;
+        root.left = previousApproach1;
+        previousApproach1 = root;
         fixPrevPtr(root.right);
     }
 
@@ -80,55 +50,42 @@ public class TreeToDoublyLinkedList {
             return null;
         }
 
-        Node current = root;
-        while(current.right != null) {
-            current = current.right;
+        Node leftMostNode = root;
+        while(leftMostNode.right != null) {
+            leftMostNode = leftMostNode.right;
         }
 
-        while(current != null && current.left != null) {
-            Node previous = current.left;
-            previous.right = current;
-            current = current.left;
+        while(leftMostNode != null && leftMostNode.left != null) {
+            Node previous = leftMostNode.left;
+            previous.right = leftMostNode;
+            leftMostNode = leftMostNode.left;
         }
-        return current;
-    }
-
-    public static Node treeToDLLApproach2(Node root) {
-        if(root == null) {
-            return null;
-        }
-        fixPrevPtr(root);
-        return fixNextPtr(root);
+        return leftMostNode;
     }
 
     // Very simple In Order traversal
 
-    public static void treeToDLLApproach3(Node root) {
+    public static Node headApproach2 = null;
+    public static Node previousApproach2 = null;
+
+    public static Node treeToDLLApproach2(Node root) {
 
         if (root == null) {
-            return;
+            return null;
         }
-        Node head = null;
-        Node prev = null;
-        treeToDLLApproach3(root.left, prev, head);
-    }
-
-    public static void treeToDLLApproach3(Node root, Node previous, Node head) {
-
-        if (root == null) {
-            return;
-        }
-        treeToDLLApproach3(root.left, previous, head);
+        root.left = treeToDLLApproach2(root.left);
         /* Inorder */
-        if (previous == null) {
-            head = root;
+        if (previousApproach2 == null) {
+            headApproach2 = root;
         } else {
-            root.left = previous;
-            previous.right = root;
+            root.left = previousApproach2;
+            previousApproach2.right = root;
         }
-        previous = root;
+        previousApproach2 = root;
         /* Inorder */
-        treeToDLLApproach3(root.right, previous, head);
+        root.right = treeToDLLApproach2(root.right);
+
+        return root;
     }
 
     public static void evaluate(Node root) {
@@ -137,18 +94,20 @@ public class TreeToDoublyLinkedList {
         System.out.println("Approach1 : ");
         print(head);
 */
-        Node head = treeToDLLApproach2(root);
+        root = treeToDLLApproach2(root);
+
         System.out.println("Approach2 : ");
-        print(head);
+        print(root);
+
     }
 
     public static void main(String[] args) {
-        Node root = new Node(1);
+        Node root = new Node(4);
         root.left = new Node(2);
-        root.left.left = new Node(4);
-        root.left.right = new Node(5);
-        root.right = new Node(3);
-        root.right.left = new Node(6);
+        root.left.left = new Node(1);
+        root.left.right = new Node(3);
+        root.right = new Node(6);
+        root.right.left = new Node(5);
         root.right.right = new Node(7);
 
         evaluate(root);

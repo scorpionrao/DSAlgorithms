@@ -53,6 +53,7 @@ public class HeightBalancedBinaryTree {
 		return dfsHeightOrReject(root) != -1;
 	}
 
+	/* Same as Byte by Byte solution */
 	private static int dfsHeightOrReject(Node root) {
 		if(root == null) {
 			return 0;
@@ -72,7 +73,7 @@ public class HeightBalancedBinaryTree {
 			return -1;
 		}
 
-		return Math.max(leftChildHeightOrReject, rightChildHeightOrReject) + 1;
+		return 1 + Math.max(leftChildHeightOrReject, rightChildHeightOrReject);
 	}
 	
 	private static boolean iterateDfsPreOrderDecisionAtEnd(Node root) {

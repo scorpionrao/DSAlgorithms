@@ -5,9 +5,13 @@ import java.util.Arrays;
 public class LongestContinuousSequence {
 
     /*
+        Compare all windows of short string within long string
+
         Time: O(N^2 * M)
-        Time: O(min(S1.length, S2.length) ^ 2 * max(S1.length, S2.length)),
-        Space: O(10)
+        N -> min(S1.length, S2.length)
+        M -> max(S1.length, S2.length))
+
+        Space: O(1)
     */
     private static String longestContinuousSequence1(String shortString, String longString) {
 
@@ -33,16 +37,65 @@ public class LongestContinuousSequence {
         return result;
     }
 
+    private static String longestContinuousSequence3(String shortString, String longString) {
+        if(shortString.length() > longString.length()) {
+            return longestContinuousSequence3(longString, shortString);
+        }
+        int[][] cache = new int[shortString.length()][longString.length()];
+        for(int[] row : cache) {
+            Arrays.fill(row, -1);
+        }
+        for(int i = 0; i < shortString.length(); i++) {
+            for(int j = 0; j < longString.length(); j++) {
+                longestContinuousSequence3(shortString, longString, i, j, cache);
+            }
+        }
+
+        int longestLength = 0;
+        int endIndex = 0;
+        for(int i = 0; i < shortString.length(); i++) {
+            for(int j = 0; j < longString.length(); j++) {
+                if(cache[i][j] > longestLength) {
+                    longestLength = cache[i][j];
+                    endIndex = i;
+                }
+            }
+        }
+        return shortString.substring(endIndex - longestLength + 1, endIndex + 1);
+    }
+
+    private static void longestContinuousSequence3(String shortString, String longString,
+                                                   int row, int col, int[][] cache) {
+
+        if(cache[row][col] >= 0) {
+            return;
+        }
+        if(shortString.charAt(row) == longString.charAt(col)) {
+            if(row == 0 || col == 0) {
+                cache[row][col] = 1;
+            } else {
+                cache[row][col] = 1 + cache[row-1][col-1];
+            }
+        } else {
+            cache[row][col] = 0;
+        }
+    }
+
+
     /* Time: O(m * n), Space: O(m * n) */
-    private static String longestContinuousSequence2(String shortString, String longString) {
+    private static String longestContinuousSequence4(String shortString, String longString) {
+
+        if(longString.length() < shortString.length()) {
+            return longestContinuousSequence4(longString, shortString);
+        }
 
         // Same Length + Considers only matches
         int[][] dpCache = new int[shortString.length()][longString.length()];
 
         int maxLength = 0;
         String candidate = "";
-        for(int i = 0; i < dpCache.length; i++) {
-            for(int j = 0; j < dpCache[i].length; j++) {
+        for(int i = 0; i < shortString.length(); i++) {
+            for(int j = 0; j < longString.length(); j++) {
                 if(shortString.charAt(i) == longString.charAt(j)) {
                     if(i == 0 || j == 0) {
                         // 1 char vs upto rest, max is 1
@@ -62,39 +115,7 @@ public class LongestContinuousSequence {
                 }
             }
         }
-        for(int[] row : dpCache) {
-            System.out.println(Arrays.toString(row));
-        }
         return candidate;
-    }
-
-    /* Time: O(m * n), Space: O(m * n) */
-    /* ONLY DELETION ALLOWED */
-    private static int longestContinuousSequence3(String shortString, String longString) {
-
-        // Same Length + Considers only matches
-        int[][] dpCache = new int[shortString.length()+1][longString.length()+1];
-
-        String candidate = "";
-        for(int i = 0; i < dpCache.length; i++) {
-            for(int j = 0; j < dpCache[i].length; j++) {
-                if(i == 0 || j == 0) {
-                    // Empty String
-                    dpCache[i][j] = 0;
-                } else {
-                    if(shortString.charAt(i-1) == longString.charAt(j-1)) {
-                        // Either beginning or extending sequence
-                        dpCache[i][j] = 1 + dpCache[i-1][j-1];
-                    } else {
-                        // deletion or insertion
-                        dpCache[i][j] = Math.max(dpCache[i-1][j], dpCache[i][j-1]);
-                    }
-                }
-            }
-        }
-        int maxLength = dpCache[shortString.length()][longString.length()];
-        System.out.println("Max Length : " + maxLength);
-        return maxLength;
     }
 
 
@@ -103,15 +124,15 @@ public class LongestContinuousSequence {
         System.out.println("String2 : " + str2);
         String result1 = longestContinuousSequence1(str1, str2);
         System.out.println("Approach1 : " + result1);
-        String result2 = longestContinuousSequence2(str1, str2);
-        System.out.println("Approach2 : " + result2);
-        int result3 = longestContinuousSequence3(str1, str2);
+        String result3 = longestContinuousSequence3(str1, str2);
         System.out.println("Approach3 : " + result3);
+        String result4 = longestContinuousSequence4(str1, str2);
+        System.out.println("Approach4 : " + result4);
     }
 
     public static void main(String[] args) {
-        String str1 = "abcdef";
-        String str2 = "abcde";
+        String str1 = "bbbbbb";
+        String str2 = "abbba";
         evaluate(str1, str2);
     }
 }

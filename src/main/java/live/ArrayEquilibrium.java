@@ -4,6 +4,76 @@ import java.util.Arrays;
 
 public class ArrayEquilibrium {
 
+    /* Time : O(N^2), Space : O(1) */
+    public int getEquilibrium1(int[] input) {
+        for(int i = 0; i < input.length; i++) {
+            long leftSum = 0;
+            long rightSum = 0;
+            for(int j = 0; j < input.length; j++) {
+                if(i == j) {
+                    continue;
+                } else if(i < j) {
+                    leftSum += input[j];
+                } else {
+                    rightSum += input[j];
+                }
+            }
+            if(leftSum == rightSum) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /* Time : O(N), Space : O(2*N) */
+    public int getEquilibrium2(int[] input) {
+
+        long[] leftSum = new long[input.length];
+        for(int i = 0; i < input.length; i++) {
+            if(i > 0) {
+                leftSum[i] = leftSum[i-1] + input[i-1];
+            }
+        }
+
+        long[] rightSum = new long[input.length];
+        for(int i = input.length - 1; i >= 0; i--) {
+            if(i < input.length - 1) {
+                rightSum[i] = rightSum[i+1] + input[i+1];
+            }
+        }
+
+        for(int i = 0; i < input.length; i++) {
+            if(leftSum[i] == rightSum[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /* Time : O(N), Space : O(N) */
+    public int getEquilibrium3(int[] input) {
+
+        long[] leftSum = new long[input.length];
+        for(int i = 0; i < input.length; i++) {
+            if(i > 0) {
+                leftSum[i] = leftSum[i-1] + input[i-1];
+            }
+        }
+
+        long rightSum = 0;
+        for(int i = input.length - 1; i >= 0; i--) {
+            if(i < input.length - 1) {
+                rightSum = rightSum + input[i+1];
+            }
+            if(leftSum[i] == rightSum) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+
     /*
         Time: O(N)
         Space: O(1)
@@ -16,7 +86,7 @@ public class ArrayEquilibrium {
             c) leftsum = leftsum + arr[i]
         4) return -1 // there is no equilibrium index
     */
-    public int getEquilibrium(int[] input) {
+    public int getEquilibrium4(int[] input) {
 
         if(input == null || input.length == 0) {
             return -1;
@@ -37,26 +107,20 @@ public class ArrayEquilibrium {
         return -1;
     }
 
+    private void evaluate(int[] nums) {
+        System.out.println(Arrays.toString(nums));
+        System.out.println("Equilibrium1 index: " + getEquilibrium1(nums));
+        System.out.println("Equilibrium2 index: " + getEquilibrium2(nums));
+        System.out.println("Equilibrium3 index: " + getEquilibrium3(nums));
+        System.out.println("Equilibrium4 index: " + getEquilibrium4(nums));
+    }
+
     public static void main(String[] args) {
 
         ArrayEquilibrium ae = new ArrayEquilibrium();
-        int[] nums1 = {2, 1, 4, 3};
-        System.out.println(Arrays.toString(nums1) + " --> Equilibrium index: " + ae.getEquilibrium(nums1));
-
-        /*
-        int[] nums2 = {2};
-        System.out.println(Arrays.toString(nums2) + " --> Equilibrium index: " + ae.getEquilibrium(nums2));
-        /* All zeros - return 0
-        int[] nums3 = {0, 0};
-        System.out.println(Arrays.toString(nums3) + " --> Equilibrium index: " + ae.getEquilibrium(nums3));
-        /* Non zeros + length 2 = -1
-        int[] nums4 = {2, 2};
-        System.out.println(Arrays.toString(nums4) + " --> Equilibrium index: " + ae.getEquilibrium(nums4));
-        /* Numeric overflow
-        int[] nums5 = {Integer.MAX_VALUE, 1};
-        System.out.println(Arrays.toString(nums5) + " --> Equilibrium index: " + ae.getEquilibrium(nums5));
-        int[] nums6 = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-        System.out.println(Arrays.toString(nums6) + " --> Equilibrium index: " + ae.getEquilibrium(nums6));
-        */
+        int[] nums = {2, 1, 4, 3};
+        ae.evaluate(nums);
     }
+
+
 }

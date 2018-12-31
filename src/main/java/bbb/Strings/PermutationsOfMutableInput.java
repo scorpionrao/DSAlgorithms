@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PermutationsOfMutableInput {
 
-    public static class CharArrayPermutation {
+    private static class CharArrayPermutation {
 
         private static List<char[]> permutations(char[] charArray) {
             List<char[]> result = new ArrayList<>();
@@ -38,7 +38,7 @@ public class PermutationsOfMutableInput {
         }
     }
 
-    public static class IntArrayPermutation {
+    private static class IntArrayPermutation {
 
         private static List<int[]> permutations(int[] intArray) {
             List<int[]> result = new ArrayList<>();
@@ -72,10 +72,10 @@ public class PermutationsOfMutableInput {
 
     public static void main(String[] args) {
         char[] charArray = {'a', 'b', 'c'};
-        new CharArrayPermutation().permutations(charArray);
+        CharArrayPermutation.permutations(charArray);
         System.out.println("**********************");
         int[] intArray = {1, 2, 3};
-        new IntArrayPermutation().permutations(intArray);
+        IntArrayPermutation.permutations(intArray);
     }
 
 

@@ -1,6 +1,6 @@
 package bbb.Easy;
 
-public class ClickAngle {
+public class ClockAngle {
 
     private static double clockShortAngle(int hour, int min) {
 

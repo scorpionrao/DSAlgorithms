@@ -16,6 +16,8 @@ public class RandomLinkedList {
 
     private static Node cloneApproach1(Node head) {
 
+        /* OVERALL - Time : O(3 * N), Space : O(1) */
+
         /*
             Insert clone nodes
             Time: O(N), Space: O(1)
@@ -24,7 +26,6 @@ public class RandomLinkedList {
         while(current != null) {
             Node temp = current.next;
             current.next = new Node(current.key);
-            current.next.random = new Node(0);
             current.next.next = temp;
             current = current.next.next;
         }

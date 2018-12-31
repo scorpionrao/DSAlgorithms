@@ -7,7 +7,7 @@ public class SquareSubmatrix {
     /*
         Time: O(N^4), Space: O(1)
 
-        Bruteforce preferred when lack of space and smaller arrays
+        Bruteforce preferred when lack of space
     */
     private static int squareSubmatrixApproach1(int[][] input) {
         if (input.length == 0 || input[0].length == 0) {
@@ -36,9 +36,11 @@ public class SquareSubmatrix {
     }
 
     /*
-        Time: O(N^M), Space: O(N^M)
+        Time: O(N * M), Space: O(N * M)
 
-        DP when space is available and longer arrays where time is important.
+        DP when space is available and where time is important.
+
+        Bottom Up with Cache approach
     */
     private static int squareSubmatrixApproach2(int[][] input) {
         if(input.length == 0 || input[0].length == 0) {
@@ -47,23 +49,24 @@ public class SquareSubmatrix {
 
         int maxLength = 0;
 
-        int[][] sizes = new int[input.length][input[0].length];
-        for(int i = 0; i < sizes.length; i++) {
-            for(int j = 0; j < sizes[i].length; j++) {
+        int[][] cache = new int[input.length][input[0].length];
+        for(int i = 0; i < cache.length; i++) {
+            for(int j = 0; j < cache[i].length; j++) {
                 if(i == 0 || j == 0) {
                     // Because input values are 0 or 1, it goes with length 0 or 1
-                    sizes[i][j] = input[i][j];
+                    cache[i][j] = input[i][j];
                 } else if(input[i][j] == 1) {
-                    sizes[i][j] = 1 + Math.min(Math.min(sizes[i-1][j-1], sizes[i-1][j]), sizes[i][j-1]);
+                    cache[i][j] = 1 + Math.min(Math.min(cache[i-1][j-1], cache[i-1][j]), cache[i][j-1]);
                 } else {
                     // Pure 0 case, Java initializes to 0
                 }
-                maxLength = Math.max(maxLength, sizes[i][j]);
+                maxLength = Math.max(maxLength, cache[i][j]);
             }
         }
         return maxLength;
     }
 
+    /* Top down Approach without cache */
     private static int squareSubmatrixApproach3(int[][] input) {
         return recurse(input, input.length - 1, input[0].length - 1);
     }
@@ -80,8 +83,13 @@ public class SquareSubmatrix {
 
         return Math.max(1,
                 1 + Math.min(
-                        Math.min(recurse(input, row-1, col-1), recurse(input, row-1, col)),
-                        recurse(input, row, col-1)));
+                        Math.min(
+                                recurse(input, row-1, col-1),
+                                recurse(input, row-1, col)
+                                ),
+                                recurse(input, row, col-1)
+                            )
+                        );
     }
 
     private static void evaluate(int[][] matrix) {

@@ -12,6 +12,7 @@ public class StringDeletion {
 
     private static void generateCombinationsRecurse(String remaining, String soFar, Set<String> combinations) {
         if(remaining.isEmpty()) {
+            System.out.println(soFar);
             combinations.add(soFar);
             return;
         }
