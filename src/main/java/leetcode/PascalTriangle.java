@@ -30,8 +30,14 @@ public class PascalTriangle {
 
         for(int row = 0; row <= rowIndex; row++) {
             List<Integer> current = new ArrayList<>();
-            current.add(1);
-
+            for(int col = 0; col < row + 1; col++) {
+                if(col == 0 || col == row) {
+                    current.add(1);
+                } else {
+                    current.add(result.get(row-1).get(col-1) + result.get(row-1).get(col));
+                }
+            }
+            result.add(current);
         }
         return result;
     }
@@ -69,18 +75,18 @@ public class PascalTriangle {
     private static void evaluate(int rowIndex) {
         System.out.println("Row : " + rowIndex);
         List<List<Integer>> result1 = getRows1(rowIndex);
-        System.out.println("Approach 1 ");
+        System.out.println("Approach1 : ");
         for(List<Integer> row : result1) {
-            System.out.println();
+            System.out.println(row.toString());
         }
         List<Integer> result2 = getRows2(rowIndex);
-        System.out.println("Approach 2 " + result2.toString());
+        System.out.println("Approach2 : " + result2.toString());
         int[] result3 = getRows3(rowIndex);
-        System.out.println("Approach 3 " + Arrays.toString(result3));
+        System.out.println("Approach3 : " + Arrays.toString(result3));
     }
 
     public static void main(String[] args) {
-        int rowIndex = 3;
+        int rowIndex = 5;
         evaluate(rowIndex);
     }
 }
