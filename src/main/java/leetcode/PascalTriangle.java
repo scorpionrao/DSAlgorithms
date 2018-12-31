@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PascalTriangle1 {
+public class PascalTriangle {
 
     /*
                 1           0 (1)
