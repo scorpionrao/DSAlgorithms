@@ -28,7 +28,7 @@ public class PascalTriangle {
 
         List<List<Integer>> result = new ArrayList<>();
 
-        for(int row = 0; row <= rowIndex; row++) {
+        for(int row = 0; row < rowIndex + 1; row++) {
             List<Integer> current = new ArrayList<>();
             for(int col = 0; col < row + 1; col++) {
                 if(col == 0 || col == row) {
@@ -42,11 +42,15 @@ public class PascalTriangle {
         return result;
     }
 
+    /*
+        Time : O(N * N) -> number of rows
+        Space : O(N)
+    */
     private static List<Integer> getRows2(int rowIndex) {
         List<Integer> previous = new ArrayList<>();
         List<Integer> current = new ArrayList<>();
-        current.add(1);
-        for(int row = 1; row <= rowIndex; row++) {
+
+        for(int row = 0; row <= rowIndex; row++) {
             current = new ArrayList<>();
             for(int col = 0; col < row + 1; col++) {
                 if(col == 0 || col == row) {
@@ -60,12 +64,12 @@ public class PascalTriangle {
         return current;
     }
 
+    /* Row index = end index of array */
     private static int[] getRows3(int rowIndex) {
-
         int[] result = new int[rowIndex+1];
         result[0] = 1;
         for(int row = 1; row < rowIndex+1; row++) {
-            for(int end = row; end >= 1; end--) {
+            for(int end = row; end > 0; end--) {
                 result[end] = result[end] + result[end-1];
             }
         }
@@ -76,9 +80,11 @@ public class PascalTriangle {
         System.out.println("Row : " + rowIndex);
         List<List<Integer>> result1 = getRows1(rowIndex);
         System.out.println("Approach1 : ");
+        /*
         for(List<Integer> row : result1) {
             System.out.println(row.toString());
         }
+        */
         List<Integer> result2 = getRows2(rowIndex);
         System.out.println("Approach2 : " + result2.toString());
         int[] result3 = getRows3(rowIndex);

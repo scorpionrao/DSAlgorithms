@@ -23,7 +23,10 @@ public class StringDeletion {
 
     /* Typical Backtrack example */
     private static int stringDeleteApproach1(String word, List<String> dictionary) {
-        Set<String> combinations = generateCombinationsRecurse(word);
+        return getMinimumWordLengthDifference(word, dictionary, generateCombinationsRecurse(word));
+    }
+
+    private static int getMinimumWordLengthDifference(String word, List<String> dictionary, Set<String> combinations) {
         for(String str : combinations) {
             if(dictionary.contains(str)) {
                 return word.length() - str.length();
@@ -50,15 +53,7 @@ public class StringDeletion {
     }
 
     private static int stringDeleteApproach2(String word, List<String> dictionary) {
-
-        Set<String> combinations = generateCombinationsIterate(word);
-        for(String str : combinations) {
-            if(dictionary.contains(str)) {
-                return word.length() - str.length();
-            }
-        }
-        // Can be -1
-        return word.length();
+        return getMinimumWordLengthDifference(word, dictionary, generateCombinationsIterate(word));
     }
 
 
