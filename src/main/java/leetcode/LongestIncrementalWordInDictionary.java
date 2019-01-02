@@ -2,11 +2,12 @@ package leetcode;
 
 import java.util.*;
 
-public class LongestWordInDictionary {
+public class LongestIncrementalWordInDictionary {
 
     /*
         Algorithm:
-            - For each word in dictionary, ensure all substrings(0, length-1) are contained in the dictionary.
+            - Iterate dictionary, ensure all substrings(0, length-1) are contained in the dictionary,
+                if result improves - update.
 
             - Optimization - Contains operation, preferred to be O(1) --> HashSet.
             - Optimization - Each word, will it improve existing answer - longer or later than current answer.
@@ -47,6 +48,13 @@ public class LongestWordInDictionary {
                 (word.length() == answer.length() && word.compareTo(answer) < 0);
     }
 
+
+    /*
+        Algorithm:
+            - Sort dictionary (worst results to best results),
+            - ensure all substrings(0, length-1) are contained in the dictionary,
+            - if result improves - update.
+    */
     public static String longestWordApproach2(String[] dictionary) {
         String ans = "";
         Set<String> dictionarySet = new HashSet();
@@ -55,12 +63,12 @@ public class LongestWordInDictionary {
         Arrays.sort(dictionary, new Comparator<String>() {
             @Override
             public int compare(String str1, String str2) {
-                return isValid2(str1, str2);
+                return isImproving2(str1, str2);
             }
         });
 
         for (String word : dictionary) {
-            // We know full word is already there in the dictionary
+            // full word is already there in the dictionary
             for (int index = 0; index < word.length() - 1; ++index) {
                 String substring = word.substring(0, index+1);
                 if (dictionarySet.contains(substring)) {
@@ -77,7 +85,7 @@ public class LongestWordInDictionary {
         return ans;
     }
 
-    private static int isValid2(String str1, String str2) {
+    private static int isImproving2(String str1, String str2) {
         return str1.length() == str2.length() ? str2.compareTo(str1) : str1.length() - str2.length();
     }
 
@@ -96,11 +104,7 @@ public class LongestWordInDictionary {
 
     private static class Trie {
 
-        TrieNode root;
-
-        Trie() {
-            root = new TrieNode('#', "");
-        }
+        TrieNode root = new TrieNode('#', "");
 
         private void preCompute(String[] dictionary) {
             for(String word : dictionary) {
@@ -110,15 +114,15 @@ public class LongestWordInDictionary {
 
         private void addToWord(String word) {
 
-            TrieNode prefixNode = root;
+            TrieNode prefix = root;
             for(int i = 0; i < word.length(); i++) {
-                if(!prefixNode.childNodes.containsKey(word.charAt(i))) {
-                    prefixNode.childNodes.put(word.charAt(i),
+                if(!prefix.childNodes.containsKey(word.charAt(i))) {
+                    prefix.childNodes.put(word.charAt(i),
                             new TrieNode(word.charAt(i), word.substring(0, i+1)));
                 }
-                prefixNode = prefixNode.childNodes.get(word.charAt(i));
+                prefix = prefix.childNodes.get(word.charAt(i));
                 if(i == word.length() - 1) {
-                    prefixNode.isEndOfWord = true;
+                    prefix.isEndOfWord = true;
                 }
             }
         }
@@ -129,13 +133,10 @@ public class LongestWordInDictionary {
             stack.push(root);
             while(!stack.isEmpty()) {
                 TrieNode node = stack.pop();
-                String word = node.entirePrefix;
                 if (node == root || node.isEndOfWord) {
                     if(node != root) {
-                        if(word.length() > answer.length()
-                            || (word.length() == answer.length() && word.compareTo(answer) < 0)) {
-
-                            answer = word;
+                        if(isImproving(answer, node)) {
+                            answer = node.entirePrefix;
                         }
                     }
                     for(TrieNode child : node.childNodes.values()) {
@@ -146,8 +147,17 @@ public class LongestWordInDictionary {
             }
             return answer;
         }
+
+        private boolean isImproving(String answer, TrieNode node) {
+            return node.entirePrefix.length() > answer.length()
+                || (node.entirePrefix.length() == answer.length() && node.entirePrefix.compareTo(answer) < 0);
+        }
     }
 
+    /*
+        Time : O(N * K)
+        Space : O(N * K)
+    */
     public static String longestWordApproach3(String[] dictionary) {
         Trie trie = new Trie();
         trie.preCompute(dictionary);

@@ -268,7 +268,7 @@ public class OneSubstitution {
                     return false;
                 }
             }
-            return current != root && current.isEndOfWord == true;
+            return current != root && current.isEndOfWord;
         }
     }
 
