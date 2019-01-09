@@ -1,4 +1,4 @@
-package datastructures.Hash;
+package datastructures.hash;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class PhoneBook {
     FastScanner scanner = new FastScanner();
     private List<Contact> contacts = new ArrayList<>();
 
-    // Hash table
+    // hash table
     private List<Contact>[] hashtable;
     // ? WTH
     private int m = 101;

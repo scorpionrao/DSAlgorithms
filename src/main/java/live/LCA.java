@@ -40,16 +40,23 @@ public class LCA {
            d    e  f    g
      */
 
+    /*
+        Two base cases
+        Post order traversal
+
+        Process: If both nodes exist, LCA; Else, pass the only node upward.
+     */
     public static Node findLCA(Node root, Node node1, Node node2) {
 
-        if(root == null || node1 == null || node2 == null) {
+        if(node1 == null || node2 == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if(root == null) {
             return null;
         }
 
-        if(root.key == node1.key) {
-            return root;
-        }
-        if(root.key == node2.key) {
+        if(root.key == node1.key || root.key == node2.key) {
             return root;
         }
 

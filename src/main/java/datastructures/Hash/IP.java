@@ -1,4 +1,4 @@
-package datastructures.Hash;
+package datastructures.hash;
 
 public class IP {
 
@@ -89,7 +89,7 @@ public class IP {
 
         // c --> longest chain
         // n --> different keys of S
-        // m --> different values of Hash function
+        // m --> different values of hash function
         // Runtime - O(c + 1)
         // Space - O(n + m)
 

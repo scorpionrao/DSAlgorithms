@@ -1,6 +1,7 @@
 package live;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FlipFlop {
@@ -21,6 +22,54 @@ public class FlipFlop {
            [1, 16, 4, 10, 5, 16, 8]
 
      */
+
+    public static int longestAlternatingSubsequence(int[] input) {
+
+        /* Each element by itself is an increasing or decreasing by 1 */
+        int[] increasing = new int[input.length];
+        Arrays.fill(increasing, 1);
+        int[] decreasing = new int[input.length];
+        Arrays.fill(decreasing, 1);
+
+        int result = 1;
+        /* Bottom up Dynamic Programming */
+        for (int i = 1; i < input.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if(input[i] > input[j]) {
+                    increasing[i] = Math.max(increasing[i], decreasing[j] + 1);
+                }
+                if(input[i] < input[j]) {
+                    decreasing[i] = Math.max(decreasing[i], increasing[j] + 1);
+                }
+            }
+            result = Math.max(result, Math.max(increasing[i], decreasing[i]));
+        }
+        return result;
+    }
+
+    public static int[] longestIncreasingSubsequence(int[] input) {
+
+        int[] lis = new int[input.length];
+        // Every value is an increasing sequence of 1
+        Arrays.fill(lis, 1);
+        for(int i = 1; i < input.length; i++) {
+            for(int j = 0; j < i; j++) {
+                if(input[i] > input[j] && lis[i] < lis[j] + 1) {
+                    lis[i]++;
+                }
+            }
+        }
+        return lis;
+    }
+
+
+    private static void print(int[][] las) {
+        for(int[] row : las) {
+            System.out.println(Arrays.toString(row));
+        }
+        System.out.println("******************************************");
+    }
+
     static List<Integer> longestSequence(List<Integer> inputList) {
 
         if(inputList == null || inputList.size() <= 1) {
@@ -91,23 +140,19 @@ public class FlipFlop {
         return resultList;
     }
 
+
+
     public static void main(String args[] ) throws Exception {
-
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(16);
-        list.add(4);
-        list.add(10);
-        list.add(13);
-        list.add(15);
-        list.add(10);
-        list.add(5);
-        list.add(16);
-        list.add(8);
-
+        int[] inputArray = {1, 16, 4, 10, 13, 15, 10, 5, 16, 8};
+        System.out.println("Array : " + Arrays.toString(inputArray));
+        System.out.println("Index : [0,  1, 2,  3,  4,  5,  6, 7,  8, 9]");
+        int result = longestAlternatingSubsequence(inputArray);
+        System.out.println("Longest length = " + result);
+        /*
+        List<Integer> list = Arrays.asList(inputArray);
         System.out.println(list.toString());
         List<Integer> outputSequence = longestSequence(list);
         System.out.println(outputSequence.toString());
-
+        */
     }
 }

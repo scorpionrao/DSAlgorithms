@@ -1,8 +1,7 @@
-package datastructures.Hash.ProgrammingAssignment3.hash_substring;
+package datastructures.hash.ProgrammingAssignment3.hash_substring;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 

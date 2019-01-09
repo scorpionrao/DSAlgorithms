@@ -1,4 +1,4 @@
-package datastructures.Hash;
+package datastructures.hash;
 
 public class SearchingPatterns {
 

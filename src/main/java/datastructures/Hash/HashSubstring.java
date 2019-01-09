@@ -1,4 +1,4 @@
-package datastructures.Hash;
+package datastructures.hash;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.StringTokenizer;
 
 public class HashSubstring {

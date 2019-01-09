@@ -1,4 +1,4 @@
-package datastructures.Hash.ProgrammingAssignment3.phone_book;
+package datastructures.hash.ProgrammingAssignment3.phone_book;
 
 import java.io.BufferedReader;
 import java.io.IOException;

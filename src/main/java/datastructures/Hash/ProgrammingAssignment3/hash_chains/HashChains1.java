@@ -1,4 +1,4 @@
-package datastructures.Hash.ProgrammingAssignment3.hash_chains;
+package datastructures.hash.ProgrammingAssignment3.hash_chains;
 
 import java.io.*;
 import java.util.ArrayList;
