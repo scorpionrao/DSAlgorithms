@@ -1,6 +1,8 @@
 package gayle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class LongestIncreasingSubsequence {
 
@@ -41,46 +43,35 @@ public class LongestIncreasingSubsequence {
             return lis;
         }
 
+        /*
+            L[0] = {arr[O]}
+            L[i] = {Max(L[j])} + arr[i]
+            where j < i and arr[j] < arr[i] and if there is no such j then L[i] = arr[i]
+
+            [3, 2, 6, 4, 5, 1]
+
+            {3, }
+        */
         public int[] nonGreedyComputesLISAtEachIndex2(int[] input) {
+
+            List<Integer> sequence = new ArrayList<>();
+            sequence.add(input[0]);
 
             int[] lis = new int[input.length];
             // Every value is an increasing sequence of 1
             Arrays.fill(lis, 1);
             for(int i = 1; i < input.length; i++) {
+                int maxVal = 0;
                 for(int j = 0; j < i; j++) {
                     if(input[i] > input[j]) {
-                        lis[i] = Math.max(lis[i], lis[j] + 1);
+                        maxVal = Math.max(maxVal, lis[j]);
                     }
                 }
+                lis[i] = 1 + maxVal;
             }
+
+
             return lis;
-        }
-
-        public int longestAlternatingSubsequence(int[] input) {
-
-            int[][] las = new int[input.length][2];
-            /* Each element by itself is an increasing or decreasing by 1 */
-            for(int[] row : las) {
-                Arrays.fill(row, 1);
-            }
-
-            int result = 1;
-            /* Bottom up Dynamic Programming */
-            for (int i = 1; i < input.length; i++) {
-                for (int j = 0; j < i; j++) {
-                    if(input[i] > input[j] && las[i][0] < las[j][1] + 1) {
-                        las[i][0] = las[j][1] + 1;
-                    }
-                    if(input[i] < input[j] && las[i][1] < las[j][0] + 1) {
-                        las[i][1] = las[j][0] + 1;
-                    }
-                }
-                if(result < Math.max(las[i][0], las[i][1])) {
-                    result = Math.max(las[i][0], las[i][1]);
-                }
-            }
-
-            return result;
         }
 
         /*
@@ -115,7 +106,8 @@ public class LongestIncreasingSubsequence {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] array = {10, 22, 9, 33, 21, 50, 41, 60};
+        //int[] array = {10, 22, 9, 33, 21, 50, 41, 60};
+        int[] array = {10, 9, 2, 5, 3, 7, 101, 18};
         System.out.println("Length of LIS : " + solution.greedyComputesOneValue(array));
         System.out.println("Length of LIS at each index DP : " +
                 Arrays.toString(solution.nonGreedyComputesLISAtEachIndex2(array)));

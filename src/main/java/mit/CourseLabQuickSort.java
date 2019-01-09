@@ -2,8 +2,12 @@ package mit;
 
 public class CourseLabQuickSort {
 
+    /*
+        DFS: Pre-Order processing - Partition before processing left and right.
+        Base case: array size 1
+     */
     private static void quickSort(int[] array, int low, int high) {
-        if(high >= low) {
+        if(low >= high) {
             return;
         }
         int pivotIndex = partition(array, low, high);
@@ -39,7 +43,7 @@ public class CourseLabQuickSort {
     }
 
     public static void main(String[] args) {
-        int[] unsortedArray = {9, 1, 5};
+        int[] unsortedArray = {9, 1, 5, 3, 8};
         print(unsortedArray);
         quickSort(unsortedArray, 0, unsortedArray.length-1);
         print(unsortedArray);

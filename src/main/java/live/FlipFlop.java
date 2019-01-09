@@ -54,8 +54,8 @@ public class FlipFlop {
         Arrays.fill(lis, 1);
         for(int i = 1; i < input.length; i++) {
             for(int j = 0; j < i; j++) {
-                if(input[i] > input[j] && lis[i] < lis[j] + 1) {
-                    lis[i]++;
+                if(input[i] > input[j]) {
+                    lis[i] = Math.max(lis[i], lis[j]+1);
                 }
             }
         }

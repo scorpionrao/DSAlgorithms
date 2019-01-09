@@ -4,63 +4,56 @@ import java.util.Arrays;
 
 public class MergeSort {
 
-    public static void merge(int[] zipCodes, int low, int mid, int high) {
+    public static void merge(int[] zip, int low, int mid, int high) {
 
-        int leftSize = mid - low + 1;
-        int rightSize = high - mid;
+        int[] leftArray = Arrays.copyOfRange(zip, low, mid+1);
+        int[] rightArray = Arrays.copyOfRange(zip, mid+1, high+1);
 
-        int[] leftArray = new int[leftSize];
-        int[] rightArray = new int[rightSize];
+        int lPtr = 0;
+        int rPtr = 0;
+        int resultPtr = low;
 
-        for(int i = 0; i < leftSize; i++) {
-            leftArray[i] = zipCodes[low + i];
-        }
-
-        for(int j = 0; j < rightSize; j++) {
-            rightArray[j] = zipCodes[mid + 1 + j];
-        }
-
-        int leftPointer = 0;
-        int rightPointer = 0;
-        int resultPointer = low;
-
-        while(leftPointer < leftArray.length && rightPointer < rightArray.length) {
-            if(leftArray[leftPointer] <= rightArray[rightPointer]) {
-                zipCodes[resultPointer] = leftArray[leftPointer];
-                leftPointer++;
+        while(lPtr < leftArray.length && rPtr < rightArray.length) {
+            if(leftArray[lPtr] <= rightArray[rPtr]) {
+                zip[resultPtr] = leftArray[lPtr];
+                lPtr++;
             } else {
-                zipCodes[resultPointer] = rightArray[rightPointer];
-                rightPointer++;
+                zip[resultPtr] = rightArray[rPtr];
+                rPtr++;
             }
-            resultPointer++;
+            resultPtr++;
         }
 
-        while(leftPointer < leftArray.length) {
-            zipCodes[resultPointer] = leftArray[leftPointer];
-            leftPointer++;
-            resultPointer++;
+        while(lPtr < leftArray.length) {
+            zip[resultPtr] = leftArray[lPtr];
+            lPtr++;
+            resultPtr++;
         }
 
-        while(rightPointer < rightArray.length) {
-            zipCodes[resultPointer] = rightArray[rightPointer];
-            rightPointer++;
-            resultPointer++;
+        while(rPtr < rightArray.length) {
+            zip[resultPtr] = rightArray[rPtr];
+            rPtr++;
+            resultPtr++;
         }
     }
 
-    public static void divide(int[] zipCodes, int low, int high) {
+    /*
+        DFS: Post-Order processing - Process left and right and finally process current
+        Base case: array size 1
+     */
+    public static void sort(int[] zipCodes, int low, int high) {
 
         if(low < high) {
             int midIndex = (low + high) / 2;
-            divide(zipCodes, low, midIndex);
-            divide(zipCodes, midIndex + 1, high);
+            sort(zipCodes, low, midIndex);
+            sort(zipCodes, midIndex + 1, high);
             merge(zipCodes, low, midIndex, high);
         }
     }
 
     public static void main(String[] args) {
         int[] zipCodes = {98052, 95050, 95051, 91231, 81913, 94568};
-        divide(zipCodes, 0, zipCodes.length - 1);
+        sort(zipCodes, 0, zipCodes.length - 1);
         System.out.println(Arrays.toString(zipCodes));
     }
 }
