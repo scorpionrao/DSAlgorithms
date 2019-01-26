@@ -64,23 +64,19 @@ public class MergeSortedArrays {
         }
     }
 
-    /* Time: O(kn * log k, Space: O(1) */
+    /* Time: O(kn * log k), Space: O(1) */
     public static List<Integer> mergeSortedArraysApproach3(List<List<Integer>> input) {
 
         PriorityQueue<Node> pq = new PriorityQueue<>(input.size());
 
-        int size = 0;
-        for(int i = 0; i < input.size(); i++) {
-            size += input.get(i).size();
-            pq.add(new Node(i, 0, input.get(i).get(0)));
+        for(int arrayIndex = 0; arrayIndex < input.size(); arrayIndex++) {
+            pq.add(new Node(arrayIndex, 0, input.get(arrayIndex).get(0)));
         }
 
-        List<Integer> result = new ArrayList<>(size);
+        List<Integer> result = new ArrayList<>();
         while (!pq.isEmpty()) {
             Node node = pq.poll();
-            //
             result.add(node.value);
-            //
             int arrayIndex = node.arrayIndex;
             int valueIndex = node.valueIndex;
             if(input.get(arrayIndex).size() - 1 > valueIndex) {

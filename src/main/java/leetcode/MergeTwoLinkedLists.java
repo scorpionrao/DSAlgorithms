@@ -2,7 +2,7 @@ package leetcode;
 
 import java.util.*;
 
-public class MergeTwoLists {
+public class MergeTwoLinkedLists {
 
     public static class Node implements Comparable<Node> {
         int key;
@@ -27,6 +27,7 @@ public class MergeTwoLists {
         System.out.println("NULL");
     }
 
+    /* Time : O(M*N log(M*N)), Space : O(M+N) */
     public static Node mergeTwoNaive(Node node1, Node node2) {
         List<Node> list = new ArrayList<>();
         while(node1 != null) {
@@ -46,7 +47,7 @@ public class MergeTwoLists {
         return head;
     }
 
-    public static Node mergeTwoListsRecurse(Node node1, Node node2) {
+    private static Node mergeTwoListsRecurse(Node node1, Node node2) {
         if(node1 == null) {
             return node2;
         } else if(node2 == null) {
@@ -60,23 +61,31 @@ public class MergeTwoLists {
         }
     }
 
-    public static Node mergeTwoListsIterative(Node node1, Node node2) {
+    private static Node mergeTwoListsIterative(Node node1, Node node2) {
 
-        Node mergedHead = new Node(Integer.MIN_VALUE);
-        Node tail = mergedHead;
+        Node preHead = new Node(0);
+        Node prev = preHead;
         while(node1 != null && node2 != null) {
             if(node1.key < node2.key) {
-                tail.next = node1;
+                prev.next = node1;
                 node1 = node1.next;
             } else {
-                tail.next = node2;
+                prev.next = node2;
                 node2 = node2.next;
             }
-            tail = tail.next;
+            prev = prev.next;
         }
-        // one of the list is remaining
-        tail.next = node1 == null ? node2 : node1;
-        return mergedHead.next;
+        while(node1 != null) {
+            prev.next = node1;
+            node1 = node1.next;
+            prev = prev.next;
+        }
+        while(node2 != null) {
+            prev.next = node2;
+            node2 = node2.next;
+            prev = prev.next;
+        }
+        return preHead.next;
     }
 
     public Node mergeTwoListsPQ(Node l1, Node l2) {
@@ -128,7 +137,7 @@ public class MergeTwoLists {
         //TrieNode mergedHeadIterative = mergeTwoListsIterative(root1, root2);
         //print(mergedHeadIterative);
 
-        Node mergedHeadNaive = mergeTwoNaive(root1, root2);
+        Node mergedHeadNaive = mergeTwoListsIterative(root1, root2);
         print(mergedHeadNaive);
     }
 }

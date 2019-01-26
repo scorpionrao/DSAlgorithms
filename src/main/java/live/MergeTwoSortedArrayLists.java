@@ -3,7 +3,7 @@ package live;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MergeSortedLists {
+public class MergeTwoSortedArrayLists {
 
     public static class Solution {
 
@@ -14,14 +14,26 @@ public class MergeSortedLists {
 
             while (pointer1 < list1.size() && pointer2 < list2.size()) {
                 if(list1.get(pointer1) < list2.get(pointer2)) {
+                    result.add(list1.get(pointer1));
                     pointer1++;
                 } else if (list1.get(pointer1) > list2.get(pointer2)) {
+                    result.add(list2.get(pointer2));
                     pointer2++;
                 } else {
                     result.add(list1.get(pointer1));
                     pointer1++;
+                    result.add(list2.get(pointer2));
                     pointer2++;
                 }
+            }
+
+            while (pointer1 < list1.size()) {
+                result.add(list1.get(pointer1));
+                pointer1++;
+            }
+            while (pointer2 < list2.size()) {
+                result.add(list2.get(pointer2));
+                pointer2++;
             }
             return result;
         }
@@ -38,6 +50,8 @@ public class MergeSortedLists {
         list1.add(5);
         list1.add(17);
         list1.add(23);
+        System.out.println("List1 : " + list1.toString());
+        System.out.println("Size : " + list1.size());
 
         List<Integer> list2 = new ArrayList<>();
         list2.add(1);
@@ -47,8 +61,12 @@ public class MergeSortedLists {
         list2.add(16);
         list2.add(23);
         list2.add(34);
+        System.out.println("List2 : " + list2.toString());
+        System.out.println("Size : " + list2.size());
 
-        System.out.println(solution.mergeSortedLists(list1, list2));
+        List<Integer> result = solution.mergeSortedLists(list1, list2);
+        System.out.println("Result : " + result.toString());
+        System.out.println("Size : " + result.size());
 
     }
 }

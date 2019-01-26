@@ -38,6 +38,18 @@ public class LevelSum {
         }
     }
 
+    public static class TreeNode {
+        int key;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int key) {
+            this.key = key;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+
     private static List<Integer> getLevelSumIterative(Node root) {
         if(root == null) {
             return new ArrayList<>();
@@ -96,6 +108,43 @@ public class LevelSum {
         return result;
     }
 
+    private static void getLevelFlipterativeOptimized(TreeNode root, int k) {
+        if(root == null) {
+            return;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int countCurrentLevel = 1;
+        int countNextLevel = 0;
+        int level = 1;
+
+        while(!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            countCurrentLevel--;
+            if(level % k == 0) {
+                TreeNode temp = node.left;
+                node.left = node.right;
+                node.right = temp;
+            }
+            if(node.left != null) {
+                queue.add(node.left);
+                countNextLevel++;
+            }
+            if(node.right != null) {
+                queue.add(node.right);
+                countNextLevel++;
+            }
+
+            if(countCurrentLevel == 0) {
+                level++;
+                countCurrentLevel = countNextLevel;
+                countNextLevel = 0;
+            }
+        }
+    }
+
+
     private static List<Integer> getLevelSumRecursive(Node root) {
         if(root == null) {
             return new ArrayList<>();
@@ -123,6 +172,7 @@ public class LevelSum {
     }
 
     public static void main(String[] args) {
+        /*
         Node root = new Node(4);
         Node level1Node1 = new Node(1);
         Node level1Node2 = new Node(5);
@@ -144,5 +194,12 @@ public class LevelSum {
         System.out.println(getLevelSumIterative(root).toString());
         System.out.println(getLevelSumIterativeOptimized(root).toString());
         System.out.println(getLevelSumRecursive(root).toString());
+        */
+
+        System.out.println(0^0);
+        System.out.println(1^1);
+
+        System.out.println(0^1);
+        System.out.println(1^0);
     }
 } // end of class

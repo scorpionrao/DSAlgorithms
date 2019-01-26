@@ -1,30 +1,34 @@
 package codecamp;
 
+import java.util.Random;
+
 public class PiCalculator {
 
-    private static final int INTERVAL = 10;
+    private static final int INTERVAL = Integer.MAX_VALUE;
     private static final double EPSILON = 0.1;
+
+    private static Random random = new Random();
 
     private static double calculate() {
 
         int countInsideCircle = 0;
 
         for(int i = 0; i < INTERVAL; i++) {
-            double x = Math.random();
-            double y = Math.random();
-            double radius = Math.sqrt(Math.pow(x, 2.0) + Math.pow(y, 2.0));
-            if(radius <= 1.0) {
+            double x = random.nextDouble();
+            double y = random.nextDouble();
+            double distanceFromOrigin = Math.sqrt(Math.pow(x, 2.0) + Math.pow(y, 2.0));
+            if(distanceFromOrigin <= 1.0) {
                 countInsideCircle++;
             }
         }
         return 4.0 * countInsideCircle / (double) INTERVAL;
-
     }
 
     private static boolean isRandom() {
+
         int left = 0;
         for(int i = 0; i < INTERVAL; i++) {
-            if(Math.random() <= 0.49) {
+            if(random.nextDouble() <= 0.49) {
                 left++;
             }
         }
@@ -33,8 +37,15 @@ public class PiCalculator {
     }
 
     public static void main(String[] args) {
+        long start = System.currentTimeMillis();
         double pi = calculate();
-        System.out.println("Pi = " + pi);
-        System.out.println("Is Random = " + isRandom());
+        long end = System.currentTimeMillis();
+        System.out.println("Pi = " + pi + " in " + (end - start) / 1000 + " secs.");
+
+        start = System.currentTimeMillis();
+        boolean isRandom = isRandom();
+        end = System.currentTimeMillis();
+        System.out.println("Is Random = " + isRandom + " in " + (end - start) / 1000 + " secs.");
+
     }
 }

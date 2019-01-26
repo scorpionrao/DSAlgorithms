@@ -16,33 +16,14 @@ public class ClimbingStairs {
         Time: O(2^N)
         Space: O(N)
     */
-    private static int climbStairs1(int input) {
-        if(input < 0) {
+    private static int climbStairs1Edges(int target) {
+        if(target < 0) {
             return 0;
         }
-        if(input == 0) {
+        if(target == 0) {
             return 1;
         }
-        return climbStairs1(input - 1) + climbStairs1(input - 2);
-    }
-
-    /*
-        Bottom Up
-        Time: O(2^N)
-        Space: O(N)
-    */
-    private static int climbStairs2(int input) {
-        return climbStairs2(0, input);
-    }
-
-    private static int climbStairs2(int start, int input) {
-        if(start > input) {
-            return 0;
-        }
-        if(start == input) {
-            return 1;
-        }
-        return climbStairs2(start+1, input) + climbStairs2(start+2, input);
+        return climbStairs1Edges(target-1) + climbStairs1Edges(target-2);
     }
 
     /*
@@ -50,26 +31,46 @@ public class ClimbingStairs {
         Time: O(N)
         Space: O(N)
     */
-    private static int climbStairs3(int input) {
-        int[] cache = new int[input+1];
-        climbStairs3(input, cache);
-        return cache[input];
+    private static int climbStairs3Edges(int target) {
+        int[] cacheEdgeCount = new int[target+1];
+        cacheEdgeCount[0] = 1;
+        climbStairs3Edges(target, cacheEdgeCount);
+        return cacheEdgeCount[target];
     }
 
-    private static int climbStairs3(int input, int[] cache) {
-        if(input < 0) {
+    private static int climbStairs3Edges(int target, int[] cache) {
+        if(target < 0) {
             return 0;
         }
-        if(input == 0) {
-            return 1;
-        }
-        if(cache[input] != 0) {
-            return cache[input];
+        if(cache[target] != 0) {
+            return cache[target];
         }
 
-        cache[input] = climbStairs3(input-1, cache) + climbStairs3(input-2, cache);
-        return cache[input];
+        cache[target] = climbStairs3Edges(target-1, cache) + climbStairs3Edges(target-2, cache);
+        return cache[target];
     }
+
+    /*
+        Bottom Up Recurse
+        Time: O(2^N)
+        Space: O(N)
+    */
+    private static int climbStairs2Edges(int target) {
+        return climbStairs2Edges(0, target);
+    }
+
+    private static int climbStairs2Edges(int start, int target) {
+        if(start > target) {
+            // no edges
+            return 0;
+        }
+        if(start == target) {
+            // one edge
+            return 1;
+        }
+        return climbStairs2Edges(start+1, target) + climbStairs2Edges(start+2, target);
+    }
+
 
     /*
         Time: O(N)
@@ -81,22 +82,22 @@ public class ClimbingStairs {
             return input;
         }
 
-        int oneResult = 1;
-        int twoResult = 2;
+        int edgesForOne = 1;
+        int edgesForTwo = 2;
         int result = 0;
         for(int i = 3; i <= input; i++) {
-            result = oneResult + twoResult;
-            oneResult = twoResult;
-            twoResult = result;
+            result = edgesForOne + edgesForTwo;
+            edgesForOne = edgesForTwo;
+            edgesForTwo = result;
         }
         return result;
     }
 
     private static void evaluate(int input) {
         System.out.println("Input = " + input);
-        System.out.println("Approach1 = " + climbStairs1(input));
-        System.out.println("Approach2 = " + climbStairs2(input));
-        System.out.println("Approach3 = " + climbStairs3(input));
+        System.out.println("Approach1 = " + climbStairs1Edges(input));
+        System.out.println("Approach2 = " + climbStairs2Edges(input));
+        System.out.println("Approach3 = " + climbStairs3Edges(input));
         System.out.println("Approach4 = " + climbStairs4(input));
     }
 

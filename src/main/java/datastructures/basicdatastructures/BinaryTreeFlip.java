@@ -1,5 +1,8 @@
 package datastructures.basicdatastructures;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinaryTreeFlip {
 
     public static class Node {
@@ -12,13 +15,17 @@ public class BinaryTreeFlip {
     }
     public static class Solution {
 
-        public Node flip(Node node) {
+        /*
+            Time: O(N), Space: O(1)
+            Post Order DFS
+        */
+        public Node flipRecurse(Node node) {
             if(node == null) {
                 return null;
             }
 
-            flip(node.left);
-            flip(node.right);
+            node.left = flipRecurse(node.left);
+            node.right = flipRecurse(node.right);
 
             Node temp = node.left;
             node.left = node.right;
@@ -35,7 +42,37 @@ public class BinaryTreeFlip {
             System.out.print(node.data + " -> ");
             print(node.right);
         }
+
+        /*
+            Time: O(N), Space: O(N)
+            Post Order BFS
+        */
+        public Node flipIterate(Node node) {
+
+            if(node == null) {
+                return node;
+            }
+
+            Queue<Node> queue = new LinkedList<>();
+            queue.add(node);
+            while(!queue.isEmpty()) {
+                Node polled = queue.poll();
+                Node temp = polled.left;
+                polled.left = polled.right;
+                polled.right = temp;
+                if(polled.left != null) {
+                    queue.add(polled.left);
+                }
+                if(polled.right != null) {
+                    queue.add(polled.right);
+                }
+            }
+            return node;
+        }
     }
+
+
+
     public static void main(String[] args) {
         Node node = new Node(1);
         node.left = new Node(2);
@@ -49,7 +86,10 @@ public class BinaryTreeFlip {
         Solution solution = new Solution();
         solution.print(node);
         System.out.println();
-        solution.flip(node);
+        solution.flipRecurse(node);
+        solution.print(node);
+        System.out.println();
+        solution.flipIterate(node);
         solution.print(node);
     }
 }
