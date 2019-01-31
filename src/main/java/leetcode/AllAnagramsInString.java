@@ -1,20 +1,23 @@
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+/*
+    Collect starting indexes of anagrams of target in source string
+ */
 public class AllAnagramsInString {
 
-    public static List<Integer> findAnagrams2(String s, String t) {
+    /*
+        Find anagrams of T in S
+     */
+    public static List<Integer> findAnagrams2(String source, String target) {
         List<Integer> result = new ArrayList<>();
-        if(s == null || t == null || s.length() < t.length()) {
+        if(source == null || target == null || source.length() < target.length()) {
             return result;
         }
 
         Map<Character, Integer> targetFrequency = new HashMap<>();
-        for(char ch : t.toCharArray()) {
+        for(char ch : target.toCharArray()) {
             targetFrequency.put(ch, targetFrequency.getOrDefault(ch, 0) + 1);
         }
 
@@ -22,8 +25,8 @@ public class AllAnagramsInString {
         int windowEnd = 0;
         int numOfUnindentifiedDistinctElements = targetFrequency.size();
 
-        while(windowEnd < s.length()) {
-            char chAtEnd = s.charAt(windowEnd);
+        while(windowEnd < source.length()) {
+            char chAtEnd = source.charAt(windowEnd);
             if(targetFrequency.containsKey(chAtEnd)) {
                 targetFrequency.put(chAtEnd, targetFrequency.get(chAtEnd)-1);
                 if(targetFrequency.get(chAtEnd) == 0) {
@@ -33,14 +36,14 @@ public class AllAnagramsInString {
             windowEnd++;
 
             while(numOfUnindentifiedDistinctElements == 0) {
-                char chStart = s.charAt(windowStart);
+                char chStart = source.charAt(windowStart);
                 if(targetFrequency.containsKey(chStart)) {
                     targetFrequency.put(chStart, targetFrequency.get(chStart)+1);
                     if(targetFrequency.get(chStart) > 0) {
                         numOfUnindentifiedDistinctElements++;
                     }
                 }
-                if(t.length() == windowEnd - windowStart) {
+                if(target.length() == windowEnd - windowStart) {
                     result.add(windowStart);
                 }
                 windowStart++;
@@ -49,29 +52,33 @@ public class AllAnagramsInString {
         return result;
     }
 
-    public static List<Integer> findAnagrams1(String s, String p) {
+    public static List<Integer> findAnagrams1(String source, String target) {
 
         List<Integer> result = new ArrayList<>();
-
-        char[] freq = getFrequency(p);
-        int subStringLength = p.length();
-
-        for(int i = 0; i < s.length() - p.length() + 1; i++) {
-            String candidate = s.substring(i, i + subStringLength);
-            if(isAnagram(candidate, freq)) {
+        for(int i = 0; i < source.length() - target.length() + 1; i++) {
+            String candidate = source.substring(i, i + target.length());
+            if(isAnagram(candidate, target)) {
                 result.add(i);
             }
         }
         return result;
     }
 
-    private static boolean isAnagram(String candidate, char[] freq) {
-        char[] clone = freq.clone();
+    private static boolean isAnagram(String candidate, String target) {
+
+        if(candidate.length() != target.length()) {
+            return false;
+        }
+        int[] freq = new int['z' - 'a' + 1];
         for(char ch : candidate.toCharArray()) {
-            if(clone[ch - 'a'] == 0) {
+            freq[ch - 'a']++;
+        }
+
+        for(char ch : candidate.toCharArray()) {
+            if(freq[ch - 'a'] == 0) {
                 return false;
             } else {
-                clone[ch - 'a']--;
+                freq[ch - 'a']--;
             }
         }
         return true;

@@ -7,11 +7,10 @@ public class LargestSumNonAdjacentNumbers {
         Time: O(N), Space: O(1)
      */
     private static int largestSumNonAdjacentNumbersApproach1(int[] input) {
-        int iMax = 0;
+        int iMax = input[0];
         int eMax = 0;
-        int iMaxNew = 0;
-        for(int i = 0; i < input.length; i++) {
-            iMaxNew = eMax + input[i];
+        for(int i = 1; i < input.length; i++) {
+            int iMaxNew = eMax + input[i];
             eMax = Math.max(iMax, eMax);
             iMax = iMaxNew;
             System.out.println(

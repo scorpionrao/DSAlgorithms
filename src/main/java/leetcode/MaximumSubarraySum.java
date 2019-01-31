@@ -13,7 +13,7 @@ public class MaximumSubarraySum {
         int[][] sumMatrix = new int[input.length][input.length];
         int maxSum = Integer.MIN_VALUE;
         for(int start = 0; start < input.length; start++) {
-            for(int end = 0; end < input.length; end++) {
+            for(int end = start; end < input.length; end++) {
                 int sum = 0;
                 for(int index = start; index <= end; index++) {
                     sum = sum + input[index];
@@ -66,6 +66,18 @@ public class MaximumSubarraySum {
 
     }
 
+    private static int[] maxSubarray(int[] input, int k) {
+        int[] maxes = new int[input.length - k + 1];
+        for(int i = 0; i < input.length - k + 1; i++) {
+            int max = input[i+0];
+            for(int j = 1; j < k; j++) {
+                max = Math.max(max, input[i+j]);
+            }
+            maxes[i] = max;
+        }
+        return maxes;
+    }
+
     private static void evaluate(int[] input) {
         System.out.println("Input : " + Arrays.toString(input));
         int result1 = maxSubarraySumApproach1(input);
@@ -76,6 +88,9 @@ public class MaximumSubarraySum {
         System.out.println("*********************************");
         int result3 = maxSubarraySumApproach3(input);
         System.out.println("Approach 3 : " + result3);
+        System.out.println("*********************************");
+        int[] result = maxSubarray(input, 3);
+        System.out.println("List of max sub array : " + Arrays.toString(result));
     }
 
     public static void main(String[] args) {

@@ -26,85 +26,69 @@ package algorithms.dynamicprogramming;
  */
 public class EditDistance {
 
-    private static int[][] editDistance(char[] arrayA, char[] arrayB) {
+    public static int[][] editDistance(String word1, String word2) {
 
-        int[][] distance = new int[arrayA.length + 1][arrayB.length + 1];
-        for(int i = 0; i < distance.length; i++) {
-            distance[i][0] = i;
-        }
-        for(int j = 0; j < distance[0].length; j++) {
-            distance[0][j] = j;
-        }
-        for(int i = 1; i < distance.length; i++) {
-            for(int j = 1; j < distance[i].length; j++) {
-                /* Insertion - Retain row data / from string data */
-                int insertion = distance[i][j-1] + 1;
-                /* Deletion - Retain column data / to string data */
-                int deletion = distance[i-1][j] + 1;
-                int match = distance[i-1][j-1];
-                int mismatch = distance[i-1][j-1] + 1;
-                int inDels = Math.min(insertion, deletion);
-                if(arrayA[i-1] == arrayB[j-1]) {
-                    distance[i][j] = Math.min(inDels, match);
+        int[][] dp = new int[word1.length()+1][word2.length()+1];
+        for(int i = 0; i < dp.length; i++) {
+            for(int j = 0; j < dp[i].length; j++) {
+                if(i == 0) {
+                    dp[i][j] = j;
+                } else if(j == 0) {
+                    dp[i][j] = i;
+                } else if(word1.charAt(i-1) == word2.charAt(j-1)) {
+                    dp[i][j] = dp[i-1][j-1];
                 } else {
-                    distance[i][j] = Math.min(inDels, mismatch);
+                    int replace = dp[i-1][j-1];
+                    int delete = dp[i][j-1];
+                    int insert = dp[i-1][j];
+                    dp[i][j] = 1 + Math.min(replace,
+                            Math.min(insert, delete));
                 }
             }
         }
-        return distance;
+        return dp;
+    }
+
+    public static boolean isOneEditDistance(String word1, String word2) {
+        for(int i = 0; i < Math.min(word1.length(), word2.length()); i++) {
+            if(word1.charAt(i) != word2.charAt(i)) {
+                if(word1.length() == word2.length()) {
+                    return word1.substring(i+1).equals(word2.substring(i+1));
+                } else if(word1.length() > word2.length()) {
+                    return word1.substring(i+1).equals(word2.substring(i));
+                } else {
+                    return word1.substring(i).equals(word2.substring(i+1));
+                }
+            }
+        }
+        return Math.abs(word1.length() - word2.length()) == 1;
+    }
+
+    public static int minDistanceOnlyDeletion(String word1, String word2) {
+
+        int[][] dp = new int[word1.length()+1][word2.length()+1];
+        for(int i = 0; i < dp.length; i++) {
+            for(int j = 0; j < dp[i].length; j++) {
+                if(i == 0) {
+                    dp[i][j] = j;
+                } else if(j == 0) {
+                    dp[i][j] = i;
+                } else if(word1.charAt(i-1) == word2.charAt(j-1)) {
+                    dp[i][j] = dp[i-1][j-1];
+                } else {
+                    dp[i][j] = 1 + Math.min(dp[i][j-1], dp[i-1][j]);
+                }
+            }
+        }
+        return dp[word1.length()][word2.length()];
     }
 
     public static void main(String[] args) {
-        char[] arrayA = "BREAD".toCharArray();
-        char[] arrayB = "REALLY".toCharArray();
-        int[][] distance = editDistance(arrayA, arrayB);
-        for(int i = 0; i < distance.length; i++) {
-            for (int j = 0; j < distance[0].length; j++) {
-                System.out.print(distance[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    /*
-        First if checks all the ways when the last action is to delete the last symbol.
-        Second if checks all the ways when the last action is to insertAtHead the necessary symbol.
-        Third if checks all the ways to match last symbols of the prefixes.
-        Last if checks all the ways to replace the last symbol of the i-th prefix of the first word by the last symbol of the j-th prefix of the second word.
-
-        ways[i, j] = 0
-        // all ways when last action was delete last symbol
-        if T[i, j] == T[i - 1, j] + 1:
-          ways[i, j] += ways[i - 1, j]
-        // all ways when last action was insertAtHead necessary symbol
-        if T[i, j] == T[i, j - 1] + 1:
-          ways[i, j] += ways[i, j - 1]
-        // all ways to match last symbols of prefixes
-        if word1[i] == word2[j] and T[i, j] == T[i - 1, j - 1]:
-          ways[i, j] += ways[i - 1, j - 1]
-        // all ways to replace ith letter in first word with jth letter in second word
-        if T[i, j] == T[i - 1, j - 1] + 1:
-          ways[i, j] += ways[i - 1, j - 1]
-     */
-    private static char[] outputAlignment(int[][] distance, int[] arrayA, int[] arrayB, int i, int j) {
-        if (i == 0 && j == 0) {
-            return null;
-        }
-        // deletion
-        if(i > 0 && distance[i][j] == distance[i-1][j] + 1) {
-            outputAlignment(distance, arrayA, arrayB, i-1, j);
-            System.out.println(arrayA[i]);
-            System.out.println("-");
-        } // insertion
-        else if(j > 0 && distance[i][j] == distance[i][j-1] + 1) {
-            outputAlignment(distance, arrayA, arrayB, i, j-1);
-            System.out.println("-");
-            System.out.println(arrayB[j]);
-        } else {
-            outputAlignment(distance, arrayA, arrayB, i-1, j-1);
-            System.out.println(arrayA[i]);
-            System.out.println(arrayB[j]);
-        }
-        return null;
+        String source = "BEAD";
+        String destination = "BEED";
+        int[][] distance = editDistance(source, destination);
+        System.out.println("Edit Distance : " + distance[distance.length-1][distance[0].length-1]);
+        System.out.println("Only Deletion : " + minDistanceOnlyDeletion(source, destination));
+        System.out.println("Is One Edit Distance : " + isOneEditDistance(source, destination));
     }
 }
