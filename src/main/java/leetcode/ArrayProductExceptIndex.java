@@ -11,9 +11,8 @@ public class ArrayProductExceptIndex {
     private static int[] productExceptIndexApproach1(int[] input) {
 
         int[] result = new int[input.length];
-        Arrays.fill(result, 1);
-
         for(int i = 0; i < input.length; i++) {
+            result[i] = 1;
             for(int j = 0; j < input.length; j++) {
                 if(i != j) {
                     result[i] = result[i] * input[j];
@@ -87,6 +86,22 @@ public class ArrayProductExceptIndex {
         return result;
     }
 
+    private static int[] productExceptIndexApproach5(int[] input) {
+
+        int[] leftProduct = new int[input.length];
+        leftProduct[0] = 1;
+        for(int i = 1; i < leftProduct.length; i++) {
+            leftProduct[i] = leftProduct[i-1] * input[i-1];
+        }
+
+        int rightProduct = 1;
+        for(int i = input.length - 1; i >= 0; i--) {
+            leftProduct[i] = leftProduct[i] * rightProduct;
+            rightProduct = rightProduct * input[i];
+        }
+        return leftProduct;
+    }
+
     private static void evaluate(int[] input) {
         System.out.println("Input : " + Arrays.toString(input));
         int[] result1 = productExceptIndexApproach1(input);
@@ -97,10 +112,14 @@ public class ArrayProductExceptIndex {
         System.out.println("Approach 3 : " + Arrays.toString(result3));
         int[] result4 = productExceptIndexApproach4(input);
         System.out.println("Approach 4 : " + Arrays.toString(result4));
+        int[] result5 = productExceptIndexApproach5(input);
+        System.out.println("Approach 5 : " + Arrays.toString(result5));
     }
 
     public static void main(String[] args) {
-        int[] input = {1, 2, 3};
-        evaluate(input);
+        int[] input1 = {1, 2, 3};
+        evaluate(input1);
+        int[] input2 = {4, 1, 3, 2};
+        evaluate(input2);
     }
 }

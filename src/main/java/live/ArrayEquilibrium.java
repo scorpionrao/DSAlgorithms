@@ -29,17 +29,13 @@ public class ArrayEquilibrium {
     public int getEquilibrium2(int[] input) {
 
         long[] leftSum = new long[input.length];
-        for(int i = 0; i < input.length; i++) {
-            if(i > 0) {
-                leftSum[i] = leftSum[i-1] + input[i-1];
-            }
+        for(int i = 1; i < input.length; i++) {
+            leftSum[i] = leftSum[i-1] + input[i-1];
         }
 
         long[] rightSum = new long[input.length];
-        for(int i = input.length - 1; i >= 0; i--) {
-            if(i < input.length - 1) {
-                rightSum[i] = rightSum[i+1] + input[i+1];
-            }
+        for(int i = input.length - 2; i >= 0; i--) {
+            rightSum[i] = rightSum[i+1] + input[i+1];
         }
 
         for(int i = 0; i < input.length; i++) {

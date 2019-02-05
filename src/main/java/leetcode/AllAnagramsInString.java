@@ -69,27 +69,9 @@ public class AllAnagramsInString {
         if(candidate.length() != target.length()) {
             return false;
         }
-        int[] freq = new int['z' - 'a' + 1];
-        for(char ch : candidate.toCharArray()) {
-            freq[ch - 'a']++;
-        }
-
-        for(char ch : candidate.toCharArray()) {
-            if(freq[ch - 'a'] == 0) {
-                return false;
-            } else {
-                freq[ch - 'a']--;
-            }
-        }
-        return true;
-    }
-
-    private static char[] getFrequency(String str) {
-        char[] charArray = new char['z' - 'a' + 1];
-        for(char ch : str.toCharArray()) {
-            charArray[ch - 'a']++;
-        }
-        return charArray;
+        Arrays.sort(candidate.toCharArray());
+        Arrays.sort(target.toCharArray());
+        return candidate.equals(target);
     }
 
     private static void evaluate(String s, String p) {

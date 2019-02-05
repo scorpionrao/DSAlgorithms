@@ -50,17 +50,15 @@ public class PeakElement {
         return high;
     }
 
-    /* Time Complexity: O(Log N), Space Complexity: O(1) */
     public static int findPeak(int[] input) {
 
         int low = 0, high = input.length - 1;
         while(low < high) {
             int mid = (low + high) / 2;
-            System.out.println(String.format("Low-%d, Mid-%d, High-%d", low, mid, high));
-            if(input[mid] > input[mid+1]) {
-                high = mid;
-            } else {
+            if(input[mid] < input[mid+1]) {
                 low = mid + 1;
+            } else {
+                high = mid;
             }
         }
         return low;
@@ -75,8 +73,10 @@ public class PeakElement {
     }
 
     public static void main(String[] args) {
-        int[] input = {1, 3, 5, 7};
-        evaluate(input);
+        int[] input1 = {1, 3, 5, 7};
+        evaluate(input1);
+        int[] input2 = {1, 3, 5, 7, 6, 4, 2};
+        evaluate(input2);
     }
 
 }
