@@ -16,7 +16,8 @@ import java.util.Scanner;
         - Check Rows for Win, Cols for Win, Diagonal for Win, ADiagonal for Win
 
  */
-public class TicTacToe {
+public class TicTacToePlay
+{
 
     public static class Board {
 
@@ -111,7 +112,7 @@ public class TicTacToe {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        TicTacToe.Board board = new TicTacToe.Board();
+        TicTacToePlay.Board board = new TicTacToePlay.Board();
 
         /*
             Play until no winner yet and board is not full

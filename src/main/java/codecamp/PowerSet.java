@@ -33,8 +33,5 @@ public class PowerSet {
         list.add(2);
         list.add(3);
         evaluate(list);
-
-        System.out.println();
-        System.out.println(1 << 3);
     }
 }

@@ -2,8 +2,8 @@ package leetcode;
 
 public class SingleNumberII {
 
-    public static int singleNumberAmongThreeSets(int[] nums) {
-        int ans = 0;
+    public static int singleNumberAmongThreeSets1(int[] nums, int times) {
+        int result = 0;
         for(int i = 0; i < 32; i++) {
             int sum = 0;
             for(int j = 0; j < nums.length; j++) {
@@ -11,25 +11,21 @@ public class SingleNumberII {
                     sum++;
                 }
             }
-            sum %= 3;
-            if(sum != 0) { // can only be 0 or 1. Odd number appears exactly once.
-                ans |= sum << i;
+            sum = sum % times;
+            if(sum == 1) {
+                result = result | (sum << i);
             }
         }
-        return ans;
+        return result;
     }
 
-    private static void evaluate(int[] nums) {
-        int result = singleNumberAmongThreeSets(nums);
-        System.out.println("Single Number among three sets : " + result);
+    private static void evaluate(int[] nums, int times) {
+        int result1 = singleNumberAmongThreeSets1(nums, times);
+        System.out.println("Approach1 : " + result1);
     }
 
     public static void main(String[] args) {
-        int[] nums1 = {2, 2, 3, 2};
-        evaluate(nums1);
-        int[] nums2 = {0, 1, 0, 1, 0, 1, 99};
-        evaluate(nums2);
+        evaluate(new int[]{2, 2, 3, 2, 2}, 4);
+        evaluate(new int[]{5, 25, 5, 25, 5, 25, 5, 25, 99}, 4);
     }
-
-
 }
