@@ -4,17 +4,18 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class MaximumOfAllSubArrays {
+public class MaximumOfFixedSizeSubArray
+{
 
     /* Time : O(N * K), Space : O(1) */
-    private static int[] maximumSubArray1(int[] input, int k) {
-        int[] maxes = new int[input.length - k + 1];
-        for(int i = 0; i < input.length - k + 1; i++) {
-            int max = input[i+0];
-            for(int j = 1; j < k; j++) {
-                max = Math.max(max, input[i+j]);
+    private static int[] maximumSubArray1(int[] input, int window) {
+        int[] maxes = new int[input.length - window + 1];
+        for(int start = 0; start < input.length - window + 1; start++) {
+            int max = input[start+0];
+            for(int end = 1; end < window; end++) {
+                max = Math.max(max, input[start+end]);
             }
-            maxes[i] = max;
+            maxes[start] = max;
         }
         return maxes;
     }
@@ -32,13 +33,13 @@ public class MaximumOfAllSubArrays {
         - NOTE : The indexes are always sorted in Deque.
 
      */
-    private static int[] maximumSubArray2(int[] input, int k) {
+    private static int[] maximumSubArray2(int[] input, int window) {
 
-        int[] result = new int[input.length - k + 1];
+        int[] result = new int[input.length - window + 1];
 
         Deque<Integer> deque = new LinkedList<>();
         int i;
-        for(i = 0; i < k; i++) {
+        for(i = 0; i < window; i++) {
             while(!deque.isEmpty() && input[i] >= input[deque.peekLast()]) {
                 deque.removeLast();
             }
@@ -46,8 +47,8 @@ public class MaximumOfAllSubArrays {
         }
 
         for(; i < input.length; i++) {
-            result[i - k] = input[deque.peekFirst()];
-            while(!deque.isEmpty() && (i - k) >= deque.peekFirst()){
+            result[i - window] = input[deque.peekFirst()];
+            while(!deque.isEmpty() && (i - window) >= deque.peekFirst()){
                 deque.removeFirst();
             }
             while(!deque.isEmpty() && input[i] >= input[deque.peekLast()]) {
@@ -55,7 +56,7 @@ public class MaximumOfAllSubArrays {
             }
             deque.addLast(i);
         }
-        result[i - k] = input[deque.peekFirst()];
+        result[i - window] = input[deque.peekFirst()];
         return result;
     }
 
@@ -84,5 +85,10 @@ public class MaximumOfAllSubArrays {
         int[] expected3 = {10, 7, 8, 8};
         int k3 = 3;
         evaluate(input3, k3, expected3);
+
+        int[] input4 = {34, -50, 42, 14, -5, 86};
+        int[] expected4 = {42, 42, 42, 86};
+        int k4 = 3;
+        evaluate(input4, k4, expected4);
     }
 }

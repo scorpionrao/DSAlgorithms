@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class MaximumMinimumSubarraySum {
+public class SumOfMaxMinForFixedWindowSize {
 
     /* Time : O(N * K), Space : O(1) */
     private static int maximumMinimumSubArray1(int[] input, int k) {
@@ -59,14 +59,14 @@ public class MaximumMinimumSubarraySum {
             System.out.println(maxDeque.peekFirst() + " " + minDeque.peekFirst());
             sum = sum + input[maxDeque.peekFirst()];
             sum = sum + input[minDeque.peekFirst()];
-
+            // clean up indexes
             while(!maxDeque.isEmpty() && (i - k) >= maxDeque.peekFirst()){
                 maxDeque.removeFirst();
             }
             while(!minDeque.isEmpty() && (i - k) >= minDeque.peekFirst()){
                 minDeque.removeFirst();
             }
-
+            // Remove useless indexes - smaller values on the left (maxDeque), greater values on the right (minDeque)
             while(!maxDeque.isEmpty() && input[i] >= input[maxDeque.peekLast()]) {
                 maxDeque.removeLast();
             }
