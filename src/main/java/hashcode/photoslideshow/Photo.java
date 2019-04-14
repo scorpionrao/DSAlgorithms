@@ -22,4 +22,14 @@ class Photo {
     public String toString() {
         return "id: " + this.id + ", layout: " + (isHorizontal ? "H" : "V") + ", tags: " + tags.toString();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return this.id == ((Photo) other).id;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
 }
