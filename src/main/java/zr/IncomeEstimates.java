@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 public class IncomeEstimates {
 
 	/*
-
 		Things to look for:
 		Does the candidate write modern Java (Examples: Does the candidate use the for each style
 		for SinglyLinkedListLoop added in Java 5 or does the candidate use List indices, Use of Diamond Notation etc)
@@ -17,7 +16,6 @@ public class IncomeEstimates {
 		The are several ways to do this (ForkJoinPools etc) but the easiest simplest way is to solve
 		the problem using the Java 8 Streams library. The solution below uses a parallel Stream to
 		mergeKLists elements concurrently.
-
 	 */
 	
 	public interface Agent {}
@@ -40,47 +38,14 @@ public class IncomeEstimates {
 	 * multiplied by 0.03 
 	 */
 	public Map<Agent, Double> getEstimatedIncome(List<Broker> brokers) {
-		
-		return brokers.parallelStream()
-		   .map(broker -> broker.getHousesForSale())
-		   .flatMap(housesForSale -> housesForSale.parallelStream())
-		   .filter(houseForSale -> houseForSale.getTransactionStatus() == TransactionStatus.UNDER_OFFER)
-		   .map(houseForSale -> new AbstractMap.SimpleEntry<>(houseForSale.getAgent(),
-				   												houseForSale.getSalePrice() * 0.03))
-		   .collect(
-				   Collectors.groupingBy(entry -> entry.getKey(),
-				   Collectors.summingDouble(entry -> entry.getValue())
-				   )
-		   );
-		
-		/*
-				brokers.parallelStream()
-			   
-			   // Stream<List<HouseForSale>>
-			   //.map(Broker::getHousesForSale)
-			   .map(broker -> broker.getHousesForSale())
-			   
-			   // Stream<HouseForSale>
-			   //.flatMap(List::stream)
-			   .flatMap(housesForSale -> housesForSale.parallelStream())
-			   
-			   // filtered Stream<HouseForSale>
-			   .filter(houseForSale -> houseForSale.getTransactionStatus() == TransactionStatus.UNDER_OFFER)
-			   
-			   // Stream<Map<Agent, Long>>
-			   .map(houseForSale -> new AbstractMap.SimpleEntry<>(houseForSale.getAgent(),
-			   														houseForSale.getSalePrice() * 0.03))
-			   
-			   // new mutable reduction container
-			   .collect(
-					   // grouping elements according to classifier
-					   //Collectors.groupingBy(Map.Entry::getKey,
-					   Collectors.groupingBy(entry -> entry.getKey(),
-							   // Collector for sum of a double-valued function of input elements
-							   //Collectors.summingDouble(Map.Entry::getValue)));
-							   Collectors.summingDouble(entry -> entry.getValue())
-					   )
-			   );
-		 */	   
-	}
+	    return brokers.parallelStream()
+	      .map(broker -> broker.getHousesForSale())
+	      .flatMap(houseForSales -> houseForSales.stream())
+	      .filter(houseForSale -> houseForSale.getTransactionStatus() == TransactionStatus.UNDER_OFFER)
+	      .map(houseForSale ->
+		  new AbstractMap.SimpleEntry<>(houseForSale.getAgent(), houseForSale.getSalePrice()))
+	      .collect(
+		  Collectors.groupingBy(entry -> entry.getKey(),
+		      Collectors.summingDouble(entry -> entry.getValue())));
+  	}
 }
