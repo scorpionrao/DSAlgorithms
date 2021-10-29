@@ -59,6 +59,46 @@ public class Encoding
         Edge cases: if length is 0 - return empty string, append false as required
 
     */
+    
+  //**********************************************
+  private static String serialize(boolean[] input) {
+    String rule1String = base32Encoding(input);
+    String rule2String = runLengthEncoding(rule1String);
+    return rule2String + "~" + input.length;
+  }
+
+  private static String base32Encoding(boolean[] input) {
+    StringBuilder sb = new StringBuilder();
+    for(int i = 0; i < input.length; i = i + 5) {
+      int value = getPlaceValue(input, i, 0)
+          + getPlaceValue(input, i+1, 1)
+          + getPlaceValue(input, i+2, 2)
+          + getPlaceValue(input, i+3, 3)
+          + getPlaceValue(input, i+4, 4);
+        char ch = (char) (value + ((value < 26) ? 65 : 71));
+        sb.append(ch);
+    }
+    return sb.toString();
+  }
+
+  private static int getPlaceValue(boolean[] input, int i, int power) {
+    return (input[i] ? 1 : 0) << power;
+  }
+
+  private static String runLengthEncoding(String rule1String) {
+    StringBuilder sb = new StringBuilder();
+    for(int i = 0; i < rule1String.length(); i++) {
+      int count = 1;
+      while(i < rule1String.length() - 1 && rule1String.charAt(i) == rule1String.charAt(i+1)) {
+        i++;
+        count++;
+      }
+      sb.append(rule1String.charAt(i));
+      sb.append(count == 1 ? "" : count);
+    }
+    return sb.toString();
+  }
+  //**************************************
 
     // Signature: String base32Encoding(boolean[] array)
     public String base32Encoding(boolean[] array) {
@@ -87,7 +127,6 @@ public class Encoding
             result.append(encoded32Value);
         }
         return result.toString();
-
     }
 
     public HashMap<String, String> buildDataSet() {

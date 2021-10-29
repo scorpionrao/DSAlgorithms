@@ -3,6 +3,20 @@ package live;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Test Cases: 
+1: Retained only because of descendants.
+2: Retained only because of descendants.
+21: Leaf at parent level is eliminated.
+22: Parent loses its child but retains itself.
+221: Deepest child is eliminated.
+3: Retained only because of descendants.
+31: Retained because of bold child.
+32: Parent level bold with no children.
+41: Eliminated even though parent is bold.
+42: Same as 31.
+43 and 431: Only scenario where parent and child are useless.
+*/
 public class BoldSubTree {
 /*
     Source Tree:
@@ -91,6 +105,23 @@ public class BoldSubTree {
             return root;
         }
 
+      public static Node extractBoldSubTree(Node root) {
+        if (root == null) {
+            return root;
+        }
+        // Update the children so that parent can be evaluated in in-order traversal.
+        root.childNodes =
+          root.childNodes.stream()
+              .map(node -> extractBoldSubTree(node))
+              .filter(node -> node != null)
+              .collect(Collectors.toList());
+
+          // leaf and not bold - Get rid of it.
+          if (root.childNodes.isEmpty() && !root.isBold) {
+            return null;
+          }
+          return root;
+        }
         /*
             2012 - Novice Answer.
 
