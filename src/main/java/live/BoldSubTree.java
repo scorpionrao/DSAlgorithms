@@ -88,19 +88,21 @@ public class BoldSubTree {
 
         public static Node extractBoldSubTree(Node root) {
 
-            if (root == null) {
-                return root;
+            // edge case.
+            if(root == null) {
+              return null;
             }
-
-            for (int i = 0; i < root.childNodes.size(); i++) {
-                Node node = root.childNodes.get(i);
-                root.childNodes.set(i, extractBoldSubTree(node));
+            // Post Order traversal.
+            // Process the children, cleanup the purged nodes, process the root.
+            for(int i = 0; i < root.children.size(); i++) {
+              Node childNode = specialSubTree(root.children.get(i));
+              // In-place approach, saving memory. Above and beyond.
+              root.children.set(i, childNode);
             }
-            while (root.childNodes.remove(null)) {}
-
-            // leaf
-            if (root.childNodes.isEmpty() && !root.isBold) {
-                return null;
+            // Required only if using In-place approach.
+            while (root.children.remove(null));
+            if(!root.isSpecial && root.children.isEmpty()) {
+              return null;
             }
             return root;
         }
