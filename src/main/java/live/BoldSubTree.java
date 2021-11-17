@@ -95,7 +95,7 @@ public class BoldSubTree {
             // Post Order traversal.
             // Process the children, cleanup the purged nodes, process the root.
             for(int i = 0; i < root.children.size(); i++) {
-              Node childNode = specialSubTree(root.children.get(i));
+              Node childNode = extractBoldSubTree(root.children.get(i));
               // In-place approach, saving memory. Above and beyond.
               root.children.set(i, childNode);
             }
