@@ -89,23 +89,19 @@ public class BoldSubTree {
         // Time Complexity: O(N). Space Complexity: O(1)
         public static Node extractBoldSubTree(Node root) {
 
-            // edge case.
-            if(root == null) {
-              return null;
-            }
-            // Post Order traversal.
-            // Process the children, cleanup the purged nodes, process the root.
-            for(int i = 0; i < root.children.size(); i++) {
-              Node childNode = extractBoldSubTree(root.children.get(i));
-              // In-place approach, saving memory. Above and beyond.
-              root.children.set(i, childNode);
-            }
-            // Required only if using In-place approach.
-            while (root.children.remove(null));
-            if(!root.isSpecial && root.children.isEmpty()) {
-              return null;
-            }
-            return root;
+                // edge case.
+                if(root == null) {
+                  return null;
+                }
+                // Post Order traversal = Process all children first and process the root at the end.
+                // If the user uses in-place approach, purge the null nodes after the loop (Above and beyond).
+                // If the user creates a new ArrayList, assign this list at the end.
+                for(int i = 0; i < root.children.size(); i++) {
+                  Node childNode = specialSubTree(root.children.get(i));
+                  root.children.set(i, childNode);
+                }
+                while (root.children.remove(null));
+                return !root.isSpecial && root.children.isEmpty() ? null : root;
         }
 
       public static Node extractBoldSubTree(Node root) {
