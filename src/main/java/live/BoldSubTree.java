@@ -86,6 +86,7 @@ public class BoldSubTree {
 
         */
 
+        // Time Complexity: O(N). Space Complexity: O(1)
         public static Node extractBoldSubTree(Node root) {
 
             // edge case.
